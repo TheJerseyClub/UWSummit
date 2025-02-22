@@ -12,12 +12,14 @@ export default function Home() {
       {
         title: "Software Engineer Intern",
         company: "Company Name",
-        period: "Summer 2023"
+        period: "Summer 2023",
+        companyLogo: "/path/to/company1-logo.png"
       },
       {
         title: "Full Stack Developer",
         company: "Company Name",
-        period: "Winter 2023"
+        period: "Winter 2023",
+        companyLogo: "/path/to/company2-logo.png"
       }
     ]
   };
@@ -36,7 +38,7 @@ export default function Home() {
           </p>
         </div>
 
-        <button className="absolute left-1/2 top-1/2 -translate-x-1/2 px-6 py-3 bg-black text-white border-2 border-black hover:bg-white hover:text-black font-mono uppercase tracking-wider hover:shadow-none hover:translate-y-[4px] transition-all z-10">
+        <button className="absolute left-1/2 top-1/2 -translate-x-1/2 px-6 py-3 bg-black text-white border-2 border-black hover:bg-white hover:text-black font-mono uppercase tracking-wider hover:shadow-none hover:translate-y-[4px] transition-all z-10 rounded-md">
           Equal
         </button>
 
