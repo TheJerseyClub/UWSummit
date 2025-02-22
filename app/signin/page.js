@@ -29,10 +29,11 @@ export default function SignIn() {
         .eq('id', (await supabase.auth.getUser()).data.user.id)
         .single()
 
-      setMessage({ text: 'Sign in successful!', isError: false })
-      setTimeout(() => {
-        router.push(profile?.linkedin_url ? '/' : '/profile-setup')
-      }, 1000)
+      // Immediately redirect based on LinkedIn URL presence
+      console.log(profile?.linkedin_url)
+
+      router.push(profile?.linkedin_url ? '/' : '/profile')
+      
     } catch (error) {
       setMessage({ text: error.message, isError: true })
     }
@@ -43,7 +44,7 @@ export default function SignIn() {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: 'https://tjzsdlhdjnbjvhxgxrin.supabase.co/auth/v1/callback'
+          redirectTo: `${window.location.origin}/auth/callback`
         }
       })
       if (error) throw error
@@ -115,7 +116,7 @@ export default function SignIn() {
           Sign In
         </button>
         <p className="text-center text-sm text-gray-600">
-          Don't have an account?{' '}
+          {"Don't have an account? "}
           <Link href="/signup" className="text-black underline">
             Sign Up
           </Link>
