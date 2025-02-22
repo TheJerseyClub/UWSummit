@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { supabase } from '@/utils/supabase'
 import { useAuth } from '@/contexts/AuthContext'
 
-export default function ProfileSetup() {
+export default function LinkedinSubmit() {
   const [linkedinUrl, setLinkedinUrl] = useState('')
   const [message, setMessage] = useState({ text: '', isError: false })
   const [loading, setLoading] = useState(false)
@@ -80,14 +80,14 @@ export default function ProfileSetup() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-white">
-      <form onSubmit={handleSubmit} className="space-y-4 w-full max-w-md p-8">
-        <h1 className="text-2xl font-bold mb-6">Complete Your Profile</h1>
+    <div className="flex items-center justify-center bg-white">
+      <form onSubmit={handleSubmit} className="space-y-6 w-full max-w-md p-8 border border-gray-200 rounded-md">
+        <h1 className="text-2xl font-mono font-bold uppercase tracking-wider">Complete Your Profile</h1>
         {message.text && (
-          <div className={`p-3 rounded-md ${
+          <div className={`p-3 border rounded-md ${
             message.isError 
-              ? 'bg-red-100 text-red-700 border border-red-300' 
-              : 'bg-green-100 text-green-700 border border-green-300'
+              ? 'bg-red-50 text-red-700 border-red-200' 
+              : 'bg-green-50 text-green-700 border-green-200'
           }`}>
             {message.text}
           </div>
@@ -97,13 +97,13 @@ export default function ProfileSetup() {
           placeholder="LinkedIn URL"
           value={linkedinUrl}
           onChange={(e) => setLinkedinUrl(e.target.value)}
-          className="w-full p-2 border border-gray-300"
+          className="w-full p-3 border border-gray-200 font-mono outline-none transition-all rounded-md"
           required
           disabled={loading}
         />
         <button
           type="submit"
-          className={`w-full p-2 bg-black text-white hover:bg-gray-800 ${
+          className={`w-full p-3 bg-gray-800 text-white border border-gray-200 font-mono uppercase tracking-wider transition-all rounded-md ${
             loading ? 'opacity-50 cursor-not-allowed' : ''
           }`}
           disabled={loading}

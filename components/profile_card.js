@@ -3,12 +3,12 @@ import Image from "next/image";
 export default function ProfileCard({ title, items, experiences, isRightAligned }) {
   return (
     <div className="w-1/2 h-full bg-white hover:bg-yellow-50 transition-all duration-300 cursor-pointer p-16 group">
-      <div className="p-8 transition-all duration-300 group-hover:scale-[1.02]">
+      <div className="p-8 pt-16 transition-all duration-300 group-hover:scale-[1.02]">
         {/* Profile Picture Section */}
         <div className={`flex ${isRightAligned ? 'justify-end' : 'justify-start'} mb-8`}>
-          <div className="w-32 h-32 rounded-full bg-gray-200 overflow-hidden transition-transform duration-300 hover:scale-105">
+          <div className="w-32 h-32 rounded-3xl bg-gray-200 overflow-hidden transition-transform duration-300 hover:scale-105">
             {/* Placeholder for profile picture */}
-            <div className="w-full h-full 
+            <div className="w-full h-full rounded-md
             flex items-center justify-center text-gray-400">
               <svg className="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
