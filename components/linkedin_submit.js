@@ -20,6 +20,9 @@ export default function LinkedinSubmit() {
 
   const checkWaterlooAffiliation = (education) => {
     if (!education || !Array.isArray(education)) return false;
+
+    console.log(education)
+
     return education.some(edu => 
       edu.school?.toLowerCase().includes('waterloo') ||
       edu.field_of_study?.toLowerCase().includes('waterloo') ||

@@ -87,10 +87,10 @@ export default function Profile() {
       {/* Sticky Left Panel */}
       <button
         onClick={() => router.back()}
-        className="w-32 fixed left-0 top-0 h-screen bg-white border-r border-gray-200 flex items-center justify-center hover:bg-yellow-50 transition-colors"
+        className="w-32 fixed left-0 top-0 h-screen bg-white border-r border-gray-200 flex items-center justify-center hover:bg-yellow-50 transition-colors group active:bg-yellow-100"
       >
         <div className="flex flex-col items-center gap-2 text-gray-800">
-          <span className="text-4xl font-bold">←</span>
+          <span className="text-4xl font-bold transition-transform group-hover:translate-x-[-4px] group-active:translate-x-[-8px]">←</span>
           <span className="font-mono text-sm">Back</span>
         </div>
       </button>
