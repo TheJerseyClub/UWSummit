@@ -45,7 +45,7 @@ export async function POST(request) {
     // Convert params to URLSearchParams
     const params = new URLSearchParams({
       url: url,
-      use_cache: 'if-present'
+      use_cache: 'if-recent'
     })
 
     const response = await fetch(
