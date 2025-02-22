@@ -29,6 +29,14 @@ export default function Navbar({ profilePicture }) {
             >
               Leaderboard
             </Link>
+            {user && (
+              <Link 
+                href="/profile"
+                className="text-gray-600 hover:text-gray-900 hover:bg-yellow-50 px-2 py-1 rounded-md text-md font-mono font-bold transition-colors"
+              >
+                Profile
+              </Link>
+            )}
             {user ? (
               <div className="flex items-center space-x-6">
 

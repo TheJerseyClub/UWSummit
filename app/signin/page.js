@@ -21,9 +21,17 @@ export default function SignIn() {
         password,
       })
       if (error) throw error
+      
+      // Check if user has LinkedIn URL
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('linkedin_url')
+        .eq('id', (await supabase.auth.getUser()).data.user.id)
+        .single()
+
       setMessage({ text: 'Sign in successful!', isError: false })
       setTimeout(() => {
-        router.push('/')
+        router.push(profile?.linkedin_url ? '/' : '/profile-setup')
       }, 1000)
     } catch (error) {
       setMessage({ text: error.message, isError: true })
