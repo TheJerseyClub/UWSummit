@@ -7,6 +7,8 @@ import { useAuth } from '@/contexts/AuthContext'
 import Image from 'next/image'
 import LinkedinSubmit from '@/components/linkedin_submit'
 import Navbar from '@/components/navbar'
+import { normalizeProgram } from '@/utils/programNormalizer'
+import { groupExperiences } from '@/utils/experienceGrouper'
 
 export default function Profile() {
   const [profile, setProfile] = useState(null)
@@ -140,11 +142,14 @@ export default function Profile() {
                 ).length > 0 ? (
                   profile.education
                     .filter(edu => edu.school?.toLowerCase().includes('waterloo'))
-                    .map((edu, index) => (
-                      <div key={index} className="border border-gray-200 p-4 hover:bg-yellow-50 transition-colors rounded-md">
-                        <p className="font-mono text-gray-800">{edu.field_of_study}</p>
-                      </div>
-                    ))
+                    .map((edu, index) => {
+                      const programInfo = normalizeProgram(edu.field_of_study);
+                      return (
+                        <div key={index} className="border border-gray-200 p-4 hover:bg-yellow-50 transition-colors rounded-md">
+                          <p className="font-mono text-gray-800">{`${programInfo.name} ${programInfo.emoji}`}</p>
+                        </div>
+                      );
+                    })
                 ) : (
                   <p className="font-mono text-gray-600">No Waterloo education found</p>
                 )}
@@ -158,26 +163,34 @@ export default function Profile() {
               <h2 className="text-3xl font-mono font-bold mb-6 tracking-tight">Experience</h2>
               <div className="space-y-6">
                 {profile?.experiences?.length > 0 ? (
-                  profile.experiences.map((exp, index) => (
+                  groupExperiences(profile.experiences).map((group, index) => (
                     <div key={index} className="border border-gray-200 p-4 hover:bg-yellow-50 transition-colors rounded-md">
-                      <div className="flex items-center gap-4">
-                        {exp.company_logo_url && (
+                      <div className="flex items-center gap-4 mb-4">
+                        {group.companyLogo && (
                           <Image
-                            src={exp.company_logo_url}
-                            alt={`${exp.company} logo`}
+                            src={group.companyLogo}
+                            alt={`${group.company} logo`}
                             width={40}
                             height={40}
                             className="border border-gray-200 rounded-md"
                           />
                         )}
-                        <div>
-                          <h3 className="font-mono font-bold text-xl">{exp.title}</h3>
-                          <p className="font-mono text-gray-800">{exp.company}</p>
-                        </div>
+                        <h3 className="font-mono font-bold text-xl">{group.company}</h3>
                       </div>
-                      <p className="font-mono text-sm text-gray-600 mt-2">
-                        {exp.starts_at?.year} - {exp.ends_at?.year || 'Present'}
-                      </p>
+                      
+                      <div className="space-y-4 ml-[52px]">
+                        {group.positions.map((position, posIndex) => (
+                          <div key={posIndex} className="border-l-2 border-gray-200 pl-4">
+                            <p className="font-mono font-bold">{position.title}</p>
+                            <p className="font-mono text-sm text-gray-600">
+                              {position.startYear} - {position.endYear}
+                            </p>
+                            {position.description && (
+                              <p className="font-mono text-gray-800 mt-2">{position.description}</p>
+                            )}
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   ))
                 ) : (
