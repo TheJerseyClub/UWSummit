@@ -41,6 +41,7 @@ export default function Home() {
 
   const createProfileData = (profile) => ({
     title: profile.full_name || "Anonymous",
+    profilePicture: profile.profile_pic_url,
     items: [
       {
         label: "PROGRAM",
@@ -70,7 +71,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen flex flex-col relative">
-      <Navbar />
+      <Navbar profilePicture={user ? profiles.find(p => p.id === user.id)?.profile_pic_url : null} />
       <div className="flex flex-row relative h-screen">
         {profiles.length >= 2 ? (
           <>
