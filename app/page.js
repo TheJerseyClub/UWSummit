@@ -86,7 +86,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen flex flex-col relative">
-      <Navbar />
+      <Navbar profilePicture={user ? profiles.find(p => p.id === user.id)?.profile_pic_url : null} />
       <div className="flex flex-row relative flex-1 h-full">
         {profiles.length >= 2 ? (
           <>
