@@ -16,6 +16,11 @@ const nextConfig = {
         protocol: 'https',
         hostname: '*.backblazeb2.com',
         pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: '[your-project-ref].supabase.co',
+        pathname: '/storage/v1/object/public/**',
       }
     ],
   },
