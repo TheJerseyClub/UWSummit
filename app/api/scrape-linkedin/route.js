@@ -27,12 +27,17 @@ export async function POST(request) {
 
     const data = await response.json()
     
-    // Extract only the fields we want
+    // Add company logos to experiences
+    const experiences = data.experiences?.map(exp => ({
+      ...exp,
+      company_logo_url: exp.logo_url || null
+    })) || []
+
     return NextResponse.json({
       full_name: data.full_name,
       profile_pic_url: data.profile_pic_url,
       education: data.education,
-      experiences: data.experiences,
+      experiences: experiences,
       volunteer_work: data.volunteer_work,
       accomplishments: data.accomplishments
     })
