@@ -73,7 +73,7 @@ export default function LinkedinSubmit() {
       
       setMessage({ text: 'Profile updated successfully!', isError: false })
       setTimeout(() => {
-        router.push('/profile')
+        router.refresh()
       }, 1000)
     } catch (error) {
       setMessage({ text: error.message, isError: true })
