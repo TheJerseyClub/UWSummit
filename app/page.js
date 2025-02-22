@@ -1,16 +1,46 @@
 import Image from "next/image";
 import Navbar from "@/components/navbar";
+import ProfileCard from "@/components/profile_card";
 
 export default function Home() {
+  const studentProfile = {
+    title: "Student Profile",
+    items: [
+      { label: "PROGRAM", value: "Computer Science" },
+    ],
+    experiences: [
+      {
+        title: "Software Engineer Intern",
+        company: "Company Name",
+        period: "Summer 2023"
+      },
+      {
+        title: "Full Stack Developer",
+        company: "Company Name",
+        period: "Winter 2023"
+      }
+    ]
+  };
+
   return (
-    <main className="h-screen flex relative">
-      <Navbar />
-      <div className="w-1/2 h-full bg-white hover:bg-gray-50 transition-colors cursor-pointer flex items-center justify-center">
-        <h2 className="text-2xl font-bold">Left Side</h2>
-      </div>
-      <div className="absolute left-1/2 h-full w-[1px] bg-gray-200"></div>
-      <div className="w-1/2 h-full bg-white hover:bg-gray-50 transition-colors cursor-pointer flex items-center justify-center">
-        <h2 className="text-2xl font-bold">Right Side</h2>
+    <main className="min-h-screen flex flex-col relative">
+      <Navbar /> 
+
+      <div className="flex flex-row relative h-screen overflow-hidden">
+        <ProfileCard {...studentProfile} isRightAligned={true} />
+        
+        <div className="absolute left-1/2 top-0 bottom-0 w-[1px] bg-gray-200"></div>
+        <div className="absolute left-1/2 top-[30%] -translate-x-1/2 text-center">
+          <p className="font-mono text-gray-600 mb-4 animate-bounce">
+            Click a side to choose
+          </p>
+        </div>
+
+        <button className="absolute left-1/2 top-1/2 -translate-x-1/2 px-6 py-3 bg-black text-white border-2 border-black hover:bg-white hover:text-black font-mono uppercase tracking-wider hover:shadow-none hover:translate-y-[4px] transition-all z-10">
+          Equal
+        </button>
+
+        <ProfileCard {...studentProfile} isRightAligned={false} />
       </div>
     </main>
   );
