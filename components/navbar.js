@@ -133,10 +133,10 @@ export default function Navbar() {
             ) : (
               <div className="flex items-center space-x-4">
                 <Link 
-                  href="/recruit/signin"
+                  href="/"
                   className="px-4 py-2 bg-yellow-500 text-white border-2 border-yellow-500 hover:bg-white hover:text-yellow-500 font-mono uppercase tracking-wider hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all rounded-md"
                 >
-                  Recruit Sign In
+                  Play
                 </Link>
                 <Link 
                   href="/signin"
