@@ -73,7 +73,7 @@ export default function Navbar() {
               Leaderboard
             </Link>
             <Link 
-              href="/recruit/signin"
+              href="/recruit"
               className="text-yellow-500 hover:text-black hover:bg-yellow-100 px-2 py-1 rounded-md text-md font-mono font-bold transition-colors uppercase tracking-wider"
             >
               Recruit
