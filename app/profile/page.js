@@ -88,8 +88,21 @@ export default function Profile() {
           <div className="space-y-4">
             {profile?.experiences?.map((exp, index) => (
               <div key={index} className="border-l-4 border-black pl-4">
-                <h3 className="font-bold">{exp.title}</h3>
-                <p className="text-gray-600">{exp.company}</p>
+                <div className="flex items-center gap-4">
+                  {exp.company_logo_url && (
+                    <Image
+                      src={exp.company_logo_url}
+                      alt={`${exp.company} logo`}
+                      width={40}
+                      height={40}
+                      className="rounded-full"
+                    />
+                  )}
+                  <div>
+                    <h3 className="font-bold">{exp.title}</h3>
+                    <p className="text-gray-600">{exp.company}</p>
+                  </div>
+                </div>
                 <p className="text-sm text-gray-500">
                   {exp.starts_at?.year} - {exp.ends_at?.year || 'Present'}
                 </p>
