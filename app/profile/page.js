@@ -85,7 +85,7 @@ export default function Profile() {
   }
 
   return (
-    <div className="min-h-screen flex">
+    <div className="min-h-screen flex m-8">
       {/* Sticky Left Panel */}
       <button
         onClick={() => router.back()}
