@@ -72,6 +72,12 @@ export default function Navbar() {
             >
               Leaderboard
             </Link>
+            <Link 
+              href="/recruit/signin"
+              className="text-yellow-500 hover:text-black hover:bg-yellow-100 px-2 py-1 rounded-md text-md font-mono font-bold transition-colors uppercase tracking-wider"
+            >
+              Recruit
+            </Link>
             {user ? (
               <div className="flex items-center space-x-6">
                 <div className="relative">
@@ -125,12 +131,20 @@ export default function Navbar() {
                 </div>
               </div>
             ) : (
-              <Link 
-                href="/signin"
-                className="px-4 py-2 bg-black text-white border-2 border-black hover:bg-white hover:text-black font-mono uppercase tracking-wider hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all rounded-md"
-              >
-                Sign In
-              </Link>
+              <div className="flex items-center space-x-4">
+                <Link 
+                  href="/recruit/signin"
+                  className="px-4 py-2 bg-yellow-500 text-white border-2 border-yellow-500 hover:bg-white hover:text-yellow-500 font-mono uppercase tracking-wider hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all rounded-md"
+                >
+                  Recruit Sign In
+                </Link>
+                <Link 
+                  href="/signin"
+                  className="px-4 py-2 bg-black text-white border-2 border-black hover:bg-white hover:text-black font-mono uppercase tracking-wider hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all rounded-md"
+                >
+                  Sign In
+                </Link>
+              </div>
             )}
           </div>
         </div>
