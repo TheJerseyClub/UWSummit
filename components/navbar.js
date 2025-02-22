@@ -18,7 +18,7 @@ export default function Navbar({ profilePicture }) {
         <div className="flex items-center justify-between h-full">
           <div className="flex items-center">
             <Link href="/" className="text-2xl font-mono font-bold text-gray-900 hover:text-gray-600 transition-colors">
-              UWCoopium
+              <span className="text-yellow-500">UW</span>Co-opium
             </Link>
           </div>
           
