@@ -71,7 +71,7 @@ export default function Home() {
   return (
     <main className="min-h-screen flex flex-col relative">
       <Navbar />
-      <div className="flex flex-row relative h-screen overflow-hidden">
+      <div className="flex flex-row relative h-screen">
         {profiles.length >= 2 ? (
           <>
             <ProfileCard {...createProfileData(profiles[0])} isRightAligned={true} />
