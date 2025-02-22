@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function ProfileCard({ title, items, experiences, isRightAligned }) {
   return (
     <div className="w-1/2 h-full bg-white hover:bg-yellow-50 transition-all duration-300 cursor-pointer p-16 group">
@@ -21,7 +23,11 @@ export default function ProfileCard({ title, items, experiences, isRightAligned 
           {items.map((item, index) => (
             <div key={index} className={`mx-4 my-4 transition-transform duration-300 hover:scale-105 ${isRightAligned ? 'text-right' : 'text-left'}`}>
               <h3 className="text-lg font-bold font-mono">{item.label}</h3>
-              <p className="text-2xl">{item.value}</p>
+              <p className={`text-2xl inline-block ${
+                item.value === "Engineering" ? "bg-purple-100" :
+                item.value === "Computer Science" ? "bg-pink-100" :
+                "bg-yellow-100"
+              } px-2 py-1 rounded-md`}>{item.value}</p>
             </div>
           ))}
         </div>
@@ -31,9 +37,24 @@ export default function ProfileCard({ title, items, experiences, isRightAligned 
           <h3 className={`text-2xl font-bold font-mono mb-6 mx-4 transition-transform duration-300 hover:scale-105 ${isRightAligned ? 'text-right' : 'text-left'}`}>EXPERIENCE</h3>
           <div className="space-y-6">
             {experiences?.map((experience, index) => (
-              <div key={index} className={`mx-4 p-4 transition-transform duration-300 hover:scale-105 ${isRightAligned ? 'border-r-4 text-right' : 'border-l-4 text-left'} border-black`}>
-                <h4 className="font-bold">{experience.title}</h4>
-                <p className="text-gray-600">{experience.company} • {experience.period}</p>
+              <div key={index} className="mb-6 last:mb-0">
+                <div className={`flex items-center gap-4 mb-2 ${isRightAligned ? 'flex-row-reverse' : 'flex-row'} transition-transform duration-300 hover:scale-105`}>
+                  {experience.companyLogo && (
+                    <div className="w-8 h-8 relative flex-shrink-0">
+                      <Image 
+                        src={experience.companyLogo}
+                        alt={`${experience.company} logo`}
+                        fill
+                        className="object-contain"
+                      />
+                    </div>
+                  )}
+                  <div className={`text-${isRightAligned ? 'right' : 'left'}`}>
+                    <h3 className="font-bold text-gray-900">{experience.title}</h3>
+                    <p className="text-gray-600">{experience.company}</p>
+                    <p className="text-sm text-gray-500">{experience.period}</p>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
