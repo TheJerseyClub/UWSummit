@@ -20,6 +20,9 @@ export default function LinkedinSubmit() {
 
   const checkWaterlooAffiliation = (education) => {
     if (!education || !Array.isArray(education)) return false;
+
+    console.log(education)
+
     return education.some(edu => 
       edu.school?.toLowerCase().includes('waterloo') ||
       edu.field_of_study?.toLowerCase().includes('waterloo') ||
@@ -70,7 +73,7 @@ export default function LinkedinSubmit() {
       
       setMessage({ text: 'Profile updated successfully!', isError: false })
       setTimeout(() => {
-        router.push('/profile')
+        router.refresh()
       }, 1000)
     } catch (error) {
       setMessage({ text: error.message, isError: true })
