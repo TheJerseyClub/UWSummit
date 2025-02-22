@@ -1,15 +1,21 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "@/contexts/AuthContext";
-import { supabase } from "@/utils/supabase";
 import Image from "next/image";
 
 export default function Navbar({ profilePicture }) {
-  const { user } = useAuth()
+  const { user, signOut } = useAuth()
+  const router = useRouter()
 
   const handleSignOut = async () => {
-    await supabase.auth.signOut()
+    try {
+      await signOut()
+      router.push('/')
+    } catch (error) {
+      console.error('Error signing out:', error)
+    }
   }
 
   return (
