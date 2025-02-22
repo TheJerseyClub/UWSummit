@@ -2,8 +2,8 @@ import Image from "next/image";
 
 export default function ProfileCard({ title, items, experiences, isRightAligned, profilePicture }) {
   return (
-    <div className="w-1/2 h-full bg-white hover:bg-yellow-50 transition-all duration-300 cursor-pointer p-16 group">
-      <div className="p-8 pt-16 transition-all duration-300 group-hover:scale-[1.02]">
+    <div className="w-1/2 bg-white hover:bg-yellow-50 transition-all duration-300 cursor-pointer p-16 flex group min-h-screen">
+      <div className="p-8 pt-16 transition-all duration-300 group-hover:scale-[1.02] w-full">
         {/* Profile Picture Section */}
         <div className={`flex ${isRightAligned ? 'justify-end' : 'justify-start'} mb-8`}>
           <div className="w-32 h-32 rounded-3xl bg-gray-200 overflow-hidden transition-transform duration-300 hover:scale-105">
@@ -32,8 +32,8 @@ export default function ProfileCard({ title, items, experiences, isRightAligned,
             <div key={index} className={`mx-4 my-4 transition-transform duration-300 hover:scale-105 ${isRightAligned ? 'text-right' : 'text-left'}`}>
               <h3 className="text-lg font-bold font-mono">{item.label}</h3>
               <p className={`text-2xl inline-block ${
-                item.value === "Engineering" ? "bg-purple-100" :
-                item.value === "Computer Science" ? "bg-pink-100" :
+                item.value.toLowerCase().includes('engineering') ? "bg-purple-100" :
+                ['computer science', 'mathematics', 'stats', 'statistics', 'applied mathematics', 'computational mathematics', 'combinatorics', 'optimization'].includes(item.value.toLowerCase()) ? "bg-pink-100" :
                 "bg-yellow-100"
               } px-2 py-1 rounded-md`}>{item.value}</p>
             </div>
@@ -46,9 +46,9 @@ export default function ProfileCard({ title, items, experiences, isRightAligned,
           <div className="space-y-6">
             {experiences?.map((experience, index) => (
               <div key={index} className="mb-6 last:mb-0">
-                <div className={`flex items-center gap-4 mb-2 ${isRightAligned ? 'flex-row-reverse' : 'flex-row'} transition-transform duration-300 hover:scale-105`}>
+                <div className={`flex items-start gap-4 mb-2 ${isRightAligned ? 'flex-row-reverse' : 'flex-row'} transition-transform duration-300 hover:scale-105`}>
                   {experience.companyLogo && (
-                    <div className="w-8 h-8 relative flex-shrink-0">
+                    <div className="w-8 h-8 relative flex-shrink-0 mt-1">
                       <Image 
                         src={experience.companyLogo}
                         alt={`${experience.company} logo`}
@@ -58,9 +58,44 @@ export default function ProfileCard({ title, items, experiences, isRightAligned,
                     </div>
                   )}
                   <div className={`text-${isRightAligned ? 'right' : 'left'}`}>
-                    <h3 className="font-bold text-gray-900">{experience.title}</h3>
-                    <p className="text-gray-600">{experience.company}</p>
-                    <p className="text-sm text-gray-500">{experience.period}</p>
+                    {experience.positions.length > 1 ? (
+                      // Multiple positions: Show company as main heading
+                      <>
+                        <h3 className="font-bold text-gray-900">{experience.company}</h3>
+                        <div className="space-y-2 mt-2">
+                          {experience.positions.map((position, posIndex) => (
+                            <div key={posIndex} className="relative pl-8">
+                              <svg 
+                                className={`absolute ${isRightAligned ? 'right-0 rotate-180' : 'left-0'} top-0 h-full w-8`} 
+                                viewBox="0 0 32 60"
+                              >
+                                <path
+                                  d="M16 0 L 16 30 L 32 30"
+                                  fill="none"
+                                  stroke="#E5E7EB"
+                                  strokeWidth="2"
+                                />
+                              </svg>
+                              <div className="text-gray-600">
+                                <p className="font-medium">{position.title}</p>
+                                <p className="text-sm text-gray-500">
+                                  {`${position.startMonth} ${position.startYear} → ${position.endMonth} ${position.endYear}`}
+                                </p>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </>
+                    ) : (
+                      // Single position: Show position title as main heading
+                      <div className="transition-transform duration-300">
+                        <h3 className="font-bold text-gray-900">{experience.positions[0].title}</h3>
+                        <p className="text-gray-600 font-medium">{experience.company}</p>
+                        <p className="text-sm text-gray-500">
+                          {`${experience.positions[0].startMonth} ${experience.positions[0].startYear} → ${experience.positions[0].endMonth} ${experience.positions[0].endYear}`}
+                        </p>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
