@@ -133,19 +133,20 @@ export default function Profile() {
 
             {/* Education Section */}
             <section className="mb-8">
-              <h2 className="text-3xl font-mono font-bold mb-6 tracking-tight">Education</h2>
+              <h2 className="text-3xl font-mono font-bold mb-6 tracking-tight">Program</h2>
               <div className="space-y-6">
-                {profile?.education?.length > 0 ? (
-                  profile.education.map((edu, index) => (
-                    <div key={index} className="border border-gray-200 p-4 hover:bg-yellow-50 transition-colors rounded-md">
-                      <h3 className="font-mono font-bold text-xl">{edu.school}</h3>
-                      <p className="font-mono text-gray-800">{edu.degree_name}</p>
-                      <p className="font-mono text-gray-800">{edu.field_of_study}</p>
-                      <p className="font-mono text-sm text-gray-600 mt-2">{edu.starts_at?.year} - {edu.ends_at?.year || 'Present'}</p>
-                    </div>
-                  ))
+                {profile?.education?.filter(edu => 
+                  edu.school?.toLowerCase().includes('waterloo')
+                ).length > 0 ? (
+                  profile.education
+                    .filter(edu => edu.school?.toLowerCase().includes('waterloo'))
+                    .map((edu, index) => (
+                      <div key={index} className="border border-gray-200 p-4 hover:bg-yellow-50 transition-colors rounded-md">
+                        <p className="font-mono text-gray-800">{edu.field_of_study}</p>
+                      </div>
+                    ))
                 ) : (
-                  <p className="font-mono text-gray-600">No education information available</p>
+                  <p className="font-mono text-gray-600">No Waterloo education found</p>
                 )}
               </div>
             </section>
