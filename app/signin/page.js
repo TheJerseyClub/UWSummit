@@ -31,7 +31,7 @@ export default function SignIn() {
 
       setMessage({ text: 'Sign in successful!', isError: false })
       setTimeout(() => {
-        router.push(profile?.linkedin_url ? '/' : '/profile-setup')
+        router.push(profile?.linkedin_url ? '/' : '/profile')
       }, 1000)
     } catch (error) {
       setMessage({ text: error.message, isError: true })
@@ -115,7 +115,7 @@ export default function SignIn() {
           Sign In
         </button>
         <p className="text-center text-sm text-gray-600">
-          Don't have an account?{' '}
+          {`Don't have an account? `}
           <Link href="/signup" className="text-black underline">
             Sign Up
           </Link>

@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { supabase } from '@/utils/supabase'
 import { useAuth } from '@/contexts/AuthContext'
 
-export default function ProfileSetup() {
+export default function LinkedinSubmit() {
   const [linkedinUrl, setLinkedinUrl] = useState('')
   const [message, setMessage] = useState({ text: '', isError: false })
   const [loading, setLoading] = useState(false)
