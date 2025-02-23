@@ -21,28 +21,16 @@ export default function Home() {
         .from('profiles')
         .select('id, full_name, elo, profile_pic_url, education, experiences')
         .not('linkedin_url', 'is', null);
-      
       if (error) throw error;
-      
       const otherProfiles = user?.id 
         ? data.filter(profile => profile.id !== user.id)
         : data;
 
-      // Ensure we get two different profiles
-      let profile1, profile2;
       const shuffled = otherProfiles.sort(() => 0.5 - Math.random());
+      const selectedProfiles = shuffled.slice(0, 2);
       
-      profile1 = shuffled[0];
-      // Filter out the first profile to ensure we get a different one
-      profile2 = shuffled.filter(p => p.id !== profile1.id)[0];
-
-      if (!profile1 || !profile2) {
-        setProfiles([]);
-        return;
-      }
-
       setSelectedIndex(null);
-      setProfiles([profile1, profile2]);
+      setProfiles(selectedProfiles);
     } catch (error) {
       console.error('Error fetching profiles:', error);
     } finally {
