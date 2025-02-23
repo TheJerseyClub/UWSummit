@@ -150,6 +150,7 @@ export default function Home() {
               isSelected={selectedIndex !== null}
               isWinner={selectedIndex === 0}
               eloChange={selectedIndex === 0 ? eloChanges.winner : eloChanges.loser}
+              totalProfiles={profiles.length}
             />
             <div className={`absolute left-1/2 top-0 bottom-0 w-[1px] bg-gray-200 z-60`} />
             
@@ -165,6 +166,7 @@ export default function Home() {
               isSelected={selectedIndex !== null}
               isWinner={selectedIndex === 1}
               eloChange={selectedIndex === 1 ? eloChanges.winner : eloChanges.loser}
+              totalProfiles={profiles.length}
             />
             {selectedIndex !== null && (
               <button

@@ -12,7 +12,8 @@ export default function ProfileCard({
   isWinner,
   eloChange,
   rank,
-  currentElo
+  currentElo,
+  totalProfiles
 }) {
   return (
     <>
@@ -24,17 +25,17 @@ export default function ProfileCard({
       )}
       <div 
         className={`
-          bg-white transition-all duration-500 cursor-pointer p-16 flex group
+          bg-white transition-all duration-500 p-16 flex group
           ${isRightAligned ? 'origin-right' : 'origin-left'}
           ${isSelected 
             ? (isWinner 
                 ? 'w-[50%] scale-110' 
                 : 'w-[50%] scale-90 opacity-50'
               ) 
-            : 'w-1/2 hover:scale-[1.02] hover:bg-yellow-50'
+            : 'w-1/2 hover:scale-[1.02] hover:bg-yellow-50 cursor-pointer'
           }
         `}
-        onClick={onClick}
+        onClick={isSelected ? undefined : onClick}
       >
         <div className="p-8 pt-16 transition-all duration-300 w-full relative">
           {/* Profile Picture Section */}
@@ -59,12 +60,18 @@ export default function ProfileCard({
             </div>
             {isSelected && (
               <div className={`font-mono text-lg ${isRightAligned ? 'text-right' : 'text-left'}`}>
-                <div>Rank: #{rank} 
+                <div>Rank: #{isWinner 
+                  ? (rank === 1 ? 1 : rank - 1)
+                  : rank + 1
+                } 
                   {eloChange && <span className={eloChange > 0 ? 'text-green-500' : 'text-red-500'}>
-                    {' '}({eloChange > 0 ? '↑1' : '↓1'})
+                    {' '}({isWinner 
+                      ? (rank === 1 ? '+0' : '↑1')
+                      : (rank === totalProfiles ? '-0' : '↓1')
+                    })
                   </span>}
                 </div>
-                <div>ELO: {Math.round(currentElo)} 
+                <div>ELO: {Math.round(currentElo + eloChange)} 
                   {eloChange && <span className={eloChange > 0 ? 'text-green-500' : 'text-red-500'}>
                     {' '}({eloChange > 0 ? '+' : ''}{eloChange})
                   </span>}
@@ -77,15 +84,6 @@ export default function ProfileCard({
             ${isSelected ? '' : 'blur-md'} ${isRightAligned ? 'text-right' : 'text-left'}`}>
             {title}
           </h2>
-
-          {isSelected && eloChange && (
-            <p className={`text-xl font-mono mb-8 mx-4 ${isRightAligned ? 'text-right' : 'text-left'}`}>
-              ELO: {Math.round(1000 + eloChange)} 
-              <span className={eloChange > 0 ? 'text-green-500' : 'text-red-500'}>
-                {' '}({eloChange > 0 ? '+' : ''}{eloChange})
-              </span>
-            </p>
-          )}
           
           <div className="space-y-6">
             {items.map((item, index) => (
