@@ -33,7 +33,7 @@ export default function RecruitmentPage() {
               <span className="text-yellow-500">superstar intern</span>
             </h1>
             <p className="font-mono text-xl text-gray-600 max-w-2xl leading-relaxed">
-              UWCo-opium uses advanced AI to match you with top University of Waterloo talent, analyzing skills, experience, and culture fit to find your perfect candidates.
+              UWSummit uses advanced AI to match you with top University of Waterloo talent, analyzing skills, experience, and culture fit to find your perfect candidates.
             </p>
           </section>
 
