@@ -40,7 +40,7 @@ export default function ProfileCard({
       )}
       <div 
         className={`
-          bg-white transition-all duration-500 p-16 flex group
+          bg-white transition-all duration-500 p-16 flex group flex-1
           ${isRightAligned ? 'origin-right' : 'origin-left'}
           ${isSelected 
             ? (isWinner 
@@ -52,11 +52,11 @@ export default function ProfileCard({
         `}
         onClick={isSelected ? undefined : onClick}
       >
-        <div className="p-8 pt-16 transition-all duration-300 w-full relative">
+        <div className="p-8 pt-16 transition-all duration-300 w-full relative flex flex-col">
           {/* Profile Picture Section */}
           <div className={`flex ${isRightAligned ? 'justify-end' : 'justify-start'} mb-8 items-center gap-6`}>
-            <div className={`w-32 h-32 rounded-3xl bg-gray-200 overflow-hidden transition-all duration-300 
-              ${isSelected ? '' : 'blur-md'}`}>
+            <div className={`w-32 h-32 rounded-3xl bg-gray-300 overflow-visible transition-all duration-300 
+              ${isSelected ? '' : 'blur-md [-webkit-filter:blur(12px)] p-4'}`}>
               {profilePicture ? (
                 <Image
                   src={profilePicture}
@@ -97,7 +97,7 @@ export default function ProfileCard({
           </div>
 
           <h2 className={`text-4xl font-bold mb-2 font-mono uppercase tracking-tight mx-4 transition-all duration-300 
-            ${isSelected ? '' : 'blur-md'} ${isRightAligned ? 'text-right' : 'text-left'}`}>
+            ${isSelected ? '' : 'blur-md [-webkit-filter:blur(12px)]'} ${isRightAligned ? 'text-right' : 'text-left'}`}>
             {title}
           </h2>
           
