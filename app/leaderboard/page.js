@@ -49,7 +49,7 @@ export default function Leaderboard() {
     <div className="min-h-screen flex flex-col">
       <Navbar />
       <div className="max-w-4xl mx-auto w-full px-4 py-16">
-        <h1 className="text-4xl font-mono font-bold mb-12 tracking-tight">Leaderboard</h1>
+        <h1 className="text-4xl font-mono font-bold mb-12 tracking-tight text-center mt-12">Leaderboard</h1>
         <div className="space-y-4">
           {profiles.map((profile, index) => (
             <div 
