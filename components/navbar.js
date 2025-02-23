@@ -56,12 +56,27 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="fixed top-0 left-0 right-0 h-16 bg-white/80 backdrop-blur-sm border-b border-gray-200 z-50">
+    <nav className="fixed top-0 left-0 right-0 h-16 bg-white/80 backdrop-blur-sm border-b border-gray-300 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
         <div className="flex items-center justify-between h-full w-full">
           <div className="flex items-center">
+            <svg 
+              className="w-8 h-8 mr-2" 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path 
+                d="M12 3L4 20H20L12 3Z" 
+                fill="black"
+              />
+              <path 
+                d="M12 7L9 13H15L12 7Z" 
+                fill="white"
+              />
+            </svg>
             <Link href="/" className="text-2xl font-mono font-bold text-gray-900 hover:text-gray-600 transition-colors">
-              <span className="text-yellow-500">UW</span>Co-opium
+              <span className="text-yellow-500">UW</span>Summit
             </Link>
           </div>
           
