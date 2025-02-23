@@ -161,11 +161,12 @@ export default function Home() {
             <div className={`absolute left-1/2 top-[64px] h-[calc(100%-64px)] w-[1px] bg-gray-200 z-[100]`} />
             
             {selectedIndex === null && (
-              <button 
-                className={`absolute left-1/2 top-[50vh] -translate-x-1/2 px-6 py-3 bg-black text-white border-2 border-black hover:bg-white hover:text-black font-mono uppercase tracking-wider hover:shadow-none hover:translate-y-[4px] transition-all z-[200] rounded-md`}
-              >
-                Equal =
-              </button>
+              <div className="absolute left-1/2 top-[50vh] -translate-x-1/2 font-mono uppercase tracking-wider text-center z-[150]">
+                <div className="bg-white/80 backdrop-blur-sm border border-gray-200 px-8 py-4 rounded-lg">
+                  <span className="block mb-1 text-yellow-500 font-bold">Who&apos;s More</span>
+                  <span className="block text-2xl font-black">Cracked?</span>
+                </div>
+              </div>
             )}
             <ProfileCard 
               {...createProfileData(profiles[1], allProfiles)} 
