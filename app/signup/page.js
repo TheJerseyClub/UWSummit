@@ -52,7 +52,7 @@ export default function SignUp() {
       <form onSubmit={handleSignUp} className="space-y-4 w-full max-w-md p-8">
         <h1 className="text-2xl font-bold mb-6">Sign Up</h1>
         {message.text && (
-          <div className={`p-3 rounded-md ${
+          <div className={`p-3 rounded-md animate-fade-in-down ${
             message.isError 
               ? 'bg-red-100 text-red-700 border border-red-300' 
               : 'bg-green-100 text-green-700 border border-green-300'
