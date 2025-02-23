@@ -14,46 +14,50 @@ export default function DashboardPage() {
 
   return (
     <div className="flex flex-col min-h-screen">
+
       <div className="fixed top-0 left-0 right-0 z-50">
         <Navbar />
       </div>
 
-      <main className="flex flex-col mt-[64px] h-[calc(100vh-64px)]">
-        <div className="flex-1 px-4 py-16 max-w-7xl mx-auto w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 h-full">
+      <main className="flex flex-row h-screen">
+
+        <div className="flex-1 max-w-7xl mx-auto">
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 h-full">
+
             {/* Search Section */}
-            <section className="relative">
+            <section className="relative flex items-center justify-center px-8">
               <div className="absolute -right-4 top-0 w-64 h-64 bg-yellow-50 rounded-full opacity-50 blur-3xl"></div>
-              <h1 className="font-mono text-6xl font-black mb-6 tracking-tight">
-                Find your perfect
-                <br />
-                <span className="text-yellow-500">candidate match</span>
-              </h1>
               
               <form 
                 onSubmit={handleSubmit}
-                className="mt-8 bg-white p-8 rounded-lg border border-gray-200"
+                className="w-full max-w-2xl bg-white rounded-lg shadow-lg border border-gray-200"
               >
                 <div className="relative">
                   <textarea
                     value={prompt}
                     onChange={(e) => setPrompt(e.target.value)}
                     placeholder="Describe the skills you're looking for... (e.g., 'Find me top 5 students with React, TypeScript, and AWS experience')"
-                    className="w-full min-h-[120px] p-6 bg-gray-50 rounded-lg font-mono text-base resize-none focus:outline-none focus:bg-yellow-50 focus:border-yellow-500 transition-colors border border-gray-200"
+                    className="w-full min-h-[120px] p-4 bg-white rounded-t-lg font-sans text-base resize-none focus:outline-none border-b border-gray-200"
                   />
                 </div>
 
-                <button 
-                  type="submit"
-                  className="mt-4 w-full bg-yellow-500 text-white font-mono font-bold px-6 py-3 rounded-lg hover:bg-yellow-600 transition-colors"
-                >
-                  Search Candidates
-                </button>
+                <div className="p-3 bg-gray-50 rounded-b-lg flex items-center">
+                  <button 
+                    type="submit"
+                    className="ml-auto bg-black text-white font-sans px-4 py-2 rounded-md hover:bg-gray-800 transition-colors flex items-center gap-2"
+                  >
+                    <span>Search Candidates</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                    </svg>
+                  </button>
+                </div>
               </form>
             </section>
 
             {/* Results Section */}
-            <section className="border-l border-gray-200 pl-16 h-full">
+            <section className="border-l border-gray-200 pl-16 h-full flex flex-col justify-center">
               <h2 className="font-mono text-2xl font-bold mb-8 sticky top-0 bg-white">Top Matches</h2>
               
               <div className="space-y-4 overflow-y-auto h-[calc(100vh-250px)] pr-4">
