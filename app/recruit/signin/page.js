@@ -73,7 +73,7 @@ export default function SignIn() {
         {/* Learn More button at the bottom */}
         <Link 
           href="/recruit"
-          className="absolute left-0 right-0 bottom-0 h-48 group flex items-center justify-center bg-white hover:bg-yellow-50 border-t border-gray-100 transition-colors"
+          className="absolute left-0 right-0 bottom-0 h-48 group flex items-center justify-center bg-white hover:bg-yellow-50 border-t border-gray-200 transition-colors"
         >
           <div className="flex items-center gap-3 whitespace-nowrap font-mono text-sm tracking-widest group-hover:text-yellow-500 transition-colors">
             LEARN MORE ABOUT RECRUIT

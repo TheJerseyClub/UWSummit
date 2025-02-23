@@ -145,7 +145,7 @@ export default function Home() {
   return (
     <main className="min-h-screen flex flex-col relative">
       <Navbar />
-      <div className="flex flex-row relative h-screen">
+      <div className="flex flex-row relative flex-1">
         {profiles.length >= 2 ? (
           <>
             <ProfileCard 
@@ -158,13 +158,15 @@ export default function Home() {
               totalProfiles={allProfiles.length}
               profiles={allProfiles}
             />
-            <div className={`absolute left-1/2 top-0 bottom-0 w-[1px] bg-gray-200 z-60`} />
+            <div className={`absolute left-1/2 top-0 h-full w-[1px] bg-gray-200 z-[100]`} />
             
-            <button 
-              className={`absolute left-1/2 top-1/2 -translate-x-1/2 px-6 py-3 bg-black text-white border-2 border-black hover:bg-white hover:text-black font-mono uppercase tracking-wider hover:shadow-none hover:translate-y-[4px] transition-all z-50 rounded-md`}
-            >
-              Equal =
-            </button>
+            {selectedIndex === null && (
+              <button 
+                className={`absolute left-1/2 top-[50vh] -translate-x-1/2 px-6 py-3 bg-black text-white border-2 border-black hover:bg-white hover:text-black font-mono uppercase tracking-wider hover:shadow-none hover:translate-y-[4px] transition-all z-[200] rounded-md`}
+              >
+                Equal =
+              </button>
+            )}
             <ProfileCard 
               {...createProfileData(profiles[1], allProfiles)} 
               isRightAligned={false} 
@@ -182,7 +184,7 @@ export default function Home() {
                   setEloChanges({ winner: null, loser: null });
                   fetchProfiles();
                 }}
-                className="absolute left-1/2 top-1/2 -translate-x-1/2 px-6 py-3 bg-black text-white border-2 border-black hover:bg-white hover:text-black font-mono uppercase tracking-wider hover:shadow-none hover:translate-y-[4px] transition-all z-10 rounded-md"
+                className="absolute left-1/2 top-[50vh] -translate-x-1/2 px-6 py-3 bg-black text-white border-2 border-black hover:bg-white hover:text-black font-mono uppercase tracking-wider hover:shadow-none hover:translate-y-[4px] transition-all z-200 rounded-md"
               >
                 Next Match →
               </button>
