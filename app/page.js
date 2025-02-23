@@ -177,7 +177,7 @@ export default function Home() {
                   setEloChanges({ winner: null, loser: null });
                   fetchProfiles();
                 }}
-                className="absolute left-1/2 top-[50vh] -translate-x-1/2 px-6 py-3 bg-black text-white border-2 border-black hover:bg-white hover:text-black font-mono uppercase tracking-wider hover:shadow-none hover:translate-y-[4px] transition-all z-200 rounded-md"
+                className="absolute left-1/2 top-[50vh] -translate-x-1/2 px-6 py-3 bg-black text-white border-2 border-black hover:bg-white hover:text-black font-mono uppercase tracking-wider hover:shadow-none hover:translate-y-[4px] transition-all z-[300] rounded-md"
               >
                 Next Match →
               </button>
