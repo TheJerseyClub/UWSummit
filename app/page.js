@@ -158,7 +158,7 @@ export default function Home() {
               totalProfiles={allProfiles.length}
               profiles={allProfiles}
             />
-            <div className={`absolute left-1/2 top-0 h-full w-[1px] bg-gray-200 z-[100]`} />
+            <div className={`absolute left-1/2 top-[64px] h-[calc(100%-64px)] w-[1px] bg-gray-200 z-[100]`} />
             
             {selectedIndex === null && (
               <button 
