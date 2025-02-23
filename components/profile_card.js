@@ -13,8 +13,23 @@ export default function ProfileCard({
   eloChange,
   rank,
   currentElo,
-  totalProfiles
+  totalProfiles,
+  profiles
 }) {
+  const calculateNewRank = () => {
+    if (!isSelected || !eloChange) return rank;
+    
+    const newElo = currentElo + eloChange;
+    const sortedProfiles = [...profiles].sort((a, b) => {
+      // If this is the current profile, use the new ELO
+      const eloA = a.elo === currentElo ? newElo : a.elo;
+      const eloB = b.elo === currentElo ? newElo : b.elo;
+      return eloB - eloA;
+    });
+    
+    return sortedProfiles.findIndex(p => p.elo === currentElo) + 1;
+  };
+
   return (
     <>
       {isSelected && isWinner && (
@@ -60,18 +75,19 @@ export default function ProfileCard({
             </div>
             {isSelected && (
               <div className={`font-mono text-lg ${isRightAligned ? 'text-right' : 'text-left'}`}>
-                <div>Rank: #{isWinner 
-                  ? (rank === 1 ? 1 : rank - 1)
-                  : rank + 1
-                } 
-                  {eloChange && <span className={eloChange > 0 ? 'text-green-500' : 'text-red-500'}>
-                    {' '}({isWinner 
-                      ? (rank === 1 ? '+0' : '↑1')
-                      : (rank === totalProfiles ? '-0' : '↓1')
-                    })
-                  </span>}
+                <div>
+                  Rank: #{calculateNewRank()}
+                  {eloChange && (
+                    <span className={eloChange > 0 ? 'text-green-500' : 'text-red-500'}>
+                      {' '}({eloChange > 0 
+                        ? (rank > calculateNewRank() ? `↑${rank - calculateNewRank()}` : '-')
+                        : (rank < calculateNewRank() ? `↓${calculateNewRank() - rank}` : '-')
+                      })
+                    </span>
+                  )}
                 </div>
-                <div>ELO: {Math.round(currentElo + eloChange)} 
+                <div>
+                  ELO: {Math.round(currentElo + eloChange)} 
                   {eloChange && <span className={eloChange > 0 ? 'text-green-500' : 'text-red-500'}>
                     {' '}({eloChange > 0 ? '+' : ''}{eloChange})
                   </span>}
