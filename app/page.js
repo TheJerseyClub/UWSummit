@@ -151,13 +151,10 @@ export default function Home() {
               isWinner={selectedIndex === 0}
               eloChange={selectedIndex === 0 ? eloChanges.winner : eloChanges.loser}
             />
-            <div className={`absolute left-1/2 top-0 bottom-0 w-[1px] bg-gray-200 transition-opacity duration-500 ${
-              selectedIndex !== null ? 'opacity-0' : 'opacity-100'
-            }`} />
+            <div className={`absolute left-1/2 top-0 bottom-0 w-[1px] bg-gray-200 z-60`} />
+            
             <button 
-              className={`absolute left-1/2 top-1/2 -translate-x-1/2 px-6 py-3 bg-black text-white border-2 border-black hover:bg-white hover:text-black font-mono uppercase tracking-wider hover:shadow-none hover:translate-y-[4px] transition-all z-10 rounded-md ${
-                selectedIndex !== null ? 'opacity-0' : ''
-              }`}
+              className={`absolute left-1/2 top-1/2 -translate-x-1/2 px-6 py-3 bg-black text-white border-2 border-black hover:bg-white hover:text-black font-mono uppercase tracking-wider hover:shadow-none hover:translate-y-[4px] transition-all z-50 rounded-md`}
             >
               Equal =
             </button>
