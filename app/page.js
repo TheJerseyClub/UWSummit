@@ -16,68 +16,23 @@ export default function Home() {
   const { user } = useAuth();
 
   const fetchProfiles = async () => {
-    setLoading(true);
     try {
-      const { data: { session } } = await supabase.auth.getSession();
-      
-      // Only attempt refresh if user exists but session is null
-      if (user && !session) {
-        const { data: { session: newSession }, error: refreshError } = await supabase.auth.refreshSession();
-        if (refreshError) {
-          console.error('Failed to refresh session:', refreshError);
-        }
-      }
-
       const { data, error } = await supabase
         .from('profiles')
         .select('id, full_name, elo, profile_pic_url, education, experiences')
         .not('linkedin_url', 'is', null);
-      
       if (error) throw error;
-      
       const otherProfiles = user?.id 
         ? data.filter(profile => profile.id !== user.id)
         : data;
 
-      // Wait for filter operation to complete
-      await new Promise(resolve => setTimeout(resolve, 100));
-
-      // Ensure we have enough unique profiles
-      if (otherProfiles.length < 2) {
-        setProfiles([]);
-        return;
-      }
-
-      const shuffled = [...otherProfiles].sort(() => 0.5 - Math.random());
+      const shuffled = otherProfiles.sort(() => 0.5 - Math.random());
+      const selectedProfiles = shuffled.slice(0, 2);
       
-      // Ensure first profile is set
-      const profile1 = shuffled[0];
-      if (!profile1) {
-        setProfiles([]);
-        return;
-      }
-
-      // Filter and ensure second profile is different
-      const remainingProfiles = shuffled.filter(p => p.id !== profile1.id);
-      const profile2 = remainingProfiles[0];
-      
-      if (!profile2) {
-        setProfiles([]);
-        return;
-      }
-
-      // Final validation before setting state
-      if (profile1.id === profile2.id) {
-        console.error('Duplicate profiles detected, retrying...');
-        await fetchProfiles();
-        return;
-      }
-
       setSelectedIndex(null);
-      setProfiles([profile1, profile2]);
+      setProfiles(selectedProfiles);
     } catch (error) {
       console.error('Error fetching profiles:', error);
-      setProfiles([]);
     } finally {
       setLoading(false);
     }
