@@ -14,6 +14,7 @@ export default function Home() {
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [eloChanges, setEloChanges] = useState({ winner: null, loser: null });
   const { user } = useAuth();
+  const [allProfiles, setAllProfiles] = useState([]);
 
   const fetchProfiles = async () => {
     try {
@@ -21,12 +22,16 @@ export default function Home() {
         .from('profiles')
         .select('id, full_name, elo, profile_pic_url, education, experiences')
         .not('linkedin_url', 'is', null);
+      
       if (error) throw error;
+      
       const otherProfiles = user?.id 
         ? data.filter(profile => profile.id !== user.id)
         : data;
 
-      const shuffled = otherProfiles.sort(() => 0.5 - Math.random());
+      setAllProfiles(data); // Store all profiles for ranking
+      
+      const shuffled = [...otherProfiles].sort(() => 0.5 - Math.random());
       const selectedProfiles = shuffled.slice(0, 2);
       
       setSelectedIndex(null);
@@ -144,13 +149,14 @@ export default function Home() {
         {profiles.length >= 2 ? (
           <>
             <ProfileCard 
-              {...createProfileData(profiles[0], profiles)} 
+              {...createProfileData(profiles[0], allProfiles)} 
               isRightAligned={true} 
               onClick={() => handleProfileVote(0)} 
               isSelected={selectedIndex !== null}
               isWinner={selectedIndex === 0}
               eloChange={selectedIndex === 0 ? eloChanges.winner : eloChanges.loser}
-              totalProfiles={profiles.length}
+              totalProfiles={allProfiles.length}
+              profiles={allProfiles}
             />
             <div className={`absolute left-1/2 top-0 bottom-0 w-[1px] bg-gray-200 z-60`} />
             
@@ -160,13 +166,14 @@ export default function Home() {
               Equal =
             </button>
             <ProfileCard 
-              {...createProfileData(profiles[1], profiles)} 
+              {...createProfileData(profiles[1], allProfiles)} 
               isRightAligned={false} 
               onClick={() => handleProfileVote(1)} 
               isSelected={selectedIndex !== null}
               isWinner={selectedIndex === 1}
               eloChange={selectedIndex === 1 ? eloChanges.winner : eloChanges.loser}
-              totalProfiles={profiles.length}
+              totalProfiles={allProfiles.length}
+              profiles={allProfiles}
             />
             {selectedIndex !== null && (
               <button
