@@ -34,6 +34,16 @@ export default {
           '0%, 100%': { transform: 'translateX(0)' },
           '10%, 30%, 50%, 70%, 90%': { transform: 'translateX(-4px)' },
           '20%, 40%, 60%, 80%': { transform: 'translateX(4px)' },
+        },
+        'fade-in-down': {
+          '0%': {
+            opacity: '0',
+            transform: 'translateY(-10px)'
+          },
+          '100%': {
+            opacity: '1',
+            transform: 'translateY(0)'
+          },
         }
       },
       animation: {
@@ -41,6 +51,7 @@ export default {
         marquee: 'marquee 240s linear infinite',
         marquee2: 'marquee2 240s linear infinite',
         shake: 'shake 0.5s cubic-bezier(.36,.07,.19,.97) both',
+        'fade-in-down': 'fade-in-down 0.3s ease-out',
       },
     },
   },

@@ -72,9 +72,13 @@ export default function LinkedinSubmit() {
       if (error) throw error
       
       setMessage({ text: 'Profile updated successfully!', isError: false })
-      setTimeout(() => {
-        router.refresh()
-      }, 1000)
+      
+      // Wait for message to be visible briefly
+      await new Promise(resolve => setTimeout(resolve, 1000))
+      
+      // Force a hard refresh of the page
+      window.location.reload()
+      
     } catch (error) {
       setMessage({ text: error.message, isError: true })
     } finally {
@@ -87,11 +91,14 @@ export default function LinkedinSubmit() {
       <form onSubmit={handleSubmit} className="space-y-6 w-full max-w-md p-8 border border-gray-200 rounded-md">
         <h1 className="text-2xl font-mono font-bold uppercase tracking-wider">Complete Your Profile</h1>
         {message.text && (
-          <div className={`p-3 border rounded-md ${
-            message.isError 
-              ? 'bg-red-50 text-red-700 border-red-200' 
-              : 'bg-green-50 text-green-700 border-green-200'
-          }`}>
+          <div 
+            className={`p-3 border rounded-md transform transition-all duration-300 ease-out
+              ${message.isError 
+                ? 'bg-red-50 text-red-700 border-red-200' 
+                : 'bg-green-50 text-green-700 border-green-200'
+              }
+              animate-fade-in-down`}
+          >
             {message.text}
           </div>
         )}
