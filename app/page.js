@@ -143,7 +143,7 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen flex flex-col relative">
+    <main className="h-screen flex flex-col relative">
       <Navbar />
       <div className="flex flex-row relative flex-1">
         {profiles.length >= 2 ? (
