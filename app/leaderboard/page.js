@@ -8,6 +8,7 @@ import Image from 'next/image'
 export default function Leaderboard() {
   const [profiles, setProfiles] = useState([])
   const [loading, setLoading] = useState(true)
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
     const fetchProfiles = async () => {
@@ -24,6 +25,8 @@ export default function Leaderboard() {
         console.error('Error fetching profiles:', error)
       } finally {
         setLoading(false)
+        // Delay setting mounted to true to ensure initial render is complete
+        setTimeout(() => setMounted(true), 100)
       }
     }
 
@@ -55,7 +58,8 @@ export default function Leaderboard() {
             <div 
               key={index}
               onClick={() => handleProfileClick(profile.linkedin_url)}
-              className="flex items-center justify-between p-6 bg-white border border-gray-200 rounded-lg hover:bg-yellow-50 transition-colors cursor-pointer"
+              className={`flex items-center justify-between p-6 bg-white border border-gray-200 rounded-lg hover:bg-yellow-50 transition-colors cursor-pointer translate-y-8 opacity-0 ${mounted ? 'animate-slide-up' : ''}`}
+              style={{ animationDelay: `${index * 200}ms` }}
             >
               <div className="flex items-center gap-6">
                 <span className="font-mono text-2xl font-bold text-gray-400 w-12">
