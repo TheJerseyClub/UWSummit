@@ -146,19 +146,19 @@ export default function ProfileCard({
                           <h3 className="font-bold text-gray-900 text-sm sm:text-base">{experience.company}</h3>
                           <div className="space-y-1 sm:space-y-2 mt-1 sm:mt-2">
                             {experience.positions.map((position, posIndex) => (
-                              <div key={posIndex} className="relative pl-6 sm:pl-8">
+                              <div key={posIndex} className={`relative ${isRightAligned ? 'pr-6 sm:pr-8' : 'pl-6 sm:pl-8'}`}>
                                 <svg 
-                                  className={`absolute ${isRightAligned ? 'right-0 rotate-180' : 'left-0'} top-0 h-full w-8`} 
+                                  className={`absolute ${isRightAligned ? 'right-0' : 'left-0'} top-0 h-full w-8`} 
                                   viewBox="0 0 32 60"
                                 >
                                   <path
-                                    d="M16 0 L 16 30 L 32 30"
+                                    d={isRightAligned ? "M16 0 L16 30 L-8 30" : "M16 0 L16 30 L40 30"}
                                     fill="none"
-                                    stroke="#E5E7EB"
-                                    strokeWidth="2"
+                                    stroke="#6B7280"
+                                    strokeWidth="4"
                                   />
                                 </svg>
-                                <div className="text-gray-600">
+                                <div className="text-gray-800">
                                   <p className="font-medium text-xs sm:text-sm">{position.title}</p>
                                 </div>
                               </div>
