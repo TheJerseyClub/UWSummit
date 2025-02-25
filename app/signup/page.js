@@ -29,8 +29,6 @@ export default function SignUp() {
     setMessage({ text: '', isError: false })
     
     try {
-<<<<<<< Updated upstream
-=======
       // Try to sign in with the email to check if it exists
       const { error: signInError } = await supabase.auth.signInWithPassword({
         email,
@@ -49,7 +47,6 @@ export default function SignUp() {
       }
 
       // If we get here, the user doesn't exist, so try to sign up
->>>>>>> Stashed changes
       const { error } = await supabase.auth.signUp({
         email,
         password,
