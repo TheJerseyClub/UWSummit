@@ -53,57 +53,68 @@ export default function Leaderboard() {
       2: '400ms'
     }
 
-    return (
-      <div className="flex justify-center items-end mb-16 mt-10 px-4">
-        {positions.map((position) => {
-          const profile = topThree[position]
-          if (!profile) return null
+    // Floor animation delay (longer than the last podium element)
+    const floorAnimationDelay = '600ms'
 
-          const podiumHeight = position === 0 
-            ? 'h-24 md:h-36' 
-            : position === 1 
-            ? 'h-20 md:h-28' 
-            : 'h-16 md:h-24'
-          const placement = position === 0 ? '1st' : position === 1 ? '2nd' : '3rd'
-          
-          return (
-            <div 
-              key={position} 
-              className={`flex flex-col items-center mx-2 md:mx-3 translate-y-8 opacity-0 ${mounted ? 'animate-slide-up' : ''}`}
-              style={{ animationDelay: animationDelays[position] }}
-            >
+    return (
+      <div className="flex flex-col items-center mb-16 mt-10 px-4">
+        <div className="flex justify-center items-end">
+          {positions.map((position) => {
+            const profile = topThree[position]
+            if (!profile) return null
+
+            const podiumHeight = position === 0 
+              ? 'h-24 md:h-36' 
+              : position === 1 
+              ? 'h-20 md:h-28' 
+              : 'h-16 md:h-24'
+            const placement = position === 0 ? '1st' : position === 1 ? '2nd' : '3rd'
+            
+            return (
               <div 
-                onClick={() => handleProfileClick(profile.linkedin_url)}
-                className="flex flex-col items-center mb-2 md:mb-3 cursor-pointer group"
+                key={position} 
+                className={`flex flex-col items-center mx-2 md:mx-3 translate-y-8 opacity-0 ${mounted ? 'animate-slide-up' : ''}`}
+                style={{ animationDelay: animationDelays[position] }}
               >
-                <div className="w-16 h-16 md:w-24 md:h-24 rounded-md bg-gray-200 overflow-hidden mb-2 md:mb-3 border border-gray-300 group-hover:border-yellow-500 transition-colors">
-                  {profile.profile_pic_url ? (
-                    <Image 
-                      src={profile.profile_pic_url} 
-                      alt={profile.full_name}
-                      width={96}
-                      height={96}
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center text-gray-400">
-                      <svg className="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                      </svg>
-                    </div>
-                  )}
+                <div 
+                  onClick={() => handleProfileClick(profile.linkedin_url)}
+                  className="flex flex-col items-center mb-2 md:mb-3 cursor-pointer group"
+                >
+                  <div className="w-16 h-16 md:w-24 md:h-24 rounded-md bg-gray-200 overflow-hidden mb-2 md:mb-3 border border-gray-300 group-hover:border-yellow-500 transition-colors">
+                    {profile.profile_pic_url ? (
+                      <Image 
+                        src={profile.profile_pic_url} 
+                        alt={profile.full_name}
+                        width={96}
+                        height={96}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-gray-400">
+                        <svg className="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                      </div>
+                    )}
+                  </div>
+                  <span className="font-mono text-sm md:text-base font-bold">{profile.full_name}</span>
+                  <span className="font-mono text-xs md:text-sm text-gray-500">{profile.elo} ELO</span>
                 </div>
-                <span className="font-mono text-sm md:text-base font-bold">{profile.full_name}</span>
-                <span className="font-mono text-xs md:text-sm text-gray-500">{profile.elo} ELO</span>
+                <div className={`w-20 md:w-28 ${podiumHeight} ${podiumColors[position]} rounded-t-md relative transition-colors`}>
+                  <span className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 font-mono font-bold text-white text-lg md:text-xl">
+                    {placement}
+                  </span>
+                </div>
               </div>
-              <div className={`w-20 md:w-28 ${podiumHeight} ${podiumColors[position]} rounded-t-md relative transition-colors`}>
-                <span className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 font-mono font-bold text-white text-lg md:text-xl">
-                  {placement}
-                </span>
-              </div>
-            </div>
-          )
-        })}
+            )
+          })}
+        </div>
+        {/* Floor line under podium with delayed animation */}
+        <div 
+          className={`h-1 bg-gray-300 w-full max-w-md mt-0 rounded-full shadow-sm translate-y-8 opacity-0 ${mounted ? 'animate-slide-up' : ''}`}
+          style={{ animationDelay: floorAnimationDelay }}
+        >
+        </div>
       </div>
     )
   }

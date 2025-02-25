@@ -57,10 +57,10 @@ export default function Profile() {
   if (!profile?.linkedin_url) {
     return (
       <div className="min-h-screen flex">
-        {/* Sticky Left Panel */}
+        {/* Sticky Left Panel - Hidden on mobile */}
         <button
           onClick={() => router.back()}
-          className="w-32 fixed left-0 top-0 h-screen bg-white border-r border-gray-300 flex items-center justify-center hover:bg-yellow-50 transition-colors"
+          className="hidden md:flex w-32 fixed left-0 top-0 h-screen bg-white border-r border-gray-300 items-center justify-center hover:bg-yellow-50 transition-colors"
         >
           <div className="flex flex-col items-center gap-2 text-gray-800">
             <span className="text-4xl font-bold">←</span>
@@ -69,7 +69,7 @@ export default function Profile() {
         </button>
 
         {/* Main Content */}
-        <div className="flex-1 pl-32">
+        <div className="flex-1 md:pl-32">
           <Navbar />
           <div className="max-w-4xl mx-auto pt-20 px-4">
             <div className="bg-white p-8 border border-gray-300 rounded-md hover:bg-yellow-50 transition-colors">
@@ -97,14 +97,6 @@ export default function Profile() {
           <span className="text-4xl font-bold transition-transform group-hover:translate-x-[-4px] group-active:translate-x-[-8px]">←</span>
           <span className="font-mono text-sm">Play</span>
         </div>
-      </button>
-
-      {/* Mobile Back Button */}
-      <button
-        onClick={() => router.push('/')}
-        className="md:hidden fixed top-4 left-4 z-50 w-10 h-10 bg-white border border-gray-300 rounded-full flex items-center justify-center hover:bg-yellow-50"
-      >
-        <span className="text-2xl font-bold">←</span>
       </button>
 
       {/* Main Content */}

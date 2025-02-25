@@ -146,7 +146,7 @@ export default function Home() {
       <Navbar />
       
       {/* Mobile bar under navbar - ALWAYS visible regardless of selection state */}
-      <div className="sm:hidden fixed top-16 left-0 right-0 bg-white/80 backdrop-blur-sm border-b border-gray-200 py-2 z-20 text-center font-mono uppercase tracking-wider shadow-sm">
+      <div className="sm:hidden fixed top-16 left-0 right-0 bg-white/80 backdrop-blur-sm border-b border-gray-200 py-4 z-20 text-center font-mono uppercase tracking-wider shadow-sm">
         <span className="text-yellow-500 font-bold">Who&apos;s More</span>
         <span className="ml-1 font-black">Cracked?</span>
       </div>
@@ -197,7 +197,7 @@ export default function Home() {
                   }}
                   className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 px-6 py-3 bg-black text-white border-2 border-black hover:bg-white hover:text-black font-mono uppercase tracking-wider hover:shadow-none hover:translate-y-[calc(-50%+4px)] transition-all z-30 rounded-md hidden sm:block"
                 >
-                  Next Match →
+                  Next Match <span className="inline-block animate-bounce-horizontal">→</span>
                 </button>
                 
                 {/* Mobile bottom bar (hidden on desktop) */}
@@ -210,7 +210,7 @@ export default function Home() {
                     }}
                     className="w-full py-16 bg-black text-white border-2 border-black font-mono uppercase tracking-wider text-lg"
                   >
-                    Next Match →
+                    Next Match <span className="inline-block animate-bounce-horizontal">→</span>
                   </button>
                 </div>
               </>
