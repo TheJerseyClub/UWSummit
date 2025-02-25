@@ -54,6 +54,10 @@ export default {
             opacity: '1',
             transform: 'translateY(0)'
           },
+        },
+        'bounce-horizontal': {
+          '0%, 100%': { transform: 'translateX(0)' },
+          '50%': { transform: 'translateX(5px)' }
         }
       },
       animation: {
@@ -63,6 +67,7 @@ export default {
         shake: 'shake 0.5s cubic-bezier(.36,.07,.19,.97) both',
         'fade-in-down': 'fade-in-down 0.3s ease-out',
         'slide-up': 'slide-up 0.5s ease-out forwards',
+        'bounce-horizontal': 'bounce-horizontal 1s ease-in-out infinite'
       },
     },
   },

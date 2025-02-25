@@ -9,16 +9,16 @@ export default function RecruitmentPage() {
       
       <main className="flex flex-col mt-[64px]">
         {/* Scrolling banner */}
-        <div className="relative border-b border-black">
-          <div className="py-12 whitespace-nowrap overflow-hidden bg-white">
+        <div className="relative border-b border-black overflow-hidden">
+          <div className="py-12 whitespace-nowrap bg-white">
             <div className="animate-marquee inline-block">
               {Array(10).fill("RECRUIT   ").map((text, i) => (
-                <span key={i} className="font-mono font-black text-[20rem] mx-8 leading-none">{text}</span>
+                <span key={i} className="font-mono font-black text-[10rem] md:text-[15rem] lg:text-[20rem] mx-8 leading-none">{text}</span>
               ))}
             </div>
             <div className="animate-marquee2 inline-block absolute top-12">
               {Array(10).fill("RECRUIT   ").map((text, i) => (
-                <span key={i} className="font-mono font-black text-[20rem] mx-8 leading-none">{text}</span>
+                <span key={i} className="font-mono font-black text-[10rem] md:text-[15rem] lg:text-[20rem] mx-8 leading-none">{text}</span>
               ))}
             </div>
           </div>
@@ -85,7 +85,7 @@ export default function RecruitmentPage() {
             </h2>
             <div className="font-mono tracking-wide flex items-center gap-4">
               <a 
-                href="mailto:employers@uwcoopium.com" 
+                href="mailto:nwjeremysu@gmail.com" 
                 className="bg-yellow-500 text-white px-6 py-3 rounded-lg hover:bg-yellow-600 transition-colors"
               >
                 Contact Us

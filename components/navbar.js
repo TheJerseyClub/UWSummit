@@ -66,32 +66,32 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
         <div className="flex items-center justify-between h-full w-full">
           {/* Back button - only on mobile and not on home page */}
-          <div className="md:hidden">
-            {pathname !== '/' && (
-              <button
-                onClick={handleGoBack}
-                className="p-2 rounded-md hover:bg-gray-100"
-                aria-label="Go back"
+          <div className={`md:hidden ${pathname === '/' ? 'hidden' : 'block'}`}>
+            <button
+              onClick={handleGoBack}
+              className="p-2 rounded-md hover:bg-gray-100"
+              aria-label="Go back"
+            >
+              <svg
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
               >
-                <svg
-                  className="h-5 w-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M15 19l-7-7 7-7"
-                  />
-                </svg>
-              </button>
-            )}
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 19l-7-7 7-7"
+                />
+              </svg>
+            </button>
           </div>
           
-          {/* Logo and title - centered on mobile */}
-          <div className="flex items-center md:flex-grow-0 absolute left-1/2 transform -translate-x-1/2 md:static md:left-auto md:transform-none">
+          {/* Logo and title */}
+          <div className={`flex items-center md:flex-grow-0 ${
+            pathname !== '/' ? 'absolute left-1/2 transform -translate-x-1/2 md:static md:left-auto md:transform-none' : 'relative left-0'
+          }`}>
             <svg 
               className="w-8 h-8 mr-2" 
               viewBox="0 0 24 24" 
