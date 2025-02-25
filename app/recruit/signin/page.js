@@ -104,6 +104,10 @@ export default function SignIn() {
             ))}
           </div>
           
+          <div className="md:hidden text-center text-xs text-gray-500 mt-2 mb-4">
+            <p>📱 Coming from Instagram? Sign in with code! (Google is wonky)</p>
+          </div>
+          
           {error && (
             <p className="text-center text-red-500 text-sm mb-4">
               Invalid code. Please try again.
