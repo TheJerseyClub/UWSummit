@@ -76,7 +76,7 @@ export default function Profile() {
               <h1 className="text-4xl font-mono font-bold mb-6 tracking-tight">Complete Your Profile</h1>
               <div className="w-full h-[1px] bg-gray-300 my-6"></div>
               <p className="mb-6 font-mono">
-                Please connect your LinkedIn profile to continue. This helps us verify your Waterloo affiliation.
+                Please connect your LinkedIn profile to continue. This will place you on the leaderboard.
               </p>
               <LinkedinSubmit />
             </div>
@@ -90,18 +90,18 @@ export default function Profile() {
     <div className="min-h-screen flex flex-col md:flex-row md:m-8">
       {/* Sticky Left Panel - Hidden on mobile */}
       <button
-        onClick={() => router.back()}
+        onClick={() => router.push('/')}
         className="hidden md:flex w-32 fixed left-0 top-0 h-screen bg-white border-r border-gray-300 items-center justify-center hover:bg-yellow-50 transition-colors group active:bg-yellow-100"
       >
         <div className="flex flex-col items-center gap-2 text-gray-800">
           <span className="text-4xl font-bold transition-transform group-hover:translate-x-[-4px] group-active:translate-x-[-8px]">←</span>
-          <span className="font-mono text-sm">Back</span>
+          <span className="font-mono text-sm">Play</span>
         </div>
       </button>
 
       {/* Mobile Back Button */}
       <button
-        onClick={() => router.back()}
+        onClick={() => router.push('/')}
         className="md:hidden fixed top-4 left-4 z-50 w-10 h-10 bg-white border border-gray-300 rounded-full flex items-center justify-center hover:bg-yellow-50"
       >
         <span className="text-2xl font-bold">←</span>
