@@ -158,6 +158,12 @@ export default function Navbar() {
             </Link>
             {user ? (
               <div className="flex items-center space-x-6">
+                <Link 
+                  href="/"
+                  className="px-4 py-2 bg-yellow-500 text-white border-2 border-yellow-500 hover:bg-white hover:text-yellow-500 font-mono uppercase tracking-wider hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all rounded-md"
+                >
+                  Play
+                </Link>
                 <div className="relative">
                   <button
                     onClick={() => setDropdownOpen(!dropdownOpen)}
@@ -254,6 +260,12 @@ export default function Navbar() {
                   className="block px-3 py-2 rounded-md text-base font-mono font-medium text-gray-700 hover:text-gray-900 hover:bg-yellow-50"
                 >
                   Profile
+                </Link>
+                <Link
+                  href="/"
+                  className="block px-3 py-2 rounded-md text-base font-mono font-medium text-gray-700 hover:text-gray-900 hover:bg-yellow-50"
+                >
+                  Play
                 </Link>
                 <button
                   onClick={handleSignOut}
