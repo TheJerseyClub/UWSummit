@@ -141,19 +141,19 @@ export default function Leaderboard() {
         {renderPodium()}
         
         {/* List remaining players with delayed animation */}
-        <div className="space-y-4">
+        <div className="space-y-3 md:space-y-4">
           {profiles.slice(3).map((profile, index) => (
             <div 
               key={index + 3}
               onClick={() => handleProfileClick(profile.linkedin_url)}
-              className={`flex items-center justify-between p-6 bg-white border border-gray-200 rounded-lg hover:bg-yellow-50 transition-colors cursor-pointer translate-y-8 opacity-0 ${mounted ? 'animate-slide-up' : ''}`}
-              style={{ animationDelay: '600ms' }} // All remaining profiles animate together after podium
+              className={`flex items-center justify-between p-4 md:p-6 bg-white border border-gray-200 rounded-lg hover:bg-yellow-50 transition-colors cursor-pointer translate-y-8 opacity-0 ${mounted ? 'animate-slide-up' : ''}`}
+              style={{ animationDelay: '600ms' }}
             >
-              <div className="flex items-center gap-6">
-                <span className="font-mono text-2xl font-bold text-gray-400 w-12">
+              <div className="flex items-center gap-3 md:gap-6">
+                <span className="font-mono text-xl md:text-2xl font-bold text-gray-400 w-8 md:w-12">
                   #{index + 4}
                 </span>
-                <div className="w-12 h-12 rounded-lg bg-gray-200 overflow-hidden flex-shrink-0">
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gray-200 overflow-hidden flex-shrink-0">
                   {profile.profile_pic_url ? (
                     <Image 
                       src={profile.profile_pic_url} 
@@ -164,17 +164,17 @@ export default function Leaderboard() {
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center text-gray-400">
-                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                       </svg>
                     </div>
                   )}
                 </div>
-                <span className="font-mono text-xl">
+                <span className="font-mono text-base md:text-xl">
                   {profile.full_name}
                 </span>
               </div>
-              <span className="font-mono text-xl font-bold">
+              <span className="font-mono text-base md:text-xl font-bold">
                 {Math.round(profile.elo)} ELO
               </span>
             </div>
