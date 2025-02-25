@@ -88,7 +88,7 @@ export default function SignupForm() {
           <div className="w-full border-t border-gray-300"></div>
         </div>
         <div className="relative flex justify-center text-sm">
-          <span className="px-2 bg-white text-gray-500">or</span>
+          <span className="px-2 bg-gray-200 text-gray-500">or</span>
         </div>
       </div>
 
@@ -97,22 +97,22 @@ export default function SignupForm() {
         placeholder="Email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        className="w-full p-2 border border-gray-300"
+        className="w-full p-2 border border-gray-300 rounded"
       />
       <input
         type="password"
         placeholder="Create a password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
-        className="w-full p-2 border border-gray-300"
+        className="w-full p-2 border border-gray-300 rounded"
       />
       <button
         type="submit"
-        className="w-full p-2 border border-gray-300 flex items-center justify-center space-x-2 hover:bg-gray-50"
+        className="w-full p-2 bg-black text-white border border-gray-300 rounded flex items-center justify-center space-x-2 hover:bg-gray-800"
       >
         Sign Up
       </button>
-      <p className="text-center text-sm text-gray-600">
+      <p className="text-center text-sm text-gray-600 rounded-md">
         Already have an account?{' '}
         <Link href="/signin" className="text-black underline">
           Sign In
