@@ -2,6 +2,8 @@
 import { useEffect, useState } from "react";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
+import duck from "@/public/duck.svg";
+import Image from "next/image";
 
 export default function Home() {
   const [scrollY, setScrollY] = useState(0);
@@ -60,6 +62,7 @@ export default function Home() {
   return (
     <main className="min-h-[200vh] flex flex-col relative bg-[#F7F7F7] overflow-hidden">
       {/* Mountain Silhouettes with Snow */}
+
       <div className="fixed bottom-0 left-0 right-0 h-screen z-0">
         <svg
           className="w-full h-full opacity-90 transform scale-150"
@@ -69,7 +72,45 @@ export default function Home() {
           xmlns="http://www.w3.org/2000/svg"
         >
           {/* Back mountain range - starts further into parallax */}
-          <g style={{ transform: `translateY(${scrollY * -0.1 + 50}px)` }}>
+          <g style={{ transform: `translateY(${scrollY * -0.1 + 70}px)` }}>
+            {/* Flag pole and flag - silhouette style */}
+            <g transform="scale(-1, 1) translate(-1820, 0)">  {/* Flip horizontally */}
+              <g transform="rotate(5, 910, 280)">  {/* Pivot adjustment */}
+                
+                {/* Flagpole */}
+                <path
+                  d="M910 280 L910 180"
+                  stroke="#000000"
+                  strokeWidth="4"
+                  className="opacity-90"
+                />
+                
+                {/* Smoothly Waving Flag */}
+                <path
+                  d="M910 180 
+                    C930 170, 950 190, 970 180
+                    L990 185
+                    L990 215
+                    C970 210, 950 220, 930 210
+                    L910 210 Z"
+                  fill="#000000"
+                  className="opacity-90"
+                >
+                  <animate 
+                    attributeName="d"
+                    values="
+                      M910 180 C930 170, 950 190, 970 180 L990 185 L990 215 C970 210, 950 220, 930 210 L910 210 Z;
+                      M910 180 C925 175, 945 185, 965 178 L985 183 L985 213 C965 208, 945 218, 925 208 L910 210 Z;
+                      M910 180 C920 185, 940 175, 960 185 L980 190 L980 220 C960 215, 940 225, 920 215 L910 210 Z;
+                      M910 180 C930 170, 950 190, 970 180 L990 185 L990 215 C970 210, 950 220, 930 210 L910 210 Z"
+                    dur="2.5s"
+                    repeatCount="indefinite"
+                  />
+                </path>
+
+              </g>
+            </g>
+            
             <path
               d="M-200 750L320 350L520 450L920 250L1200 550L1520 400L1650 650L2000 450V900H-200V750Z"
               fill="#000000"
@@ -77,16 +118,19 @@ export default function Home() {
             />
             {/* Snow caps for back range */}
             <path
-              d="M320 200L420 300L520 400L720 250L920 100L1020 200L1200 500L1320 375L1520 250L1585 425L1650 600L1750 500L2000 400L1900 450L1700 650L1600 625L1450 300L1300 525L1150 475L1000 150L850 125L700 275L600 425L450 225L320 200Z"
+              d="M270 200L370 300L470 400L670 250L870 100L970 200L1150 500L1270 375L1470 250L1535 425L1600 600L1700 500L1950 400L1850 450L1650 650L1550 625L1400 300L1250 525L1100 475L950 150L800 125L650 275L550 425L400 225L270 200Z"
               fill="#FFFFFF"
               className="opacity-20"
             />
             {/* Additional snow detail for back range */}
             <path
-              d="M920 100L970 150L1020 200L1070 175L1120 225L1200 500L1250 450L1300 525L1350 500L1400 550L1450 300L1500 350L1520 250L1540 300L1585 425L1600 400L1650 600L1700 550L1750 500L1800 525L1850 475L1900 450L1950 475L2000 400L1900 450L1700 650L1600 625L1450 300L1300 525L1150 475L1000 150L920 100Z"
+              d="M870 100L920 150L970 200L1020 175L1070 225L1150 500L1200 450L1250 525L1300 500L1350 550L1400 300L1450 350L1470 250L1490 300L1535 425L1550 400L1600 600L1650 550L1700 500L1750 525L1800 475L1850 450L1900 475L1950 400L1850 450L1650 650L1550 625L1400 300L1250 525L1100 475L950 150L870 100Z"
               fill="#FFFFFF"
               className="opacity-30"
             />
+            
+            
+
           </g>
           
           {/* Middle mountain range - starts further into parallax */}
@@ -108,10 +152,24 @@ export default function Home() {
               fill="#FFFFFF"
               className="opacity-25"
             />
+            {/* Duck positioned on the middle mountain */}
+            <image
+              href={duck.src}
+              x="400"
+              y="270"
+              width="100"
+              height="100"
+              style={{
+                transform: "scale(-1, 1) rotate(-15deg)",
+                transformOrigin: "center",
+              }}
+              preserveAspectRatio="xMidYMid meet"
+            />
           </g>
 
           {/* Front mountain range - starts further into parallax */}
           <g style={{ transform: `translateY(${scrollY * -0.3 + 150}px)` }}>
+            
             <path
               d="M-200 825L320 650L520 750L920 550L1200 800L1520 700L1650 825L2000 750V900H-200V825Z"
               fill="#000000"
@@ -132,7 +190,8 @@ export default function Home() {
           </g>
         </svg>
       </div>
-      
+    
+
       {/* Snow effect overlay */}
       <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-10">
         {snowflakes.map((flake) => (
