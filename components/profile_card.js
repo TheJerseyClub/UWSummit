@@ -52,7 +52,8 @@ export default function ProfileCard({
         `}
         onClick={isSelected ? undefined : onClick}
       >
-        <div className="p-1 sm:p-4 lg:p-6 transition-all duration-300 w-full relative flex flex-col px-4 sm:px-0 lg:-mt-8">
+        <div className={`p-1 sm:p-4 lg:p-6 transition-all duration-300 w-full relative flex flex-col px-4 sm:px-0 lg:-mt-8 
+          ${isRightAligned ? 'sm:pr-8 md:pr-12' : 'sm:pl-8 md:pl-12'}`}>
           {/* Profile Picture Section */}
           <div className={`flex flex-col sm:flex-row ${isRightAligned ? 'items-end sm:justify-end' : 'items-start sm:justify-start'} mb-4 sm:mb-4 lg:mb-8 gap-2 sm:gap-4`}>
             <div className={`w-32 h-32 sm:w-40 sm:h-40 xl:w-48 xl:h-48 rounded-md bg-gray-300 overflow-visible transition-all duration-300 
