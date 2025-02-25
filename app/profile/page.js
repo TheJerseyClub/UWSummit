@@ -99,14 +99,6 @@ export default function Profile() {
         </div>
       </button>
 
-      {/* Mobile Back Button */}
-      <button
-        onClick={() => router.push('/')}
-        className="md:hidden fixed top-4 left-4 z-50 w-10 h-10 bg-white border border-gray-300 rounded-full flex items-center justify-center hover:bg-yellow-50"
-      >
-        <span className="text-2xl font-bold">←</span>
-      </button>
-
       {/* Main Content */}
       <div className="flex-1 md:pl-32">
         <Navbar />

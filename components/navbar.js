@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "@/contexts/AuthContext";
 import Image from "next/image";
@@ -10,6 +10,7 @@ import { supabase } from "@/utils/supabase";
 export default function Navbar() {
   const { user, signOut } = useAuth()
   const router = useRouter()
+  const pathname = usePathname()
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [userProfile, setUserProfile] = useState(null)
@@ -56,11 +57,41 @@ export default function Navbar() {
     }
   }
 
+  const handleGoBack = () => {
+    router.back();
+  }
+
   return (
     <nav className="fixed top-0 left-0 right-0 h-16 bg-white/80 backdrop-blur-sm border-b border-gray-300 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
         <div className="flex items-center justify-between h-full w-full">
-          <div className="flex items-center">
+          {/* Back button - only on mobile and not on home page */}
+          <div className="md:hidden">
+            {pathname !== '/' && (
+              <button
+                onClick={handleGoBack}
+                className="p-2 rounded-md hover:bg-gray-100"
+                aria-label="Go back"
+              >
+                <svg
+                  className="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 19l-7-7 7-7"
+                  />
+                </svg>
+              </button>
+            )}
+          </div>
+          
+          {/* Logo and title - centered on mobile */}
+          <div className="flex items-center md:flex-grow-0 absolute left-1/2 transform -translate-x-1/2 md:static md:left-auto md:transform-none">
             <svg 
               className="w-8 h-8 mr-2" 
               viewBox="0 0 24 24" 
@@ -81,34 +112,36 @@ export default function Navbar() {
             </Link>
           </div>
           
-          {/* Hamburger menu button */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded-md hover:bg-gray-100"
-          >
-            <svg
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
+          {/* Hamburger menu button - ensure it's on the right */}
+          <div className="md:hidden">
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="p-2 rounded-md hover:bg-gray-100"
             >
-              {mobileMenuOpen ? (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              ) : (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              )}
-            </svg>
-          </button>
+              <svg
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                {mobileMenuOpen ? (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                ) : (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                )}
+              </svg>
+            </button>
+          </div>
 
           <div className="hidden md:flex items-center justify-end flex-1 space-x-8">
             <Link 
