@@ -156,6 +156,12 @@ export default function Navbar() {
             >
               Recruit
             </Link>
+            <Link 
+              href="/home"
+              className="text-gray-600 hover:text-black hover:bg-yellow-100 px-2 py-1 rounded-md text-md font-mono font-bold transition-colors tracking-wider"
+            >
+              About
+            </Link>
             {user ? (
               <div className="flex items-center space-x-6">
                 <Link 
@@ -249,9 +255,15 @@ export default function Navbar() {
             </Link>
             <Link
               href="/recruit"
-              className="block px-3 py-2 rounded-md text-base font-mono font-medium text-yellow-500 hover:text-black hover:bg-yellow-50"
+              className="block px-3 py-2 rounded-md text-base font-mono font-medium text-gray-700 hover:text-black hover:bg-yellow-50"
             >
               Recruit
+            </Link>
+            <Link
+              href="/home"
+              className="block px-3 py-2 rounded-md text-base font-mono font-medium text-gray-700 hover:text-gray-900 hover:bg-yellow-50"
+            >
+              About
             </Link>
             {user ? (
               <>
@@ -263,7 +275,7 @@ export default function Navbar() {
                 </Link>
                 <Link
                   href="/"
-                  className="block px-3 py-2 rounded-md text-base font-mono font-medium text-gray-700 hover:text-gray-900 hover:bg-yellow-50"
+                  className="block px-3 py-2 rounded-md text-base font-mono font-medium bg-yellow-500 text-white hover:bg-yellow-600 hover:text-white"
                 >
                   Play
                 </Link>
@@ -278,13 +290,13 @@ export default function Navbar() {
               <>
                 <Link
                   href="/"
-                  className="block px-3 py-2 rounded-md text-base font-mono font-medium text-gray-700 hover:text-gray-900 hover:bg-yellow-50"
+                  className="block px-3 py-2 rounded-md text-base font-mono font-medium bg-yellow-500 text-white hover:bg-yellow-600 hover:text-white"
                 >
                   Play
                 </Link>
                 <Link
                   href="/signin"
-                  className="block px-3 py-2 rounded-md text-base font-mono font-medium text-gray-700 hover:text-gray-900 hover:bg-yellow-50"
+                  className="block px-3 py-2 rounded-md text-base font-mono font-medium bg-black text-white hover:bg-gray-800 hover:text-white"
                 >
                   Sign In
                 </Link>
