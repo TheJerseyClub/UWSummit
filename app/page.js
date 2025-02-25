@@ -146,9 +146,10 @@ export default function Home() {
       <Navbar />
       
       {/* Mobile bar under navbar - ALWAYS visible regardless of selection state */}
-      <div className="sm:hidden fixed top-16 left-0 right-0 bg-white/80 backdrop-blur-sm border-b border-gray-200 py-4 z-20 text-center font-mono uppercase tracking-wider shadow-sm">
-        <span className="text-yellow-500 font-bold">Who&apos;s More</span>
-        <span className="ml-1 font-black">Cracked?</span>
+      <div className="sm:hidden fixed top-16 left-0 right-0 bg-white/80 backdrop-blur-sm border-b border-gray-200 py-4 z-20 text-center font-mono tracking-wider shadow-sm">
+        <span className="text-yellow-500 font-bold uppercase">Who&apos;s More</span>
+        <span className="ml-1 font-black uppercase"> Cracked?</span>
+        <div className="text-xs mt-1 text-gray-500">Choose a side.</div>
       </div>
       
       {/* Desktop centered text (only visible when no selection and only on desktop) */}
@@ -157,6 +158,7 @@ export default function Home() {
           <div className="bg-white/80 backdrop-blur-sm border border-gray-200 px-8 py-4 rounded-lg shadow-sm">
             <span className="block mb-1 text-yellow-500 font-bold">Who&apos;s More</span>
             <span className="block text-2xl font-black">Cracked?</span>
+            <div className="text-xs mt-2 text-gray-500 normal-case">Choose a side.</div>
           </div>
         </div>
       )}

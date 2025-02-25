@@ -146,13 +146,13 @@ export default function Navbar() {
           <div className="hidden md:flex items-center justify-end flex-1 space-x-8">
             <Link 
               href="/leaderboard"
-              className="text-gray-600 hover:text-gray-900 hover:bg-yellow-50 px-2 py-1 rounded-md text-md font-mono font-bold transition-colors"
+              className="text-gray-600 hover:text-gray-900 hover:bg-yellow-50 px-2 py-1 rounded-md text-md font-mono font-bold transition-colors tracking-wider"
             >
               Leaderboard
             </Link>
             <Link 
               href="/recruit"
-              className="text-yellow-500 hover:text-black hover:bg-yellow-100 px-2 py-1 rounded-md text-md font-mono font-bold transition-colors uppercase tracking-wider"
+              className="text-gray-600 hover:text-black hover:bg-yellow-100 px-2 py-1 rounded-md text-md font-mono font-bold transition-colors tracking-wider"
             >
               Recruit
             </Link>
