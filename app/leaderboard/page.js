@@ -41,40 +41,68 @@ export default function Leaderboard() {
     const topThree = profiles.slice(0, 3)
     const positions = [1, 0, 2]
 
-    const podiumColors = {
-      0: 'bg-yellow-500 group-hover:bg-yellow-400',
-      1: 'bg-gray-400 group-hover:bg-gray-300',
-      2: 'bg-amber-700 group-hover:bg-amber-600'
+    const mountainColors = {
+      0: {
+        main: 'fill-yellow-500 group-hover:fill-yellow-400',
+        shadow: 'fill-yellow-600 group-hover:fill-yellow-500',
+      },
+      1: {
+        main: 'fill-gray-400 group-hover:fill-gray-300',
+        shadow: 'fill-gray-500 group-hover:fill-gray-400',
+      },
+      2: {
+        main: 'fill-amber-800 group-hover:fill-amber-700',
+        shadow: 'fill-amber-700 group-hover:fill-amber-600',
+      }
     }
 
-    const animationDelays = {
-      0: '0ms',
-      1: '200ms',
-      2: '400ms'
+    const mountainHeights = {
+      0: 'h-36 md:h-48',
+      1: 'h-28 md:h-40',
+      2: 'h-24 md:h-36'
     }
 
-    // Floor animation delay (longer than the last podium element)
-    const floorAnimationDelay = '600ms'
+    const getMountainPath = (position) => {
+      // Different path patterns for each position
+      const patterns = {
+        0: {
+          main: 'M0 100 L15 70 L25 80 L40 45 L50 20 L60 45 L75 60 L85 50 L100 100',
+          shadow: 'M40 45 L50 20 L60 45 L75 60 L85 50 L100 100 L65 100 L55 85 L45 95 Z',
+          snow: 'M38 47 L50 20 L62 47 L58 48 L54 45 L50 47 L46 45 L42 48 Z M73 62 L85 50 L88 55 L83 58 L78 56 Z'
+        },
+        1: {
+          main: 'M0 100 L20 60 L30 70 L45 35 L50 25 L55 35 L70 55 L80 45 L100 100',
+          shadow: 'M45 35 L50 25 L55 35 L70 55 L80 45 L100 100 L60 100 L50 80 Z',
+          snow: 'M43 37 L50 25 L57 37 L53 38 L50 35 L47 38 Z M68 57 L80 45 L83 50 L77 53 Z'
+        },
+        2: {
+          main: 'M100 100 L75 50 L65 60 L55 40 L50 30 L45 40 L35 50 L25 40 L0 100',
+          shadow: 'M35 50 L25 40 L0 100 L35 100 L45 85 L55 40 L50 30 L45 40 Z',
+          snow: 'M57 42 L50 30 L43 42 L47 43 L50 40 L53 43 Z M37 52 L25 40 L22 45 L28 48 Z'
+        }
+      }
+      return patterns[position]
+    }
 
     return (
       <div className="flex flex-col items-center mb-16 mt-10 px-4">
-        <div className="flex justify-center items-end">
+        <div className="flex justify-center items-end max-w-[300px] md:max-w-[380px] w-full">
           {positions.map((position) => {
             const profile = topThree[position]
             if (!profile) return null
 
-            const podiumHeight = position === 0 
-              ? 'h-24 md:h-36' 
-              : position === 1 
-              ? 'h-20 md:h-28' 
-              : 'h-16 md:h-24'
             const placement = position === 0 ? '1st' : position === 1 ? '2nd' : '3rd'
+            const paths = getMountainPath(position)
             
             return (
               <div 
                 key={position} 
-                className={`flex flex-col items-center mx-2 md:mx-3 translate-y-8 opacity-0 ${mounted ? 'animate-slide-up' : ''}`}
-                style={{ animationDelay: animationDelays[position] }}
+                className={`flex flex-col items-center -mx-4 md:-mx-6 translate-y-8 opacity-0 ${
+                  mounted ? 'animate-slide-up' : ''
+                } ${
+                  position === 1 ? 'z-30' : position === 0 ? 'z-20' : 'z-10'
+                }`}
+                style={{ animationDelay: `${position * 200}ms` }}
               >
                 <div 
                   onClick={() => handleProfileClick(profile.linkedin_url)}
@@ -100,8 +128,38 @@ export default function Leaderboard() {
                   <span className="font-mono text-sm md:text-base font-bold">{profile.full_name}</span>
                   <span className="font-mono text-xs md:text-sm text-gray-500">{profile.elo} ELO</span>
                 </div>
-                <div className={`w-20 md:w-28 ${podiumHeight} ${podiumColors[position]} rounded-t-md relative transition-colors`}>
-                  <span className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 font-mono font-bold text-white text-lg md:text-xl">
+                <div className={`w-32 md:w-40 ${mountainHeights[position]} relative transition-colors`}>
+                  <svg
+                    className="w-full h-full"
+                    viewBox="0 0 100 100"
+                    preserveAspectRatio="none"
+                  >
+                    {/* Base mountain shape */}
+                    <path
+                      d={paths.main}
+                      className={`${mountainColors[position].main} transition-colors`}
+                    />
+                    
+                    {/* Shadow details */}
+                    <path
+                      d={paths.shadow}
+                      className={`${mountainColors[position].shadow} transition-colors opacity-40`}
+                    />
+                    
+                    {/* Snow caps with multiple peaks */}
+                    <path
+                      d={paths.snow}
+                      className="fill-white opacity-30"
+                    />
+                    
+                    {/* Additional snow detail */}
+                    <path
+                      d={paths.snow}
+                      className="fill-white opacity-20"
+                      transform="translate(2, 2)"
+                    />
+                  </svg>
+                  <span className="absolute bottom-4 left-1/2 transform -translate-x-1/2 font-mono font-bold text-white text-lg md:text-xl drop-shadow-md">
                     {placement}
                   </span>
                 </div>
@@ -109,12 +167,13 @@ export default function Leaderboard() {
             )
           })}
         </div>
-        {/* Floor line under podium with delayed animation */}
+        
         <div 
-          className={`h-1 bg-gray-300 w-full max-w-md mt-0 rounded-full shadow-sm translate-y-8 opacity-0 ${mounted ? 'animate-slide-up' : ''}`}
-          style={{ animationDelay: floorAnimationDelay }}
-        >
-        </div>
+          className={`h-1 bg-gray-300 w-full max-w-[300px] md:max-w-[380px] mt-0 rounded-full shadow-sm translate-y-8 opacity-0 ${
+            mounted ? 'animate-slide-up' : ''
+          }`}
+          style={{ animationDelay: '600ms' }}
+        />
       </div>
     )
   }
