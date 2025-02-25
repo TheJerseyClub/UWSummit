@@ -9,8 +9,23 @@ export async function GET(request) {
   if (code) {
     const supabase = createRouteHandlerClient({ cookies })
     await supabase.auth.exchangeCodeForSession(code)
+
+    // Check if user has LinkedIn URL
+    const { data: { user } } = await supabase.auth.getUser()
+    if (user) {
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('linkedin_url')
+        .eq('id', user.id)
+        .single()
+
+      // Redirect based on LinkedIn URL presence
+      return NextResponse.redirect(
+        new URL(profile?.linkedin_url ? '/' : '/profile', requestUrl.origin)
+      )
+    }
   }
 
-  // Redirect to home page instead of signin
+  // Fallback to home page if something goes wrong
   return NextResponse.redirect(new URL('/', requestUrl.origin))
 }
