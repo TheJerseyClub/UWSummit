@@ -99,6 +99,10 @@ export default function SignUp() {
           </div>
         </button>
 
+        <div className="md:hidden text-center text-xs text-gray-500 mt-2">
+          <p>📱 Coming from Instagram? Sign up with email! (Google is wonky)</p>
+        </div>
+
         <div className="relative my-6">
           <div className="absolute inset-0 flex items-center">
             <div className="w-full border-t border-gray-300"></div>
