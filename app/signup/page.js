@@ -29,6 +29,24 @@ export default function SignUp() {
     setMessage({ text: '', isError: false })
     
     try {
+      // Try to sign in with the email to check if it exists
+      const { error: signInError } = await supabase.auth.signInWithPassword({
+        email,
+        password: 'dummy-password-for-check'
+      })
+
+      // If there's no error or the error is about wrong password,
+      // it means the user exists
+      console.log(signInError.message)
+      if (!signInError || signInError.message.includes('Invalid login credentials')) {
+        setMessage({ 
+          text: 'An account with this email already exists. Please sign in instead.', 
+          isError: true 
+        })
+        return
+      }
+
+      // If we get here, the user doesn't exist, so try to sign up
       const { error } = await supabase.auth.signUp({
         email,
         password,
@@ -99,7 +117,7 @@ export default function SignUp() {
         />
         <input
           type="password"
-          placeholder="Password"
+          placeholder="Create a password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           className="w-full p-2 border border-gray-300"
