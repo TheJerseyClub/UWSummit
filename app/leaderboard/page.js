@@ -51,7 +51,27 @@ export default function Leaderboard() {
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
-      <div className="max-w-4xl mx-auto w-full px-4 py-16">
+      
+      {/* Sticky Left Panel - Hidden on mobile */}
+      <button
+        onClick={() => window.history.back()}
+        className="hidden md:flex w-32 fixed left-0 top-0 h-screen bg-white border-r border-gray-300 items-center justify-center hover:bg-yellow-50 transition-colors group active:bg-yellow-100"
+      >
+        <div className="flex flex-col items-center gap-2 text-gray-800">
+          <span className="text-4xl font-bold transition-transform group-hover:translate-x-[-4px] group-active:translate-x-[-8px]">←</span>
+          <span className="font-mono text-sm">Back</span>
+        </div>
+      </button>
+
+      {/* Mobile Back Button */}
+      <button
+        onClick={() => window.history.back()}
+        className="md:hidden fixed top-4 left-4 z-50 w-10 h-10 bg-white border border-gray-300 rounded-full flex items-center justify-center hover:bg-yellow-50"
+      >
+        <span className="text-2xl font-bold">←</span>
+      </button>
+      
+      <div className="max-w-4xl mx-auto w-full px-4 py-16 md:pl-32">
         <h1 className="text-4xl font-mono font-bold mb-12 tracking-tight text-center mt-12">Leaderboard</h1>
         <div className="space-y-4">
           {profiles.map((profile, index) => (

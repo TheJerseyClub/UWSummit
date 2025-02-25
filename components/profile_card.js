@@ -40,7 +40,7 @@ export default function ProfileCard({
       )}
       <div 
         className={`
-          bg-white transition-all duration-500 p-4 sm:p-8 lg:p-16 flex group
+          bg-white transition-all duration-500 p-4 sm:p-8 lg:p-12 flex group
           ${isRightAligned ? 'origin-right' : 'origin-left'}
           ${isSelected 
             ? (isWinner 
@@ -52,10 +52,10 @@ export default function ProfileCard({
         `}
         onClick={isSelected ? undefined : onClick}
       >
-        <div className="p-1 sm:p-4 lg:p-8 transition-all duration-300 w-full relative flex flex-col px-4 sm:px-0">
+        <div className="p-1 sm:p-4 lg:p-6 transition-all duration-300 w-full relative flex flex-col px-4 sm:px-0 lg:-mt-8">
           {/* Profile Picture Section */}
           <div className={`flex flex-col sm:flex-row ${isRightAligned ? 'items-end sm:justify-end' : 'items-start sm:justify-start'} mb-4 sm:mb-4 lg:mb-8 gap-2 sm:gap-4`}>
-            <div className={`w-32 h-32 sm:w-24 sm:h-24 lg:w-40 lg:h-40 xl:w-48 xl:h-48 rounded-md bg-gray-300 overflow-visible transition-all duration-300 
+            <div className={`w-32 h-32 sm:w-40 sm:h-40 xl:w-48 xl:h-48 rounded-md bg-gray-300 overflow-visible transition-all duration-300 
               ${isSelected ? '' : 'blur-md [-webkit-filter:blur(12px)] p-4'}`}>
               {profilePicture ? (
                 <Image
