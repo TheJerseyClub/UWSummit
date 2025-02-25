@@ -53,6 +53,9 @@ export default function Leaderboard() {
       2: '400ms'
     }
 
+    // Floor animation delay (longer than the last podium element)
+    const floorAnimationDelay = '600ms'
+
     return (
       <div className="flex flex-col items-center mb-16 mt-10 px-4">
         <div className="flex justify-center items-end">
@@ -106,8 +109,12 @@ export default function Leaderboard() {
             )
           })}
         </div>
-        {/* Floor line under podium */}
-        <div className="h-1 bg-gray-300 w-full max-w-md mt-0 rounded-full shadow-sm"></div>
+        {/* Floor line under podium with delayed animation */}
+        <div 
+          className={`h-1 bg-gray-300 w-full max-w-md mt-0 rounded-full shadow-sm translate-y-8 opacity-0 ${mounted ? 'animate-slide-up' : ''}`}
+          style={{ animationDelay: floorAnimationDelay }}
+        >
+        </div>
       </div>
     )
   }
