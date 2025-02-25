@@ -155,7 +155,7 @@ export default function Home() {
           </div>
           
           {/* Desktop centered text (hidden on mobile) */}
-          <div className="hidden sm:block absolute left-1/2 top-[50%] -translate-x-1/2 -translate-y-1/2 font-mono uppercase tracking-wider text-center z-20">
+          <div className="hidden sm:block absolute left-1/2 top-[50vh] -translate-x-1/2 -translate-y-1/2 font-mono uppercase tracking-wider text-center z-20">
             <div className="bg-white/80 backdrop-blur-sm border border-gray-200 px-8 py-4 rounded-lg shadow-sm">
               <span className="block mb-1 text-yellow-500 font-bold">Who&apos;s More</span>
               <span className="block text-2xl font-black">Cracked?</span>
@@ -198,7 +198,7 @@ export default function Home() {
                     setEloChanges({ winner: null, loser: null });
                     fetchProfiles();
                   }}
-                  className="absolute left-1/2 top-[50%] -translate-x-1/2 px-6 py-3 bg-black text-white border-2 border-black hover:bg-white hover:text-black font-mono uppercase tracking-wider hover:shadow-none hover:translate-y-[4px] transition-all z-30 rounded-md hidden sm:block"
+                  className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 px-6 py-3 bg-black text-white border-2 border-black hover:bg-white hover:text-black font-mono uppercase tracking-wider hover:shadow-none hover:translate-y-[calc(-50%+4px)] transition-all z-30 rounded-md hidden sm:block"
                 >
                   Next Match →
                 </button>
