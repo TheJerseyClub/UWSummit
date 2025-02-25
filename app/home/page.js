@@ -3,7 +3,7 @@ import Footer from "@/components/footer";
 
 export default function Home() {
   return (
-    <main className="min-h-screen flex flex-col relative bg-[#F7F7F7] overflow-hidden">
+    <main className="h-screen flex flex-col relative bg-[#F7F7F7] overflow-hidden">
       {/* Mountain Silhouettes with Snow */}
       <div className="absolute inset-0 z-0">
         <svg
@@ -79,16 +79,27 @@ export default function Home() {
         
         {/* Mission statement */}
         <div className="max-w-4xl self-end p-8 md:p-16">
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold leading-tight tracking-tighter mb-8 text-right text-white">
-          <span className="text-yellow-400">UW</span>aterloo&apos;s Secondary Job Board
-          </h1>
+          <div className="flex flex-col items-end gap-2">
+            <div className="bg-black px-4 py-1">
+              <span className="text-5xl md:text-7xl lg:text-8xl font-bold leading-tight tracking-tighter text-right">
+                <span className="text-yellow-400">UW</span><span className="text-white">aterloo&apos;s</span>
+              </span>
+            </div>
+            <div className="bg-black px-4 py-1">
+              <span className="text-5xl md:text-7xl lg:text-8xl font-bold leading-tight tracking-tighter text-right text-white">
+                Secondary Job
+              </span>
+            </div>
+            <div className="bg-black px-4 py-1">
+              <span className="text-5xl md:text-7xl lg:text-8xl font-bold leading-tight tracking-tighter text-right text-white">
+                Board
+              </span>
+            </div>
+          </div>
         </div>
 
-        {/* Brutalist decorative line */}
-        <div className="w-full h-[2px] bg-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"></div>
-
       </div>
-      <div className="flex-1 flex flex-col justify-end relative z-10">
+      <div className="20vh sm:30vh flex flex-col justify-end relative z-10 bg-white border-t border-black">
         <Footer />
       </div>
     </main>
