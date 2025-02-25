@@ -5,6 +5,7 @@ import Footer from "@/components/footer";
 
 export default function Home() {
   const [scrollY, setScrollY] = useState(0);
+  const [snowflakes, setSnowflakes] = useState([]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -13,6 +14,47 @@ export default function Home() {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Generate snowflakes
+  useEffect(() => {
+    // Create 50 snowflakes with random properties - reduced count for better performance
+    const generateSnowflakes = () => {
+      const flakes = [];
+      for (let i = 0; i < 30; i++) {
+        flakes.push({
+          id: i,
+          left: Math.random() * 100, // random horizontal position (%)
+          top: Math.random() * 30, // concentrate more snowflakes at the top 30% of screen
+          size: Math.random() * 6 + 2, // random size between 2-8px
+          opacity: Math.random() * 0.7 + 0.3, // random opacity between 0.3-1
+          animationDuration: Math.random() * 1 + 0.5, // ultra fast: 0.5-1.5s
+          animationDelay: 0, // no delay for immediate start
+        });
+      }
+      setSnowflakes(flakes);
+    };
+
+    generateSnowflakes();
+
+    // Add a continuous snowfall effect by regenerating some snowflakes periodically
+    const snowInterval = setInterval(() => {
+      setSnowflakes(prevFlakes => {
+        // Replace 10 snowflakes that have likely fallen off-screen
+        const newFlakes = [...prevFlakes];
+        for (let i = 0; i < 10; i++) {
+          const randomIndex = Math.floor(Math.random() * prevFlakes.length);
+          newFlakes[randomIndex] = {
+            ...newFlakes[randomIndex],
+            left: Math.random() * 100,
+            top: -5, // Start just above the viewport
+          };
+        }
+        return newFlakes;
+      });
+    }, 1000); // Every second
+
+    return () => clearInterval(snowInterval);
   }, []);
 
   return (
@@ -91,10 +133,30 @@ export default function Home() {
         </svg>
       </div>
       
+      {/* Snow effect overlay */}
+      <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-10">
+        {snowflakes.map((flake) => (
+          <div
+            key={flake.id}
+            className="absolute rounded-full bg-white"
+            style={{
+              left: `${flake.left}%`,
+              top: `${flake.top}%`, // Use the random top position
+              width: `${flake.size}px`,
+              height: `${flake.size}px`,
+              opacity: flake.opacity,
+              animation: `snowfall ${flake.animationDuration}s linear ${flake.animationDelay}s infinite`,
+              filter: 'blur(0.5px)',
+              willChange: 'transform', // Performance optimization
+            }}
+          />
+        ))}
+      </div>
+      
       <Navbar />
       
       {/* Main content area */}
-      <div className="flex-1 flex flex-col justify-start relative z-10 mt-16">
+      <div className="flex-1 flex flex-col justify-start relative z-20 mt-16">
         
         {/* Mission statement */}
         <div className="max-w-4xl self-start p-8 md:p-16">
@@ -120,9 +182,21 @@ export default function Home() {
       </div>
 
       {/* Footer section - adjusted height and positioning */}
-      <div className="h-[20vh] sm:h-[30vh] mt-auto flex flex-col justify-end relative z-10 bg-white border-t border-black">
+      <div className="h-[20vh] sm:h-[30vh] mt-auto flex flex-col justify-end relative z-20 bg-white border-t border-black">
         <Footer />
       </div>
+
+      {/* Add keyframes for snow animation */}
+      <style jsx global>{`
+        @keyframes snowfall {
+          0% {
+            transform: translateY(0) translateX(0) rotate(0deg);
+          }
+          100% {
+            transform: translateY(100vh) translateX(-300px) rotate(360deg);
+          }
+        }
+      `}</style>
     </main>
   );
 }
