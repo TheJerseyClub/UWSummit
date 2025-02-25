@@ -2,7 +2,7 @@
 
 export default function AuthLayout({ children, title, subtitle }) {
   return (
-    <div className="relative min-h-screen flex items-center justify-center bg-[#F7F7F7] overflow-hidden p-4">
+    <div className="fixed inset-0 flex items-center justify-center bg-[#F7F7F7] overflow-hidden p-4">
       {/* Mountain Silhouettes with Snow */}
       <div className="absolute inset-0 z-0">
         <svg
@@ -71,8 +71,8 @@ export default function AuthLayout({ children, title, subtitle }) {
         </svg>
       </div>
 
-      <div className="w-full max-w-md animate-fade-in relative z-10 flex items-center justify-center min-h-screen">
-        <div className="bg-white/90 backdrop-blur-sm rounded-md border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] p-8 space-y-6">
+      <div className="w-full max-w-md animate-fade-in relative z-10 flex items-center justify-center">
+        <div className="bg-white/90 backdrop-blur-sm rounded-md border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] p-8 space-y-6 max-h-[90vh] overflow-y-auto">
           <div className="space-y-2 text-center">
             <h1 className="text-2xl font-bold tracking-tight uppercase">{title}</h1>
             <p className="text-sm text-muted-foreground font-mono">
