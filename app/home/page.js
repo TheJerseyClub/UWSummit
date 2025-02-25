@@ -75,7 +75,7 @@ export default function Home() {
           <g style={{ transform: `translateY(${scrollY * -0.1 + 70}px)` }}>
             {/* Flag pole and flag - silhouette style */}
             <g transform="scale(-1, 1) translate(-1820, 0)">  {/* Flip horizontally */}
-              <g transform="rotate(5, 910, 280)">  {/* Pivot adjustment */}
+              <g transform="rotate(5, 910, 280)">  {/* Adjust pivot point if desired */}
                 
                 {/* Flagpole */}
                 <path
@@ -85,29 +85,31 @@ export default function Home() {
                   className="opacity-90"
                 />
                 
-                {/* Smoothly Waving Flag */}
+                {/* Flag with smoother wave animation */}
                 <path
                   d="M910 180 
-                    C930 170, 950 190, 970 180
-                    L990 185
-                    L990 215
-                    C970 210, 950 220, 930 210
-                    L910 210 Z"
+                     C930 170, 950 190, 970 180
+                     L990 185
+                     L990 215
+                     C970 210, 950 220, 930 210
+                     L910 210 Z"
                   fill="#000000"
                   className="opacity-90"
                 >
-                  <animate 
+                  <animate
                     attributeName="d"
+                    dur="2s"
+                    repeatCount="indefinite"
+                    calcMode="spline"
+                    keyTimes="0; 0.5; 1"
+                    keySplines="0.42 0 0.58 1; 0.42 0 0.58 1"
                     values="
                       M910 180 C930 170, 950 190, 970 180 L990 185 L990 215 C970 210, 950 220, 930 210 L910 210 Z;
-                      M910 180 C925 175, 945 185, 965 178 L985 183 L985 213 C965 208, 945 218, 925 208 L910 210 Z;
-                      M910 180 C920 185, 940 175, 960 185 L980 190 L980 220 C960 215, 940 225, 920 215 L910 210 Z;
-                      M910 180 C930 170, 950 190, 970 180 L990 185 L990 215 C970 210, 950 220, 930 210 L910 210 Z"
-                    dur="2.5s"
-                    repeatCount="indefinite"
+                      M910 180 C925 172, 950 192, 970 182 L990 185 L990 215 C970 208, 950 218, 925 212 L910 210 Z;
+                      M910 180 C930 170, 950 190, 970 180 L990 185 L990 215 C970 210, 950 220, 930 210 L910 210 Z
+                    "
                   />
                 </path>
-
               </g>
             </g>
             
@@ -129,8 +131,7 @@ export default function Home() {
               className="opacity-30"
             />
             
-            
-
+        
           </g>
           
           {/* Middle mountain range - starts further into parallax */}
