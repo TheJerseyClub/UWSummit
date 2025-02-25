@@ -116,7 +116,7 @@ export default function ProfileCard({
 
           {/* Experience Section */}
           <div className="mt-4 sm:mt-8 lg:mt-12">
-            <h3 className={`text-base sm:text-xl lg:text-2xl font-bold font-mono mb-2 sm:mb-4 lg:mb-6 mx-1 sm:mx-4 transition-transform duration-300 hover:scale-105 ${isRightAligned ? 'text-right' : 'text-left'}`}>
+            <h3 className={`text-base sm:text-xl lg:text-3xl font-bold font-mono mb-2 sm:mb-4 lg:mb-6 mx-1 sm:mx-4 transition-transform duration-300 hover:scale-105 ${isRightAligned ? 'text-right' : 'text-left'}`}>
               EXPERIENCE
             </h3>
             <div className="space-y-3 sm:space-y-4 lg:space-y-6">
