@@ -146,7 +146,7 @@ export default function Home() {
       <Navbar />
       
       {/* Mobile bar under navbar - ALWAYS visible regardless of selection state */}
-      <div className="sm:hidden fixed top-16 left-0 right-0 bg-white/80 backdrop-blur-sm border-b border-gray-200 py-2 z-20 text-center font-mono uppercase tracking-wider shadow-sm">
+      <div className="sm:hidden fixed top-16 left-0 right-0 bg-white/80 backdrop-blur-sm border-b border-gray-200 py-4 z-20 text-center font-mono uppercase tracking-wider shadow-sm">
         <span className="text-yellow-500 font-bold">Who&apos;s More</span>
         <span className="ml-1 font-black">Cracked?</span>
       </div>
