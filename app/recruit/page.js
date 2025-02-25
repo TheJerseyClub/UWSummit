@@ -56,7 +56,7 @@ export default function RecruitmentPage() {
                 </svg>
               </div>
               <h3 className="font-mono text-2xl font-bold mb-4">Curated Talent Pool</h3>
-              <p className="font-mono text-gray-600">Access a pre-vetted pool of Waterloo's brightest students, all eager to bring fresh perspectives to your team.</p>
+              <p className="font-mono text-gray-600">Access a pre-vetted pool of Waterloo&apos;s brightest students, all eager to bring fresh perspectives to your team.</p>
             </div>
           </section>
 

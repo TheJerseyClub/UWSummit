@@ -3,11 +3,13 @@
 import { useState } from 'react'
 import Navbar from '@/components/navbar'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 export default function SignIn() {
   const [code, setCode] = useState(['', '', '', '', ''])
   const [showPlaceholders, setShowPlaceholders] = useState(true)
   const [error, setError] = useState(false)
+  const router = useRouter()
   
   // Add valid codes list (you should move this to your backend in production)
   const validCodes = ['3ARJE', '5BTKL']
@@ -36,6 +38,9 @@ export default function SignIn() {
         setTimeout(() => {
           setError(false)
         }, 1000)
+      } else {
+        // Valid code entered, redirect to dashboard
+        router.push('/recruit/dashboard')
       }
     }
 
