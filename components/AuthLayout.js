@@ -71,7 +71,7 @@ export default function AuthLayout({ children, title, subtitle }) {
         </svg>
       </div>
 
-      <div className="w-full max-w-md animate-fade-in relative z-10">
+      <div className="w-full max-w-md animate-fade-in relative z-10 flex items-center justify-center min-h-screen">
         <div className="bg-white/90 backdrop-blur-sm rounded-md border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] p-8 space-y-6">
           <div className="space-y-2 text-center">
             <h1 className="text-2xl font-bold tracking-tight uppercase">{title}</h1>
