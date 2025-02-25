@@ -204,7 +204,7 @@ export default function Home() {
                 </button>
                 
                 {/* Mobile bottom bar (hidden on desktop) */}
-                <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 sm:hidden z-30">
+                <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 sm:hidden z-30 translate-y-full animate-slide-up">
                   <button
                     onClick={() => {
                       setSelectedIndex(null);
