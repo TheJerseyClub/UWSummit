@@ -68,7 +68,6 @@ export default function Home() {
       rank,
       items: [
         {
-          label: "PROGRAM",
           value: `${programInfo.name} ${programInfo.emoji}`
         }
       ],
@@ -146,25 +145,23 @@ export default function Home() {
     <main className="min-h-screen flex flex-col relative">
       <Navbar />
       
+      {/* Mobile bar under navbar - ALWAYS visible regardless of selection state */}
+      <div className="sm:hidden fixed top-16 left-0 right-0 bg-white/80 backdrop-blur-sm border-b border-gray-200 py-2 z-20 text-center font-mono uppercase tracking-wider shadow-sm">
+        <span className="text-yellow-500 font-bold">Who&apos;s More</span>
+        <span className="ml-1 font-black">Cracked?</span>
+      </div>
+      
+      {/* Desktop centered text (only visible when no selection and only on desktop) */}
       {selectedIndex === null && (
-        <>
-          {/* Mobile bar under navbar */}
-          <div className="sm:hidden fixed top-16 left-0 right-0 bg-white/80 backdrop-blur-sm border-b border-gray-200 py-2 z-20 text-center font-mono uppercase tracking-wider shadow-sm">
-            <span className="text-yellow-500 font-bold">Who&apos;s More</span>
-            <span className="ml-1 font-black">Cracked?</span>
+        <div className="hidden sm:block absolute left-1/2 top-[50vh] -translate-x-1/2 -translate-y-1/2 font-mono uppercase tracking-wider text-center z-20">
+          <div className="bg-white/80 backdrop-blur-sm border border-gray-200 px-8 py-4 rounded-lg shadow-sm">
+            <span className="block mb-1 text-yellow-500 font-bold">Who&apos;s More</span>
+            <span className="block text-2xl font-black">Cracked?</span>
           </div>
-          
-          {/* Desktop centered text (hidden on mobile) */}
-          <div className="hidden sm:block absolute left-1/2 top-[50vh] -translate-x-1/2 -translate-y-1/2 font-mono uppercase tracking-wider text-center z-20">
-            <div className="bg-white/80 backdrop-blur-sm border border-gray-200 px-8 py-4 rounded-lg shadow-sm">
-              <span className="block mb-1 text-yellow-500 font-bold">Who&apos;s More</span>
-              <span className="block text-2xl font-black">Cracked?</span>
-            </div>
-          </div>
-        </>
+        </div>
       )}
       
-      <div className="flex flex-row relative flex-1 pt-16 sm:pt-16">
+      <div className="flex flex-row relative flex-1 pt-32 sm:pt-16">
         {profiles.length >= 2 ? (
           <>
             <ProfileCard 
