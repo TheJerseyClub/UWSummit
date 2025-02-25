@@ -33,10 +33,10 @@ export default function ProfileCard({
   return (
     <>
       {isSelected && isWinner && (
-        <EmojiRain emoji="🚀" side={isRightAligned ? 'right' : 'left'} />
+        <EmojiRain emoji="😭" side={isRightAligned ? 'right' : 'left'} />
       )}
       {isSelected && !isWinner && (
-        <EmojiRain emoji="😢" side={isRightAligned ? 'right' : 'left'} />
+        <EmojiRain emoji="🚀" side={isRightAligned ? 'right' : 'left'} />
       )}
       <div 
         className={`
