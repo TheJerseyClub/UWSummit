@@ -61,7 +61,7 @@ export default function LinkedinSubmit() {
           id: user.id,
           linkedin_url: linkedinUrl,
           full_name: profileData.full_name,
-          profile_pic_url: profileData.profile_pic_url,
+          profile_pic_url: profileData.profile_pic_url || 'https://tjzsdlhdjnbjvhxgxrin.supabase.co/storage/v1/object/public/logos/profile-pics/goose.jpg',
           education: profileData.education,
           experiences: profileData.experiences,
           volunteer_work: profileData.volunteer_work,
