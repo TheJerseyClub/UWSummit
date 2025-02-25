@@ -57,10 +57,10 @@ export default function Profile() {
   if (!profile?.linkedin_url) {
     return (
       <div className="min-h-screen flex">
-        {/* Sticky Left Panel */}
+        {/* Sticky Left Panel - Hidden on mobile */}
         <button
           onClick={() => router.back()}
-          className="w-32 fixed left-0 top-0 h-screen bg-white border-r border-gray-300 flex items-center justify-center hover:bg-yellow-50 transition-colors"
+          className="hidden md:flex w-32 fixed left-0 top-0 h-screen bg-white border-r border-gray-300 items-center justify-center hover:bg-yellow-50 transition-colors"
         >
           <div className="flex flex-col items-center gap-2 text-gray-800">
             <span className="text-4xl font-bold">←</span>
@@ -69,7 +69,7 @@ export default function Profile() {
         </button>
 
         {/* Main Content */}
-        <div className="flex-1 pl-32">
+        <div className="flex-1 md:pl-32">
           <Navbar />
           <div className="max-w-4xl mx-auto pt-20 px-4">
             <div className="bg-white p-8 border border-gray-300 rounded-md hover:bg-yellow-50 transition-colors">

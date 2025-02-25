@@ -197,7 +197,7 @@ export default function Home() {
                   }}
                   className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 px-6 py-3 bg-black text-white border-2 border-black hover:bg-white hover:text-black font-mono uppercase tracking-wider hover:shadow-none hover:translate-y-[calc(-50%+4px)] transition-all z-30 rounded-md hidden sm:block"
                 >
-                  Next Match →
+                  Next Match <span className="inline-block animate-bounce-horizontal">→</span>
                 </button>
                 
                 {/* Mobile bottom bar (hidden on desktop) */}
@@ -210,7 +210,7 @@ export default function Home() {
                     }}
                     className="w-full py-16 bg-black text-white border-2 border-black font-mono uppercase tracking-wider text-lg"
                   >
-                    Next Match →
+                    Next Match <span className="inline-block animate-bounce-horizontal">→</span>
                   </button>
                 </div>
               </>
