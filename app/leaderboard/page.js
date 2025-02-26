@@ -57,9 +57,9 @@ export default function Leaderboard() {
     }
 
     const mountainHeights = {
-      0: 'h-36 md:h-48',
-      1: 'h-28 md:h-40',
-      2: 'h-24 md:h-36'
+      0: 'h-40 md:h-48',
+      1: 'h-32 md:h-40',
+      2: 'h-24 md:h-32'
     }
 
     const getMountainPath = (position) => {
@@ -97,7 +97,7 @@ export default function Leaderboard() {
             return (
               <div 
                 key={position} 
-                className={`flex flex-col items-center -mx-4 md:-mx-6 translate-y-8 opacity-0 ${
+                className={`flex flex-col items-center -mx-4 md:-mx-2 translate-y-8 opacity-0 ${
                   mounted ? 'animate-slide-up' : ''
                 } ${
                   position === 1 ? 'z-30' : position === 0 ? 'z-20' : 'z-10'
@@ -106,9 +106,9 @@ export default function Leaderboard() {
               >
                 <div 
                   onClick={() => handleProfileClick(profile.linkedin_url)}
-                  className="flex flex-col items-center mb-2 md:mb-3 cursor-pointer group"
+                  className="flex flex-col items-center mb-1 md:mb-2 cursor-pointer group p-2 md:p-3 hover:bg-gray-50 rounded-lg transition-colors"
                 >
-                  <div className="w-16 h-16 md:w-24 md:h-24 rounded-md bg-gray-200 overflow-hidden mb-2 md:mb-3 border border-gray-300 group-hover:border-yellow-500 transition-colors">
+                  <div className="w-16 h-16 md:w-24 md:h-24 rounded-md bg-gray-200 overflow-hidden mb-2 md:mb-3 border border-gray-300 group-hover:border-yellow-500 transition-colors shadow-sm">
                     {profile.profile_pic_url ? (
                       <Image 
                         src={profile.profile_pic_url} 
@@ -128,7 +128,7 @@ export default function Leaderboard() {
                   <span className="font-mono text-sm md:text-base font-bold">{profile.full_name}</span>
                   <span className="font-mono text-xs md:text-sm text-gray-500">{profile.elo} ELO</span>
                 </div>
-                <div className={`w-32 md:w-40 ${mountainHeights[position]} relative transition-colors`}>
+                <div className={`w-32 md:w-40 ${mountainHeights[position]} relative transition-colors -mt-1`}>
                   <svg
                     className="w-full h-full"
                     viewBox="0 0 100 100"
@@ -169,7 +169,7 @@ export default function Leaderboard() {
         </div>
         
         <div 
-          className={`h-1 bg-gray-300 w-full max-w-[300px] md:max-w-[380px] mt-0 rounded-full shadow-sm translate-y-8 opacity-0 ${
+          className={`h-1 bg-gray-300 w-full max-w-[400px] md:max-w-[480px] mt-0 rounded-full shadow-sm translate-y-8 opacity-0 ${
             mounted ? 'animate-slide-up' : ''
           }`}
           style={{ animationDelay: '600ms' }}
