@@ -7,6 +7,7 @@ import ProfileCard from "@/components/profile_card";
 import { useAuth } from "@/contexts/AuthContext";
 import { normalizeProgram } from '@/utils/programNormalizer';
 import { groupExperiences } from '@/utils/experienceGrouper';
+import Head from 'next/head';
 
 export default function Home() {
   const [profiles, setProfiles] = useState([]);
