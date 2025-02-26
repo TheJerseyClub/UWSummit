@@ -552,7 +552,7 @@ export default function Home() {
         </div>
       )}
       
-      <div className="flex flex-row relative flex-1 pt-32 sm:pt-16">
+      <div className="flex flex-row relative flex-1 pt-24 sm:pt-0">
         {profiles.length >= 2 ? (
           <>
             <ProfileCard 
