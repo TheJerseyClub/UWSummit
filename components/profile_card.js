@@ -49,6 +49,7 @@ export default function ProfileCard({
               ) 
             : 'w-[50%] hover:bg-yellow-50 cursor-pointer'
           }
+          mt-8 sm:mt-12 lg:mt-16
         `}
         onClick={isSelected ? undefined : onClick}
       >
@@ -146,18 +147,8 @@ export default function ProfileCard({
                           <h3 className="font-bold text-gray-900 text-sm sm:text-base">{experience.company}</h3>
                           <div className="space-y-1 sm:space-y-2 mt-1 sm:mt-2">
                             {experience.positions.map((position, posIndex) => (
-                              <div key={posIndex} className={`relative ${isRightAligned ? 'pr-6 sm:pr-8' : 'pl-6 sm:pl-8'}`}>
-                                <svg 
-                                  className={`absolute ${isRightAligned ? 'right-0' : 'left-0'} top-0 h-full w-8`} 
-                                  viewBox="0 0 32 60"
-                                >
-                                  <path
-                                    d={isRightAligned ? "M16 0 L16 30 L-8 30" : "M16 0 L16 30 L40 30"}
-                                    fill="none"
-                                    stroke="#6B7280"
-                                    strokeWidth="4"
-                                  />
-                                </svg>
+                              <div key={posIndex} className={`flex items-center ${isRightAligned ? 'flex-row-reverse text-right' : 'flex-row'}`}>
+                                <span className="mx-2 text-base sm:text-lg leading-none relative font-bold">•</span>
                                 <div className="text-gray-800">
                                   <p className="font-medium text-xs sm:text-sm">{position.title}</p>
                                 </div>
