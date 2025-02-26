@@ -145,6 +145,12 @@ export default function Navbar() {
 
           <div className="hidden md:flex items-center justify-end flex-1 space-x-8">
             <Link 
+              href="/home"
+              className="text-gray-600 hover:text-gray-900 hover:bg-yellow-50 px-2 py-1 rounded-md text-md font-mono font-bold transition-colors tracking-wider"
+            >
+              Home
+            </Link>
+            <Link 
               href="/leaderboard"
               className="text-gray-600 hover:text-gray-900 hover:bg-yellow-50 px-2 py-1 rounded-md text-md font-mono font-bold transition-colors tracking-wider"
             >
@@ -155,12 +161,6 @@ export default function Navbar() {
               className="text-gray-600 hover:text-black hover:bg-yellow-100 px-2 py-1 rounded-md text-md font-mono font-bold transition-colors tracking-wider"
             >
               Recruit
-            </Link>
-            <Link 
-              href="/home"
-              className="text-gray-600 hover:text-black hover:bg-yellow-100 px-2 py-1 rounded-md text-md font-mono font-bold transition-colors tracking-wider"
-            >
-              About
             </Link>
             {user ? (
               <div className="flex items-center space-x-6">
@@ -248,6 +248,12 @@ export default function Navbar() {
         >
           <div className="px-4 pt-2 pb-3 space-y-1">
             <Link
+              href="/home"
+              className="block px-3 py-2 rounded-md text-base font-mono font-medium text-gray-700 hover:text-gray-900 hover:bg-yellow-50"
+            >
+              Home
+            </Link>
+            <Link
               href="/leaderboard"
               className="block px-3 py-2 rounded-md text-base font-mono font-medium text-gray-700 hover:text-gray-900 hover:bg-yellow-50"
             >
@@ -258,12 +264,6 @@ export default function Navbar() {
               className="block px-3 py-2 rounded-md text-base font-mono font-medium text-gray-700 hover:text-black hover:bg-yellow-50"
             >
               Recruit
-            </Link>
-            <Link
-              href="/home"
-              className="block px-3 py-2 rounded-md text-base font-mono font-medium text-gray-700 hover:text-gray-900 hover:bg-yellow-50"
-            >
-              About
             </Link>
             {user ? (
               <>

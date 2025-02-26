@@ -8,6 +8,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { normalizeProgram } from '@/utils/programNormalizer';
 import { groupExperiences } from '@/utils/experienceGrouper';
 import Image from "next/image";
+import Head from 'next/head';
 
 export default function Home() {
   const [profiles, setProfiles] = useState([]);

@@ -23,7 +23,7 @@ export default function Home() {
     // Create 50 snowflakes with random properties - reduced count for better performance
     const generateSnowflakes = () => {
       const flakes = [];
-      for (let i = 0; i < 30; i++) {
+      for (let i = 0; i < 25; i++) {
         flakes.push({
           id: i,
           left: Math.random() * 100, // random horizontal position (%)
@@ -236,6 +236,28 @@ export default function Home() {
                 Board
               </span>
             </div>
+            
+            {/* Play button */}
+            <div className="mt-8">
+              <button 
+                className="flex items-center gap-3 bg-gradient-to-br from-yellow-400 to-yellow-500 text-black font-bold py-4 px-8 rounded-lg transition-all transform hover:scale-105 shadow-lg hover:shadow-xl relative overflow-hidden group"
+                onClick={() => window.location.href = '/'}
+              >
+                <div className="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity">
+                  <svg viewBox="0 0 100 50" className="w-full h-full" preserveAspectRatio="none">
+                    <path 
+                      d="M0,50 L20,30 L30,35 L40,20 L50,30 L60,15 L70,25 L80,10 L100,40 L100,50 Z" 
+                      className="fill-black"
+                    />
+                    <path 
+                      d="M70,25 L80,10 L90,20 L100,15 L100,40 L80,10 Z" 
+                      className="fill-white opacity-50"
+                    />
+                  </svg>
+                </div>
+                <span className="text-lg font-mono relative z-10 uppercase tracking-wider font-bold">START YOUR ASCENT</span>
+              </button>
+            </div>
           </div>
         </div>
 
@@ -243,6 +265,9 @@ export default function Home() {
 
       {/* Footer section - adjusted height and positioning */}
       <div className="h-[20vh] sm:h-[30vh] mt-auto flex flex-col justify-end relative z-20 bg-white border-t border-black">
+        <div className="text-gray-500 text-sm mb-2 text-center">
+          There&apos;s nothing here!
+        </div>
         <Footer />
       </div>
 
