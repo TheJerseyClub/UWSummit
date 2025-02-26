@@ -9,6 +9,9 @@ export default function Leaderboard() {
   const [profiles, setProfiles] = useState([])
   const [loading, setLoading] = useState(true)
   const [mounted, setMounted] = useState(false)
+  const [page, setPage] = useState(1)
+  const [hasMore, setHasMore] = useState(true)
+  const PROFILES_PER_PAGE = 15
 
   useEffect(() => {
     const fetchProfiles = async () => {
@@ -18,9 +21,11 @@ export default function Leaderboard() {
           .select('full_name, elo, profile_pic_url, linkedin_url')
           .not('linkedin_url', 'is', null)
           .order('elo', { ascending: false })
+          .range(0, PROFILES_PER_PAGE - 1) // Get first page (0-14)
 
         if (error) throw error
         setProfiles(data)
+        setHasMore(data.length === PROFILES_PER_PAGE) // If we got a full page, there might be more
       } catch (error) {
         console.error('Error fetching profiles:', error)
       } finally {
@@ -35,6 +40,37 @@ export default function Leaderboard() {
 
   const handleProfileClick = (linkedinUrl) => {
     window.open(linkedinUrl, '_blank')
+  }
+
+  const loadMoreProfiles = async () => {
+    if (!hasMore) return
+    
+    try {
+      setLoading(true)
+      const startIndex = page * PROFILES_PER_PAGE
+      const endIndex = startIndex + PROFILES_PER_PAGE - 1
+      
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('full_name, elo, profile_pic_url, linkedin_url')
+        .not('linkedin_url', 'is', null)
+        .order('elo', { ascending: false })
+        .range(startIndex, endIndex)
+      
+      if (error) throw error
+      
+      if (data.length > 0) {
+        setProfiles(prev => [...prev, ...data])
+        setPage(prev => prev + 1)
+        setHasMore(data.length === PROFILES_PER_PAGE) // If we got a full page, there might be more
+      } else {
+        setHasMore(false)
+      }
+    } catch (error) {
+      console.error('Error loading more profiles:', error)
+    } finally {
+      setLoading(false)
+    }
   }
 
   const renderPodium = () => {
@@ -250,6 +286,22 @@ export default function Leaderboard() {
             </div>
           ))}
         </div>
+        
+        {/* Load More Button */}
+        {hasMore && (
+          <div className="flex justify-center mt-8 mb-16">
+            <button
+              onClick={loadMoreProfiles}
+              disabled={loading}
+              className={`px-6 py-3 bg-white border border-gray-300 rounded-lg font-mono text-base hover:bg-yellow-50 transition-colors ${
+                loading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
+              } translate-y-8 opacity-0 ${mounted ? 'animate-slide-up' : ''}`}
+              style={{ animationDelay: '800ms' }}
+            >
+              {loading ? 'Loading...' : 'Load More'}
+            </button>
+          </div>
+        )}
       </div>
     </div>
   )
