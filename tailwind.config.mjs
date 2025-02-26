@@ -58,7 +58,27 @@ export default {
         'bounce-horizontal': {
           '0%, 100%': { transform: 'translateX(0)' },
           '50%': { transform: 'translateX(5px)' }
-        }
+        },
+        'slide-in-side': {
+          '0%': {
+            opacity: '0',
+            transform: 'translateX(var(--tw-translate-x, 0))'
+          },
+          '100%': {
+            opacity: '1',
+            transform: 'translateX(0)'
+          },
+        },
+        'slide-in-right': {
+          '0%': { 
+            transform: 'translateX(100%)',
+            opacity: 0 
+          },
+          '100%': { 
+            transform: 'translateX(0)',
+            opacity: 1 
+          }
+        },
       },
       animation: {
         'fall': 'fall 3s linear forwards',
@@ -67,7 +87,9 @@ export default {
         shake: 'shake 0.5s cubic-bezier(.36,.07,.19,.97) both',
         'fade-in-down': 'fade-in-down 0.3s ease-out',
         'slide-up': 'slide-up 0.5s ease-out forwards',
-        'bounce-horizontal': 'bounce-horizontal 1s ease-in-out infinite'
+        'bounce-horizontal': 'bounce-horizontal 1s ease-in-out infinite',
+        'slide-in-side': 'slide-in-side 0.6s ease-out forwards',
+        'slide-in-right': 'slide-in-right 0.5s ease-out forwards'
       },
     },
   },
