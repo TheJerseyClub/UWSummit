@@ -371,26 +371,35 @@ export default function Home() {
       const newWinnerElo = calculateNewRating(winnerElo, winnerExpectedScore, 1);
       const newLoserElo = calculateNewRating(loserElo, loserExpectedScore, 0);
 
-      setEloChanges({
-        winner: newWinnerElo - winnerElo,
-        loser: newLoserElo - loserElo
-      });
+      // Only set ELO changes if user is logged in
+      if (user) {
+        setEloChanges({
+          winner: newWinnerElo - winnerElo,
+          loser: newLoserElo - loserElo
+        });
 
-      // Update winner's ELO
-      const { error: winnerError } = await supabase
-        .from('profiles')
-        .update({ elo: newWinnerElo })
-        .eq('id', winner.id);
+        // Update winner's ELO
+        const { error: winnerError } = await supabase
+          .from('profiles')
+          .update({ elo: newWinnerElo })
+          .eq('id', winner.id);
 
-      if (winnerError) throw winnerError;
+        if (winnerError) throw winnerError;
 
-      // Update loser's ELO
-      const { error: loserError } = await supabase
-        .from('profiles')
-        .update({ elo: newLoserElo })
-        .eq('id', loser.id);
+        // Update loser's ELO
+        const { error: loserError } = await supabase
+          .from('profiles')
+          .update({ elo: newLoserElo })
+          .eq('id', loser.id);
 
-      if (loserError) throw loserError;
+        if (loserError) throw loserError;
+      } else {
+        // For anonymous users, don't show ELO changes
+        setEloChanges({
+          winner: null,
+          loser: null
+        });
+      }
       
       // Record the vote if user is logged in
       if (user && userProfile) {
@@ -526,11 +535,15 @@ export default function Home() {
       <div className="sm:hidden fixed top-12 left-0 right-0 bg-white/80 backdrop-blur-sm border-b border-gray-200 py-4 z-20 text-center font-mono tracking-wider shadow-sm">
         <span className="text-yellow-500 font-bold uppercase">Who&apos;s More</span>
         <span className="ml-1 font-black uppercase"> Cracked?</span>
-        {user && votesRemaining !== null && (
+        {user && votesRemaining !== null ? (
           <div className="text-xs mt-1 text-gray-600">
             {votesRemaining > 0 
               ? `${votesRemaining} vote${votesRemaining === 1 ? '' : 's'} remaining today` 
               : "Daily vote limit reached, come back tomorrow!"}
+          </div>
+        ) : (
+          <div className="text-xs mt-1 text-gray-600">
+            Anonymous votes don't count, sign in first!
           </div>
         )}
       </div>
@@ -541,11 +554,15 @@ export default function Home() {
           <div className="bg-white/80 backdrop-blur-sm border border-gray-200 px-8 py-4 rounded-lg shadow-sm">
             <span className="block mb-1 text-yellow-500 font-bold">Who&apos;s More</span>
             <span className="block text-2xl font-black">Cracked?</span>
-            {user && votesRemaining !== null && (
+            {user && votesRemaining !== null ? (
               <div className="text-xs mt-2 text-gray-600 normal-case">
                 {votesRemaining > 0 
                   ? `${votesRemaining} vote${votesRemaining === 1 ? '' : 's'} remaining today` 
                   : "Daily vote limit reached, come back tomorrow!"}
+              </div>
+            ) : (
+              <div className="text-xs mt-2 text-gray-600 normal-case">
+                Anonymous votes don't count,<br></br> sign in first!
               </div>
             )}
           </div>
@@ -564,6 +581,7 @@ export default function Home() {
               eloChange={selectedIndex === 0 ? eloChanges.winner : eloChanges.loser}
               totalProfiles={allProfiles.length}
               profiles={allProfiles}
+              isAuthenticated={!!user}
             />
             <div className={`absolute left-1/2 top-0 h-full w-[1px] bg-gray-200 z-10`} />
             
@@ -576,6 +594,7 @@ export default function Home() {
               eloChange={selectedIndex === 1 ? eloChanges.winner : eloChanges.loser}
               totalProfiles={allProfiles.length}
               profiles={allProfiles}
+              isAuthenticated={!!user}
             />
             {selectedIndex !== null && (
               <>

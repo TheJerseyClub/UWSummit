@@ -14,7 +14,8 @@ export default function ProfileCard({
   rank,
   currentElo,
   totalProfiles,
-  profiles
+  profiles,
+  isAuthenticated
 }) {
   const calculateNewRank = () => {
     if (!isSelected || !eloChange) return rank;
@@ -79,20 +80,32 @@ export default function ProfileCard({
               <div className={`font-mono text-xs sm:text-sm lg:text-lg flex flex-col self-center ${isRightAligned ? 'text-right' : 'text-left'} ${isRightAligned ? 'sm:order-first' : 'sm:order-last'}`}>
                 <div>
                   Rank: #{calculateNewRank()}
-                  {eloChange && (
-                    <span className={eloChange > 0 ? 'text-green-500' : 'text-red-500'}>
-                      {' '}({eloChange > 0 
-                        ? (rank > calculateNewRank() ? `↑${rank - calculateNewRank()}` : '-')
-                        : (rank < calculateNewRank() ? `↓${calculateNewRank() - rank}` : '-')
-                      })
+                  {isAuthenticated ? (
+                    eloChange && (
+                      <span className={eloChange > 0 ? 'text-green-500' : 'text-red-500'}>
+                        {' '}({eloChange > 0 
+                          ? (rank > calculateNewRank() ? `↑${rank - calculateNewRank()}` : '-')
+                          : (rank < calculateNewRank() ? `↓${calculateNewRank() - rank}` : '-')
+                        })
+                      </span>
+                    )
+                  ) : (
+                    <span className={isWinner ? 'text-green-500' : 'text-red-500'}>
+                      {' '}(-)
                     </span>
                   )}
                 </div>
                 <div>
-                  ELO: {Math.round(currentElo + eloChange)} 
-                  {eloChange && <span className={eloChange > 0 ? 'text-green-500' : 'text-red-500'}>
-                    {' '}({eloChange > 0 ? '+' : ''}{eloChange})
-                  </span>}
+                  ELO: {Math.round(currentElo)} 
+                  {isAuthenticated ? (
+                    eloChange && <span className={eloChange > 0 ? 'text-green-500' : 'text-red-500'}>
+                      {' '}({eloChange > 0 ? '+' : ''}{eloChange})
+                    </span>
+                  ) : (
+                    <span className={isWinner ? 'text-green-500' : 'text-red-500'}>
+                      {' '}({isWinner ? '+0' : '-0'})
+                    </span>
+                  )}
                 </div>
               </div>
             )}
