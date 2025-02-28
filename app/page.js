@@ -403,7 +403,7 @@ export default function Home() {
           </div>
         ) : (
           <div className="text-xs mt-1 text-gray-600">
-            <span className="bg-red-300 text-black px-2 py-1 rounded-md">Anonymous votes don&apos;t count, sign in first!</span>
+            <span className="text-red-500">Sign in for votes to count!</span>
           </div>
         )}
       </div>
@@ -421,8 +421,8 @@ export default function Home() {
                   : "Daily vote limit reached, come back tomorrow!"}
               </div>
             ) : (
-              <div className="text-xs mt-2 text-gray-600 normal-case">
-                Anonymous votes don't count,<br></br> sign in first!
+              <div className="text-xs mt-2 text-red-500 normal-case">
+                Sign in for votes to count!
               </div>
             )}
           </div>
