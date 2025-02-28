@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { supabase } from '@/utils/supabase'
 import Navbar from '@/components/navbar'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 
 export default function Leaderboard() {
   const [profiles, setProfiles] = useState([])
@@ -12,13 +13,14 @@ export default function Leaderboard() {
   const [page, setPage] = useState(1)
   const [hasMore, setHasMore] = useState(true)
   const PROFILES_PER_PAGE = 15
+  const router = useRouter()
 
   useEffect(() => {
     const fetchProfiles = async () => {
       try {
         const { data, error } = await supabase
           .from('profiles')
-          .select('full_name, elo, profile_pic_url, linkedin_url')
+          .select('id, full_name, elo, profile_pic_url, linkedin_url')
           .not('linkedin_url', 'is', null)
           .order('elo', { ascending: false })
           .range(0, PROFILES_PER_PAGE - 1) // Get first page (0-14)
@@ -38,8 +40,12 @@ export default function Leaderboard() {
     fetchProfiles()
   }, [])
 
-  const handleProfileClick = (linkedinUrl) => {
-    window.open(linkedinUrl, '_blank')
+  const handleProfileClick = (profile) => {
+    if (profile && profile.id) {
+      router.push(`/profile/${profile.id}`);
+    } else if (profile && profile.linkedin_url) {
+      window.open(profile.linkedin_url, '_blank');
+    }
   }
 
   const loadMoreProfiles = async () => {
@@ -52,7 +58,7 @@ export default function Leaderboard() {
       
       const { data, error } = await supabase
         .from('profiles')
-        .select('full_name, elo, profile_pic_url, linkedin_url')
+        .select('id, full_name, elo, profile_pic_url, linkedin_url')
         .not('linkedin_url', 'is', null)
         .order('elo', { ascending: false })
         .range(startIndex, endIndex)
@@ -141,7 +147,7 @@ export default function Leaderboard() {
                 style={{ animationDelay: `${position * 200}ms` }}
               >
                 <div 
-                  onClick={() => handleProfileClick(profile.linkedin_url)}
+                  onClick={() => handleProfileClick(profile)}
                   className="flex flex-col items-center mb-1 md:mb-2 cursor-pointer group p-2 md:p-3 hover:bg-gray-50 rounded-lg transition-colors"
                 >
                   <div className="w-16 h-16 md:w-24 md:h-24 rounded-md bg-gray-200 overflow-hidden mb-2 md:mb-3 border border-gray-300 group-hover:border-yellow-500 transition-colors shadow-sm">
@@ -251,7 +257,7 @@ export default function Leaderboard() {
           {profiles.slice(3).map((profile, index) => (
             <div 
               key={index + 3}
-              onClick={() => handleProfileClick(profile.linkedin_url)}
+              onClick={() => handleProfileClick(profile)}
               className={`flex items-center justify-between p-4 md:p-6 bg-white border border-gray-200 rounded-lg hover:bg-yellow-50 transition-colors cursor-pointer translate-y-8 opacity-0 ${mounted ? 'animate-slide-up' : ''}`}
               style={{ animationDelay: '600ms' }}
             >
