@@ -14,6 +14,7 @@ export default function Leaderboard() {
   const [hasMore, setHasMore] = useState(true)
   const PROFILES_PER_PAGE = 15
   const router = useRouter()
+  const [loadingMore, setLoadingMore] = useState(false)
 
   useEffect(() => {
     const fetchProfiles = async () => {
@@ -49,35 +50,37 @@ export default function Leaderboard() {
   }
 
   const loadMoreProfiles = async () => {
-    if (!hasMore) return
+    if (!hasMore || loadingMore) return;
     
     try {
-      setLoading(true)
-      const startIndex = page * PROFILES_PER_PAGE
-      const endIndex = startIndex + PROFILES_PER_PAGE - 1
+      setLoadingMore(true);
+      
+      const startIndex = page * PROFILES_PER_PAGE;
+      const endIndex = startIndex + PROFILES_PER_PAGE - 1;
       
       const { data, error } = await supabase
         .from('profiles')
         .select('id, full_name, elo, profile_pic_url, linkedin_url')
         .not('linkedin_url', 'is', null)
         .order('elo', { ascending: false })
-        .range(startIndex, endIndex)
+        .range(startIndex, endIndex);
       
-      if (error) throw error
+      if (error) throw error;
       
       if (data.length > 0) {
-        setProfiles(prev => [...prev, ...data])
-        setPage(prev => prev + 1)
-        setHasMore(data.length === PROFILES_PER_PAGE) // If we got a full page, there might be more
+        // Append new profiles without triggering a full re-render
+        setProfiles(prev => [...prev, ...data]);
+        setPage(prev => prev + 1);
+        setHasMore(data.length === PROFILES_PER_PAGE);
       } else {
-        setHasMore(false)
+        setHasMore(false);
       }
     } catch (error) {
-      console.error('Error loading more profiles:', error)
+      console.error('Error loading more profiles:', error);
     } finally {
-      setLoading(false)
+      setLoadingMore(false);
     }
-  }
+  };
 
   const renderPodium = () => {
     const topThree = profiles.slice(0, 3)
@@ -296,16 +299,17 @@ export default function Leaderboard() {
         {/* Load More Button */}
         {hasMore && (
           <div className="flex justify-center mt-8 mb-16">
-            <button
-              onClick={loadMoreProfiles}
-              disabled={loading}
-              className={`px-6 py-3 bg-white border border-gray-300 rounded-lg font-mono text-base hover:bg-yellow-50 transition-colors ${
-                loading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
-              } translate-y-8 opacity-0 ${mounted ? 'animate-slide-up' : ''}`}
-              style={{ animationDelay: '800ms' }}
-            >
-              {loading ? 'Loading...' : 'Load More'}
-            </button>
+            {loadingMore ? (
+              <div className="w-10 h-10 border-4 border-gray-300 border-t-yellow-500 rounded-full animate-spin"></div>
+            ) : (
+              <button
+                onClick={loadMoreProfiles}
+                className="px-6 py-3 bg-white border border-gray-300 rounded-lg font-mono text-base hover:bg-yellow-50 transition-colors cursor-pointer translate-y-8 opacity-0 animate-slide-up"
+                style={{ animationDelay: '800ms' }}
+              >
+                Load More
+              </button>
+            )}
           </div>
         )}
       </div>
