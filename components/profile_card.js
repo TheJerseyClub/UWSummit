@@ -1,5 +1,6 @@
 import Image from "next/image";
 import EmojiRain from './emoji_rain';
+import Link from 'next/link';
 
 export default function ProfileCard({ 
   title, 
@@ -15,7 +16,8 @@ export default function ProfileCard({
   currentElo,
   totalProfiles,
   profiles,
-  isAuthenticated
+  isAuthenticated,
+  profileId
 }) {
   const calculateNewRank = () => {
     if (!isSelected || !eloChange) return rank;
@@ -107,6 +109,16 @@ export default function ProfileCard({
                     </span>
                   )}
                 </div>
+                              
+              {/* View Profile button */}
+              {isSelected && profileId && (
+                <Link 
+                  href={`/profile/${profileId}`}
+                  className={`mt-2 px-3 py-1 bg-yellow-500 text-white text-xs sm:text-sm rounded-md hover:bg-yellow-600 transition-colors ${isRightAligned ? 'self-end' : 'self-start'}`}
+                >
+                  View Profile
+                </Link>
+              )}
               </div>
             )}
           </div>

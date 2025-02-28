@@ -582,6 +582,7 @@ export default function Home() {
               totalProfiles={allProfiles.length}
               profiles={allProfiles}
               isAuthenticated={!!user}
+              profileId={profiles[0]?.id}
             />
             <div className={`absolute left-1/2 top-0 h-full w-[1px] bg-gray-200 z-10`} />
             
@@ -595,6 +596,7 @@ export default function Home() {
               totalProfiles={allProfiles.length}
               profiles={allProfiles}
               isAuthenticated={!!user}
+              profileId={profiles[1]?.id}
             />
             {selectedIndex !== null && (
               <>
