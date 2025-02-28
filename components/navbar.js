@@ -254,6 +254,12 @@ export default function Navbar() {
               Leaderboard
             </Link>
             <Link
+              href="/livevotes"
+              className="block px-3 py-2 rounded-md text-base font-mono font-medium text-gray-700 hover:text-gray-900 hover:bg-yellow-50"
+            >
+              Live Votes
+            </Link>
+            <Link
               href="/recruit"
               className="block px-3 py-2 rounded-md text-base font-mono font-medium text-gray-700 hover:text-black hover:bg-yellow-50"
             >
