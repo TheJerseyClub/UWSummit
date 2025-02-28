@@ -5,6 +5,19 @@ import { useRouter } from 'next/navigation'
 import { supabase } from '@/utils/supabase'
 import { useAuth } from '@/contexts/AuthContext'
 
+// Import the goose pictures array and random function
+const GOOSE_PICTURES = [
+  'https://tjzsdlhdjnbjvhxgxrin.supabase.co/storage/v1/object/public/logos/profile-pics/goose.jpg',
+  'https://tjzsdlhdjnbjvhxgxrin.supabase.co/storage/v1/object/public/logos/profile-pics/goose2.jpg',
+  'https://tjzsdlhdjnbjvhxgxrin.supabase.co/storage/v1/object/public/logos/profile-pics/goose3.jpg',
+  'https://tjzsdlhdjnbjvhxgxrin.supabase.co/storage/v1/object/public/logos/profile-pics/goose4.jpg'
+];
+
+const getRandomGoosePicture = () => {
+  const randomIndex = Math.floor(Math.random() * GOOSE_PICTURES.length);
+  return GOOSE_PICTURES[randomIndex];
+};
+
 export default function LinkedinSubmit() {
   const [linkedinUrl, setLinkedinUrl] = useState('')
   const [message, setMessage] = useState({ text: '', isError: false })
@@ -59,7 +72,7 @@ export default function LinkedinSubmit() {
           id: user.id,
           linkedin_url: linkedinUrl,
           full_name: profileData.full_name,
-          profile_pic_url: profileData.profile_pic_url || 'https://tjzsdlhdjnbjvhxgxrin.supabase.co/storage/v1/object/public/logos/profile-pics/goose.jpg',
+          profile_pic_url: profileData.profile_pic_url || getRandomGoosePicture(),
           education: profileData.education,
           experiences: profileData.experiences,
           volunteer_work: profileData.volunteer_work,
