@@ -74,13 +74,13 @@ export default function ProfileCard({
           ${isRightAligned ? 'origin-right' : 'origin-left'}
           ${isSelected 
             ? (isWinner 
-                ? 'w-[50%] opacity-100' 
-                : 'w-[50%] opacity-50'
+                ? 'w-[50%] opacity-100 bg-yellow-50 sm:bg-white' 
+                : 'w-[50%] opacity-50 bg-yellow-50 sm:bg-white'
               ) 
             : 'w-[50%] cursor-pointer'
           }
           mt-8 sm:mt-12 lg:mt-16
-        hover:bg-yellow-50 ${isSelected ? 'sm:hover:scale-[1.04]' : 'sm:hover:scale-[1.00]'}
+          sm:hover:bg-yellow-50 ${isSelected ? 'sm:hover:scale-[1.04]' : 'sm:hover:scale-[1.00]'}
         `}
         onClick={isSelected ? undefined : onClick}
       >
