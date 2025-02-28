@@ -42,7 +42,7 @@ export default function SignupForm() {
         return
       }
       
-      setMessage({ text: 'Check your email for the confirmation link!', isError: false })
+      setMessage({ text: 'Check your email for the confirmation link! *you may need to check your spam folder*', isError: false })
     } catch (error) {
       setMessage({ text: error.message, isError: true })
     }
