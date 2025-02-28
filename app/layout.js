@@ -22,7 +22,7 @@ export const metadata = {
     siteName: 'UWSummit',
     images: [
       {
-        url: 'https://www.uwsummit.ca/uwsummitpreview.png', // Replace with your actual image URL
+        url: 'https://www.uwsummit.ca/uwsummmitpreview.png', // Replace with your actual image URL
         width: 1200,
         height: 630,
         alt: 'UWSummit Preview',
