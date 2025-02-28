@@ -98,7 +98,7 @@ export default function ProfileCard({
               )}
             </div>
             {isSelected && (
-              <div className={`font-mono text-xs sm:text-sm lg:text-lg flex flex-col self-center ${isRightAligned ? 'text-right' : 'text-left'} ${isRightAligned ? 'sm:order-first' : 'sm:order-last'}`}>
+              <div className={`font-mono text-xs sm:text-sm lg:text-lg flex flex-col self-center ${isRightAligned ? 'text-right' : 'text-left'} ${isRightAligned ? 'sm:order-first' : 'sm:order-last'} ${isRightAligned ? 'translate-x-[12px]' : '-translate-x-[12px]'}`}>
                 <div>
                   Rank: #{calculateNewRank()}
                   {isAuthenticated ? (
