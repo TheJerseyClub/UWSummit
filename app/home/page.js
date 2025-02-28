@@ -8,14 +8,23 @@ import Image from "next/image";
 export default function Home() {
   const [scrollY, setScrollY] = useState(0);
   const [snowflakes, setSnowflakes] = useState([]);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
     const handleScroll = () => {
       setScrollY(window.scrollY);
     };
 
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   // Generate snowflakes
@@ -65,8 +74,8 @@ export default function Home() {
 
       <div className="fixed bottom-0 left-0 right-0 h-screen z-0">
         <svg
-          className="w-full h-full opacity-90 transform scale-150"
-          viewBox="0 0 1440 900"
+          className="w-full h-full opacity-90 transform sm:scale-150 translate-y-24 sm:translate-y-0 sm:translate-x-0"
+          viewBox={windowWidth < 700 ? "200 100 1440 900" : "0 0 1440 900"}
           fill="none"
           preserveAspectRatio="xMidYMid slice"
           xmlns="http://www.w3.org/2000/svg"
@@ -265,9 +274,6 @@ export default function Home() {
 
       {/* Footer section - adjusted height and positioning */}
       <div className="h-[20vh] sm:h-[30vh] mt-auto flex flex-col justify-end relative z-20 bg-white border-t border-black">
-        <div className="text-gray-500 text-sm mb-2 text-center">
-          There&apos;s nothing here!
-        </div>
         <Footer />
       </div>
 
