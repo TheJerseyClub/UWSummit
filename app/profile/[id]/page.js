@@ -103,28 +103,28 @@ export default function UserProfile() {
                       })}
                   </div>
                 )}
+                {profile?.linkedin_url && (
+                  <a 
+                    href={profile.linkedin_url} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="mt-4 inline-flex w-full md:w-auto items-center justify-center gap-2 font-mono text-sm md:text-base text-white bg-[#0A66C2] hover:bg-[#004182] px-3 py-1 md:px-4 md:py-2 transition-colors rounded-md"
+                  >
+                    <svg className="w-4 h-4 md:w-5 md:h-5" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
+                    </svg>
+                    View LinkedIn Profile
+                    <svg className="w-3 h-3 md:w-4 md:h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+                    </svg>
+                  </a>
+                )}
               </div>
             </div>
 
             <div className="w-full h-[1px] bg-gray-300 my-6 md:my-8"></div>
-            <div className="flex items-center justify-between mb-6">
+            <div className="mb-6">
               <h2 className="text-2xl md:text-3xl font-mono font-bold tracking-tight">Experience 💼</h2>
-              {profile?.linkedin_url && (
-                <a 
-                  href={profile.linkedin_url} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 font-mono text-sm md:text-base text-white bg-[#0A66C2] hover:bg-[#004182] px-2 py-1 md:px-4 md:py-2 transition-colors rounded-md"
-                >
-                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
-                  </svg>
-                  <span className="hidden md:inline">View LinkedIn Profile</span>
-                  <svg className="hidden md:block w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
-                  </svg>
-                </a>
-              )}
             </div>
 
             <div className="space-y-4 md:space-y-6">
