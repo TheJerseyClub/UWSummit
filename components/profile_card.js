@@ -152,8 +152,9 @@ export default function ProfileCard({
               <div key={index} className={`mx-1 sm:mx-4 my-1 sm:my-2 lg:my-4 transition-transform duration-300 hover:scale-105 ${isRightAligned ? 'text-right' : 'text-left'}`}>
                 <h3 className="text-sm sm:text-base lg:text-lg font-bold font-mono">{item.label}</h3>
                 <p className={`text-sm sm:text-lg lg:text-2xl inline-block ${
+                  item.value.toLowerCase().includes('computer science') ? "bg-pink-100" :
                   item.value.toLowerCase().includes('engineering') ? "bg-purple-100" :
-                  ['computer science', 'mathematics', 'stats', 'statistics', 'applied mathematics', 'computational mathematics', 'combinatorics', 'optimization'].includes(item.value.toLowerCase()) ? "bg-pink-100" :
+                  ['mathematics', 'stats', 'statistics', 'applied mathematics', 'computational mathematics', 'combinatorics', 'optimization'].includes(item.value.toLowerCase()) ? "bg-pink-100" :
                   "bg-yellow-100"
                 } px-1 sm:px-2 py-0.5 sm:py-1 rounded-md`}>{item.value}</p>
               </div>
