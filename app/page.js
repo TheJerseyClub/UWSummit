@@ -120,43 +120,7 @@ export default function Home() {
       
       setUserProfile(data);
       
-      // Check if we need to reset votes (new day in EST)
-      const now = new Date();
-      const estOffset = -4; // EST is UTC-4 (or UTC-5 during standard time)
-      const utcDate = now.getTime() + (now.getTimezoneOffset() * 60000);
-      const estDate = new Date(utcDate + (3600000 * estOffset));
-      
-      // Get the last reset time (midnight EST today)
-      const resetTime = new Date(estDate);
-      resetTime.setHours(0, 0, 0, 0);
-      
-      // Get the last vote time from the votes table
-      const { data: lastVoteData, error: lastVoteError } = await supabase
-        .from('votes')
-        .select('created_at')
-        .eq('user_id', user.id)
-        .order('created_at', { ascending: false })
-        .limit(1);
-      
-      if (lastVoteError) throw lastVoteError;
-      
-      // If there's a last vote and it's before today's reset time, reset the counter
-      const lastVoteTime = lastVoteData?.[0]?.created_at ? new Date(lastVoteData[0].created_at) : null;
-      const needsReset = !lastVoteTime || lastVoteTime < resetTime;
-      
-      if (needsReset && data.votes_used_today > 0) {
-        const { error: resetError } = await supabase
-          .from('profiles')
-          .update({ votes_used_today: 0 })
-          .eq('id', user.id);
-        
-        if (resetError) throw resetError;
-        
-        // Update local state
-        data.votes_used_today = 0;
-      }
-      
-      // Calculate votes remaining
+      // Calculate votes remaining (no reset logic needed here anymore)
       const voteLimit = data.daily_vote_limit || DEFAULT_DAILY_VOTE_LIMIT;
       const votesUsed = data.votes_used_today || 0;
       const remaining = voteLimit - votesUsed;

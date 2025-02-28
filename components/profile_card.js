@@ -21,10 +21,16 @@ export default function ProfileCard({
   profileId
 }) {
   const [emoji, setEmoji] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
   
   // Define emoji sets
   const winnerEmojis = ["🏆", "🥇", "🎉", "🚀", "💪", "⭐", "🔥", "👑", "💯", "🙌"];
   const loserEmojis = ["😭", "😢", "💔", "😞", "😓", "🤦", "😩", "😔", "🥺", "😿"];
+  
+  // Set isLoaded to true after component mounts
+  useEffect(() => {
+    setIsLoaded(true);
+  }, []);
   
   // Select random emoji when selection changes
   useEffect(() => {
@@ -78,7 +84,8 @@ export default function ProfileCard({
         <div className={`p-1 sm:p-4 lg:p-6 transition-all duration-300 w-full relative flex flex-col px-4 sm:px-0 lg:-mt-8 
           ${isRightAligned ? 'sm:pr-8 md:pr-12' : 'sm:pl-8 md:pl-12'}`}>
           {/* Profile Picture Section */}
-          <div className={`flex flex-col sm:flex-row ${isRightAligned ? 'items-end sm:justify-end' : 'items-start sm:justify-start'} mb-4 sm:mb-4 lg:mb-8 gap-2 sm:gap-4`}>
+          <div className={`flex flex-col sm:flex-row ${isRightAligned ? 'items-end sm:justify-end' : 'items-start sm:justify-start'} mb-4 sm:mb-4 lg:mb-8 gap-2 sm:gap-4
+            opacity-0 ${isLoaded ? 'animate-slide-up' : ''} [animation-delay:100ms] [animation-fill-mode:forwards]`}>
             <div className={`w-32 h-32 sm:w-40 sm:h-40 xl:w-48 xl:h-48 rounded-md bg-gray-300 overflow-visible transition-all duration-300 
               ${isSelected ? '' : 'blur-md [-webkit-filter:blur(12px)] p-4'}`}>
               {profilePicture ? (
@@ -143,11 +150,12 @@ export default function ProfileCard({
           </div>
 
           <h2 className={`text-lg sm:text-2xl lg:text-4xl xl:text-5xl font-bold mb-2 font-mono uppercase tracking-tight mx-1 sm:mx-4 transition-all duration-300 
-            ${isSelected ? '' : 'blur-md [-webkit-filter:blur(12px)]'} ${isRightAligned ? 'text-right' : 'text-left'}`}>
+            ${isSelected ? '' : 'blur-md [-webkit-filter:blur(12px)]'} ${isRightAligned ? 'text-right' : 'text-left'}
+            opacity-0 ${isLoaded ? 'animate-slide-up' : ''} [animation-delay:300ms] [animation-fill-mode:forwards]`}>
             {title}
           </h2>
           
-          <div className="space-y-2 sm:space-y-4 lg:space-y-6">
+          <div className="space-y-2 sm:space-y-4 lg:space-y-6 opacity-0 animate-slide-up [animation-delay:500ms] [animation-fill-mode:forwards]">
             {items.map((item, index) => (
               <div key={index} className={`mx-1 sm:mx-4 my-1 sm:my-2 lg:my-4 transition-transform duration-300 hover:scale-105 ${isRightAligned ? 'text-right' : 'text-left'}`}>
                 <h3 className="text-sm sm:text-base lg:text-lg font-bold font-mono">{item.label}</h3>
@@ -162,7 +170,7 @@ export default function ProfileCard({
           </div>
 
           {/* Experience Section */}
-          <div className="mt-4 sm:mt-8 lg:mt-12">
+          <div className="mt-4 sm:mt-8 lg:mt-12 opacity-0 animate-slide-up [animation-delay:700ms] [animation-fill-mode:forwards]">
             <h3 className={`text-base sm:text-xl lg:text-3xl font-bold font-mono mb-2 sm:mb-4 lg:mb-6 mx-1 sm:mx-4 transition-transform duration-300 hover:scale-105 ${isRightAligned ? 'text-right' : 'text-left'}`}>
               EXPERIENCE
             </h3>
