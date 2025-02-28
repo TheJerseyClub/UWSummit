@@ -169,7 +169,7 @@ export default function Navbar() {
               <div className="flex items-center space-x-6">
                 <Link 
                   href="/"
-                  className="px-4 py-2 bg-yellow-500 text-white border-2 border-yellow-500 hover:bg-white hover:text-yellow-500 font-mono uppercase tracking-wider hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all rounded-md"
+                  className="px-4 py-2 bg-yellow-500 text-white border-2 border-yellow-500 hover:bg-white hover:text-yellow-500 font-mono uppercase tracking-wider hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all rounded-md"
                 >
                   Play
                 </Link>

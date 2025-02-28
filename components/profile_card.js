@@ -80,7 +80,7 @@ export default function ProfileCard({
             : 'w-[50%] cursor-pointer'
           }
           mt-8 sm:mt-12 lg:mt-16
-          hover:bg-yellow-50 ${isSelected ? 'hover:scale-[1.04]' : 'hover:scale-[1.00]'}
+          sm:hover:bg-yellow-50 ${isSelected ? 'sm:hover:scale-[1.04]' : 'sm:hover:scale-[1.00]'}
         `}
         onClick={isSelected ? undefined : onClick}
       >
