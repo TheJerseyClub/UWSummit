@@ -15,6 +15,22 @@ const geistMono = Geist_Mono({
 export const metadata = {
   title: "UWSummit",
   description: "University of Waterloo's Secondary Job Board",
+  openGraph: {
+    title: "UWSummit",
+    description: "University of Waterloo's Secondary Job Board",
+    url: 'https://www.uwsummit.ca/',
+    siteName: 'UWSummit',
+    images: [
+      {
+        url: 'https://www.uwsummit.ca/uwsummmitpreview.png', // Replace with your actual image URL
+        width: 1200,
+        height: 630,
+        alt: 'UWSummit Preview',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
 };
 
 export default function RootLayout({ children }) {
