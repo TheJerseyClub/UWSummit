@@ -87,7 +87,7 @@ export default function Profile() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row md:m-8">
+    <div className="min-h-screen flex flex-col m-8 md:flex-row md:m-8">
       {/* Sticky Left Panel - Hidden on mobile */}
       <button
         onClick={() => router.push('/')}

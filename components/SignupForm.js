@@ -80,7 +80,7 @@ export default function SignupForm() {
       </button>
 
       <div className="md:hidden text-center text-xs text-gray-500 mt-2">
-        <p>📱 Coming from Instagram? Sign up with email! (Google is wonky)</p>
+        <p className="bg-red-300 text-black px-2 py-1 rounded-md">📱 Coming from Instagram? Sign up with email! (Google is wonky)</p>
       </div>
 
       <div className="relative my-6">

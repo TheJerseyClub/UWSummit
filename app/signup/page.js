@@ -6,7 +6,7 @@ import AuthLayout from "@/components/AuthLayout"
 export default function SignUp() {
   return (
     <AuthLayout 
-      title="Create Account" 
+      title="First Time?" 
       subtitle="Time to get your hands dirty."
     >
       <SignupForm />
