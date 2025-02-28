@@ -103,8 +103,9 @@ export default function Profile() {
       <div className="flex-1 md:pl-32">
         <Navbar />
         <div className="max-w-4xl mx-auto pt-16 md:pt-20 px-4">
-          <div className={`bg-white p-4 md:p-8 border border-gray-300 rounded-md translate-y-8 opacity-0 ${mounted ? 'animate-slide-up' : ''}`}>
-            <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-6 mb-6">
+          <div className="bg-white p-4 md:p-8 border border-gray-300 rounded-md">
+            {/* Profile Header - Animate First */}
+            <div className={`flex flex-col md:flex-row md:items-center gap-4 md:gap-6 mb-6 opacity-0 ${mounted ? 'animate-slide-up' : ''}`} style={{animationDelay: '100ms', animationFillMode: 'forwards'}}>
               {profile?.profile_pic_url ? (
                 <div className="border border-gray-300 rounded-md w-20 h-20 md:w-[100px] md:h-[100px]">
                   <Image
@@ -154,13 +155,19 @@ export default function Profile() {
             </div>
 
             <div className="w-full h-[1px] bg-gray-300 my-6 md:my-8"></div>
-            <div className="mb-6">
+            
+            {/* Experience Section - Animate Second */}
+            <div className={`mb-6 opacity-0 ${mounted ? 'animate-slide-up' : ''}`} style={{animationDelay: '300ms', animationFillMode: 'forwards'}}>
               <h2 className="text-2xl md:text-3xl font-mono font-bold tracking-tight">Experience 💼</h2>
             </div>
-            <div className="space-y-4 md:space-y-6">
+            <div className={`space-y-4 md:space-y-6 opacity-0 ${mounted ? 'animate-slide-up' : ''}`} style={{animationDelay: '400ms', animationFillMode: 'forwards'}}>
               {profile?.experiences?.length > 0 ? (
                 groupExperiences(profile.experiences).map((group, index) => (
-                  <div key={index} className="border border-gray-300 p-3 md:p-4 hover:bg-yellow-50 transition-colors rounded-md">
+                  <div 
+                    key={index} 
+                    className="border border-gray-300 p-3 md:p-4 hover:bg-yellow-50 transition-colors rounded-md opacity-0 animate-slide-up" 
+                    style={{animationDelay: `${500 + (index * 100)}ms`, animationFillMode: 'forwards'}}
+                  >
                     <div className="flex items-center gap-4 mb-4">
                       {group.companyLogo && (
                         <Image
@@ -189,15 +196,19 @@ export default function Profile() {
               )}
             </div>
 
-            {/* Volunteer Work Section */}
+            {/* Volunteer Work Section - Animate Third */}
             {profile?.volunteer_work && profile.volunteer_work.length > 0 && (
               <>
                 <div className="w-full h-[1px] bg-gray-300 my-6 md:my-8"></div>
-                <div className="mb-6">
+                <div className={`mb-6 opacity-0 ${mounted ? 'animate-slide-up' : ''}`} style={{animationDelay: '700ms', animationFillMode: 'forwards'}}>
                   <h2 className="text-2xl md:text-3xl font-mono font-bold mb-6 tracking-tight">Volunteer Work</h2>
                   <div className="space-y-4 md:space-y-6">
                     {profile.volunteer_work.map((vol, index) => (
-                      <div key={index} className="border border-gray-300 p-3 md:p-4 hover:bg-yellow-50 transition-colors rounded-md">
+                      <div 
+                        key={index} 
+                        className="border border-gray-300 p-3 md:p-4 hover:bg-yellow-50 transition-colors rounded-md opacity-0 animate-slide-up" 
+                        style={{animationDelay: `${800 + (index * 100)}ms`, animationFillMode: 'forwards'}}
+                      >
                         <h3 className="font-mono font-bold text-xl">{vol.title}</h3>
                         <p className="font-mono text-gray-800">{vol.company}</p>
                       </div>
@@ -207,15 +218,19 @@ export default function Profile() {
               </>
             )}
 
-            {/* Accomplishments Section */}
+            {/* Accomplishments Section - Animate Fourth */}
             {profile?.accomplishments && profile.accomplishments.length > 0 && (
               <>
                 <div className="w-full h-[1px] bg-gray-300 my-6 md:my-8"></div>
-                <div className="mb-6">
+                <div className={`mb-6 opacity-0 ${mounted ? 'animate-slide-up' : ''}`} style={{animationDelay: '900ms', animationFillMode: 'forwards'}}>
                   <h2 className="text-2xl md:text-3xl font-mono font-bold mb-6 tracking-tight">Accomplishments</h2>
                   <div className="space-y-4 md:space-y-6">
                     {profile.accomplishments.map((acc, index) => (
-                      <div key={index} className="border border-gray-300 p-3 md:p-4 hover:bg-yellow-50 transition-colors rounded-md">
+                      <div 
+                        key={index} 
+                        className="border border-gray-300 p-3 md:p-4 hover:bg-yellow-50 transition-colors rounded-md opacity-0 animate-slide-up" 
+                        style={{animationDelay: `${1000 + (index * 100)}ms`, animationFillMode: 'forwards'}}
+                      >
                         <h3 className="font-mono font-bold text-xl">{acc.title}</h3>
                         <p className="mt-2 font-mono text-gray-800">{acc.description}</p>
                       </div>
@@ -225,9 +240,9 @@ export default function Profile() {
               </>
             )}
 
-            {/* LinkedIn Update Section */}
+            {/* LinkedIn Update Section - Animate Last */}
             <div className="w-full h-[1px] bg-gray-300 my-6 md:my-8"></div>
-            <div className="mb-6 text-center">
+            <div className={`mb-6 text-center opacity-0 ${mounted ? 'animate-slide-up' : ''}`} style={{animationDelay: '1100ms', animationFillMode: 'forwards'}}>
               <h2 className="text-2xl md:text-3xl font-mono font-bold mb-4 tracking-tight">Update LinkedIn Profile</h2>
               <p className="mb-6 font-mono text-gray-800">Want to update your profile with new LinkedIn data?</p>
               <LinkedinSubmit />
