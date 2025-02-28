@@ -1,5 +1,7 @@
 import Image from "next/image";
 import EmojiRain from './emoji_rain';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 export default function ProfileCard({ 
   title, 
@@ -14,8 +16,31 @@ export default function ProfileCard({
   rank,
   currentElo,
   totalProfiles,
-  profiles
+  profiles,
+  isAuthenticated,
+  profileId
 }) {
+  const [emoji, setEmoji] = useState(null);
+  
+  // Define emoji sets
+  const winnerEmojis = ["🏆", "🥇", "🎉", "🚀", "💪", "⭐", "🔥", "👑", "💯", "🙌"];
+  const loserEmojis = ["😭", "😢", "💔", "😞", "😓", "🤦", "😩", "😔", "🥺", "😿"];
+  
+  // Select random emoji when selection changes
+  useEffect(() => {
+    if (isSelected) {
+      if (isWinner) {
+        const randomIndex = Math.floor(Math.random() * winnerEmojis.length);
+        setEmoji(winnerEmojis[randomIndex]);
+      } else {
+        const randomIndex = Math.floor(Math.random() * loserEmojis.length);
+        setEmoji(loserEmojis[randomIndex]);
+      }
+    } else {
+      setEmoji(null);
+    }
+  }, [isSelected, isWinner]);
+
   const calculateNewRank = () => {
     if (!isSelected || !eloChange) return rank;
     
@@ -32,11 +57,8 @@ export default function ProfileCard({
 
   return (
     <>
-      {isSelected && isWinner && (
-        <EmojiRain emoji="😭" side={isRightAligned ? 'right' : 'left'} />
-      )}
-      {isSelected && !isWinner && (
-        <EmojiRain emoji="🚀" side={isRightAligned ? 'right' : 'left'} />
+      {isSelected && emoji && (
+        <EmojiRain emoji={emoji} side={isRightAligned ? 'left' : 'right'} />
       )}
       <div 
         className={`
@@ -79,21 +101,43 @@ export default function ProfileCard({
               <div className={`font-mono text-xs sm:text-sm lg:text-lg flex flex-col self-center ${isRightAligned ? 'text-right' : 'text-left'} ${isRightAligned ? 'sm:order-first' : 'sm:order-last'}`}>
                 <div>
                   Rank: #{calculateNewRank()}
-                  {eloChange && (
-                    <span className={eloChange > 0 ? 'text-green-500' : 'text-red-500'}>
-                      {' '}({eloChange > 0 
-                        ? (rank > calculateNewRank() ? `↑${rank - calculateNewRank()}` : '-')
-                        : (rank < calculateNewRank() ? `↓${calculateNewRank() - rank}` : '-')
-                      })
+                  {isAuthenticated ? (
+                    eloChange && (
+                      <span className={eloChange > 0 ? 'text-green-500' : 'text-red-500'}>
+                        {' '}({eloChange > 0 
+                          ? (rank > calculateNewRank() ? `↑${rank - calculateNewRank()}` : '-')
+                          : (rank < calculateNewRank() ? `↓${calculateNewRank() - rank}` : '-')
+                        })
+                      </span>
+                    )
+                  ) : (
+                    <span className={isWinner ? 'text-green-500' : 'text-red-500'}>
+                      {' '}(-)
                     </span>
                   )}
                 </div>
                 <div>
-                  ELO: {Math.round(currentElo + eloChange)} 
-                  {eloChange && <span className={eloChange > 0 ? 'text-green-500' : 'text-red-500'}>
-                    {' '}({eloChange > 0 ? '+' : ''}{eloChange})
-                  </span>}
+                  ELO: {Math.round(currentElo)} 
+                  {isAuthenticated ? (
+                    eloChange && <span className={eloChange > 0 ? 'text-green-500' : 'text-red-500'}>
+                      {' '}({eloChange > 0 ? '+' : ''}{eloChange})
+                    </span>
+                  ) : (
+                    <span className={isWinner ? 'text-green-500' : 'text-red-500'}>
+                      {' '}({isWinner ? '+0' : '-0'})
+                    </span>
+                  )}
                 </div>
+                              
+              {/* View Profile button */}
+              {isSelected && profileId && (
+                <Link 
+                  href={`/profile/${profileId}`}
+                  className={`mt-2 px-3 py-1 bg-yellow-500 text-white text-xs sm:text-sm rounded-md hover:bg-yellow-600 transition-colors ${isRightAligned ? 'self-end' : 'self-start'}`}
+                >
+                  View Profile
+                </Link>
+              )}
               </div>
             )}
           </div>
