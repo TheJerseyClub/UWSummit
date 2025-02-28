@@ -26,16 +26,17 @@ export default function Home() {
   const [subscriptionStatus, setSubscriptionStatus] = useState('initializing');
   const popupRef = useRef(null);
   const [timeSinceVote, setTimeSinceVote] = useState('just now');
+  const [popupMinimized, setPopupMinimized] = useState(false);
 
   const DEFAULT_DAILY_VOTE_LIMIT = 20;
 
   // At the top of your component, add this effect to prevent auto-hiding
   useEffect(() => {
     // This effect ensures the popup stays visible once shown
-    if (currentVotePopup && !showVotePopup) {
+    if (currentVotePopup && !showVotePopup && !popupMinimized) {
       setShowVotePopup(true);
     }
-  }, [currentVotePopup, showVotePopup]);
+  }, [currentVotePopup, showVotePopup, popupMinimized]);
 
   // Function to format time since a given date
   const formatTimeSince = (dateString) => {
@@ -134,11 +135,13 @@ export default function Home() {
       setTimeout(() => {
         // Update the content
         setCurrentVotePopup(vote);
+        setPopupMinimized(false);
       }, 3000); // Wait 3 seconds before doing anything
     } else {
       // First time showing
       setCurrentVotePopup(vote);
       setShowVotePopup(true);
+      setPopupMinimized(false);
     }
   };
 
@@ -463,72 +466,105 @@ export default function Home() {
       <Navbar />
       
       {/* Vote Popup */}
-      {showVotePopup && currentVotePopup && (
-        <div 
-          ref={popupRef}
-          className="fixed bottom-20 right-4 bg-white rounded-lg shadow-lg p-3 sm:p-4 z-50 max-w-[85vw] sm:max-w-sm animate-slide-in-right"
-        >
-          <div className="flex justify-between items-center mb-2 sm:mb-3">
-            <div className="text-xs sm:text-sm font-semibold">Recent Vote</div>
-            <div className="text-xs text-gray-500">{timeSinceVote}</div>
-          </div>
-          
-          {/* Winner */}
-          <div className="flex items-center mb-2 sm:mb-3 p-2 bg-green-50 rounded-md">
-            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden mr-2 sm:mr-3 border-2 border-green-500">
-              {currentVotePopup.winner_profile?.profile_pic_url ? (
-                <Image 
-                  src={currentVotePopup.winner_profile.profile_pic_url} 
-                  alt={currentVotePopup.winner_profile.full_name || "Winner"}
-                  width={48}
-                  height={48}
-                  className="w-full h-full object-cover"
-                />
-              ) : (
-                <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                  <span className="text-gray-500 text-xs sm:text-sm">?</span>
+      {currentVotePopup && (
+        <>
+          {showVotePopup ? (
+            <div 
+              ref={popupRef}
+              className="fixed bottom-20 right-4 bg-white rounded-lg shadow-lg p-3 sm:p-4 z-50 max-w-[85vw] sm:max-w-sm animate-slide-in-right"
+            >
+              <div className="flex justify-between items-center mb-2 sm:mb-3">
+                <div className="text-xs sm:text-sm font-semibold">Recent Vote</div>
+                <div className="flex items-center">
+                  <div className="text-xs text-gray-500 mr-2">{timeSinceVote}</div>
+                  <button 
+                    onClick={() => {
+                      setShowVotePopup(false);
+                      setPopupMinimized(true);
+                    }}
+                    className="text-gray-400 hover:text-gray-600"
+                    aria-label="Minimize"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
                 </div>
-              )}
-            </div>
-            <div className="flex-1">
-              <div className="text-sm sm:text-base font-medium">{currentVotePopup.winner_profile?.full_name || "Unknown"}</div>
-              <div className="text-xs sm:text-sm text-green-600 flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 sm:h-4 sm:w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
-                </svg>
-                Winner
+              </div>
+              
+              {/* Winner */}
+              <div className="flex items-center mb-2 sm:mb-3 p-2 bg-green-50 rounded-md">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden mr-2 sm:mr-3 border-2 border-green-500">
+                  {currentVotePopup.winner_profile?.profile_pic_url ? (
+                    <Image 
+                      src={currentVotePopup.winner_profile.profile_pic_url} 
+                      alt={currentVotePopup.winner_profile.full_name || "Winner"}
+                      width={48}
+                      height={48}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                      <span className="text-gray-500 text-xs sm:text-sm">?</span>
+                    </div>
+                  )}
+                </div>
+                <div className="flex-1">
+                  <div className="text-sm sm:text-base font-medium">{currentVotePopup.winner_profile?.full_name || "Unknown"}</div>
+                  <div className="text-xs sm:text-sm text-green-600 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 sm:h-4 sm:w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
+                    </svg>
+                    Winner
+                  </div>
+                </div>
+              </div>
+              
+              {/* Loser */}
+              <div className="flex items-center p-2 bg-red-50 rounded-md">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden mr-2 sm:mr-3 border-2 border-red-500">
+                  {currentVotePopup.loser_profile?.profile_pic_url ? (
+                    <Image 
+                      src={currentVotePopup.loser_profile.profile_pic_url} 
+                      alt={currentVotePopup.loser_profile.full_name || "Loser"}
+                      width={48}
+                      height={48}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                      <span className="text-gray-500 text-xs sm:text-sm">?</span>
+                    </div>
+                  )}
+                </div>
+                <div className="flex-1">
+                  <div className="text-sm sm:text-base font-medium">{currentVotePopup.loser_profile?.full_name || "Unknown"}</div>
+                  <div className="text-xs sm:text-sm text-red-600 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 sm:h-4 sm:w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                    </svg>
+                    Lost
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-          
-          {/* Loser */}
-          <div className="flex items-center p-2 bg-red-50 rounded-md">
-            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden mr-2 sm:mr-3 border-2 border-red-500">
-              {currentVotePopup.loser_profile?.profile_pic_url ? (
-                <Image 
-                  src={currentVotePopup.loser_profile.profile_pic_url} 
-                  alt={currentVotePopup.loser_profile.full_name || "Loser"}
-                  width={48}
-                  height={48}
-                  className="w-full h-full object-cover"
-                />
-              ) : (
-                <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                  <span className="text-gray-500 text-xs sm:text-sm">?</span>
-                </div>
-              )}
-            </div>
-            <div className="flex-1">
-              <div className="text-sm sm:text-base font-medium">{currentVotePopup.loser_profile?.full_name || "Unknown"}</div>
-              <div className="text-xs sm:text-sm text-red-600 flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 sm:h-4 sm:w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+          ) : popupMinimized && (
+            <button
+              onClick={() => {
+                setShowVotePopup(true);
+                setPopupMinimized(false);
+              }}
+              className="fixed bottom-20 right-0 bg-white rounded-l-md shadow-lg py-4 px-0.5 z-50 hover:bg-gray-100 transition-all duration-200 border border-gray-200 border-r-0"
+              aria-label="Show recent votes"
+            >
+              <div className="flex flex-col items-center w-5">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
-                Lost
               </div>
-            </div>
-          </div>
-        </div>
+            </button>
+          )}
+        </>
       )}
       
       {/* Mobile bar under navbar */}
