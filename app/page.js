@@ -7,8 +7,7 @@ import ProfileCard from "@/components/profile_card";
 import { useAuth } from "@/contexts/AuthContext";
 import { normalizeProgram } from '@/utils/programNormalizer';
 import { groupExperiences } from '@/utils/experienceGrouper';
-import Image from "next/image";
-import Head from 'next/head';
+import RecentMatchBar from "@/components/RecentMatchBar";
 
 export default function Home() {
   const [profiles, setProfiles] = useState([]);
@@ -21,22 +20,10 @@ export default function Home() {
   const [voteLimitReached, setVoteLimitReached] = useState(false);
   const [userProfile, setUserProfile] = useState(null);
   const [recentVotes, setRecentVotes] = useState([]);
-  const [showVotePopup, setShowVotePopup] = useState(false);
-  const [currentVotePopup, setCurrentVotePopup] = useState(null);
   const [subscriptionStatus, setSubscriptionStatus] = useState('initializing');
-  const popupRef = useRef(null);
   const [timeSinceVote, setTimeSinceVote] = useState('just now');
-  const [popupMinimized, setPopupMinimized] = useState(false);
 
   const DEFAULT_DAILY_VOTE_LIMIT = 20;
-
-  // At the top of your component, add this effect to prevent auto-hiding
-  useEffect(() => {
-    // This effect ensures the popup stays visible once shown
-    if (currentVotePopup && !showVotePopup && !popupMinimized) {
-      setShowVotePopup(true);
-    }
-  }, [currentVotePopup, showVotePopup, popupMinimized]);
 
   // Function to format time since a given date
   const formatTimeSince = (dateString) => {
@@ -108,40 +95,9 @@ export default function Home() {
         
         setRecentVotes(enhancedVotes);
         
-        // Show the most recent vote
-        if (enhancedVotes.length > 0 && !showVotePopup && !currentVotePopup) {
-          showNextVotePopup(enhancedVotes[0]);
-        }
       }
     } catch (error) {
       console.error('Error fetching recent votes:', error);
-    }
-  };
-
-  // Function to display vote popup
-  const showNextVotePopup = (vote) => {
-    if (!vote) {
-      console.log('No vote provided to showNextVotePopup');
-      return;
-    }
-    
-    console.log('Showing vote popup for:', vote);
-    
-    // Use the time_since property from the vote object
-    setTimeSinceVote(vote.time_since || 'just now');
-    
-    // Simple approach: wait 3 seconds if there's already a popup showing
-    if (showVotePopup && currentVotePopup) {
-      setTimeout(() => {
-        // Update the content
-        setCurrentVotePopup(vote);
-        setPopupMinimized(false);
-      }, 3000); // Wait 3 seconds before doing anything
-    } else {
-      // First time showing
-      setCurrentVotePopup(vote);
-      setShowVotePopup(true);
-      setPopupMinimized(false);
     }
   };
 
@@ -254,15 +210,17 @@ export default function Home() {
             
             const newVote = {
               ...payload.new,
+              id: payload.new.id,
               winner_profile: winnerData,
               loser_profile: loserData,
-              time_since: 'just now' // New votes are always "just now"
+              time_since: 'just now'
             };
-            // Update recent votes list
-            setRecentVotes(prev => [newVote, ...prev.slice(0, 9)]);
             
-            // Show popup for the new vote
-            showNextVotePopup(newVote);
+            // Update recent votes list with a small delay to allow for transition
+            setTimeout(() => {
+              setRecentVotes(prev => [newVote, ...prev.slice(0, 9)]);
+            }, 100);
+            
           } catch (error) {
             console.error('Error processing new vote:', error);
           }
@@ -438,7 +396,6 @@ export default function Home() {
             profile_pic_url: loser.profile_pic_url
           }
         };
-        showNextVotePopup(newVote);
         
         // Update user profile and votes remaining
         await fetchUserProfile();
@@ -465,116 +422,19 @@ export default function Home() {
     <main className="min-h-screen flex flex-col relative">
       <Navbar />
       
-      {/* Vote Popup */}
-      {currentVotePopup && (
-        <>
-          {showVotePopup ? (
-            <div 
-              ref={popupRef}
-              className="fixed bottom-20 right-4 bg-white rounded-lg shadow-lg p-3 sm:p-4 z-50 max-w-[85vw] sm:max-w-sm animate-slide-in-right"
-            >
-              <div className="flex justify-between items-center mb-2 sm:mb-3">
-                <div className="text-xs sm:text-sm font-semibold">Recent Vote</div>
-                <div className="flex items-center">
-                  <div className="text-xs text-gray-500 mr-2">{timeSinceVote}</div>
-                  <button 
-                    onClick={() => {
-                      setShowVotePopup(false);
-                      setPopupMinimized(true);
-                    }}
-                    className="text-gray-400 hover:text-gray-600"
-                    aria-label="Minimize"
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-              
-              {/* Winner */}
-              <div className="flex items-center mb-2 sm:mb-3 p-2 bg-green-50 rounded-md">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden mr-2 sm:mr-3 border-2 border-green-500">
-                  {currentVotePopup.winner_profile?.profile_pic_url ? (
-                    <Image 
-                      src={currentVotePopup.winner_profile.profile_pic_url} 
-                      alt={currentVotePopup.winner_profile.full_name || "Winner"}
-                      width={48}
-                      height={48}
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                      <span className="text-gray-500 text-xs sm:text-sm">?</span>
-                    </div>
-                  )}
-                </div>
-                <div className="flex-1">
-                  <div className="text-sm sm:text-base font-medium">{currentVotePopup.winner_profile?.full_name || "Unknown"}</div>
-                  <div className="text-xs sm:text-sm text-green-600 flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 sm:h-4 sm:w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
-                    </svg>
-                    Winner
-                  </div>
-                </div>
-              </div>
-              
-              {/* Loser */}
-              <div className="flex items-center p-2 bg-red-50 rounded-md">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden mr-2 sm:mr-3 border-2 border-red-500">
-                  {currentVotePopup.loser_profile?.profile_pic_url ? (
-                    <Image 
-                      src={currentVotePopup.loser_profile.profile_pic_url} 
-                      alt={currentVotePopup.loser_profile.full_name || "Loser"}
-                      width={48}
-                      height={48}
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                      <span className="text-gray-500 text-xs sm:text-sm">?</span>
-                    </div>
-                  )}
-                </div>
-                <div className="flex-1">
-                  <div className="text-sm sm:text-base font-medium">{currentVotePopup.loser_profile?.full_name || "Unknown"}</div>
-                  <div className="text-xs sm:text-sm text-red-600 flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 sm:h-4 sm:w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                    </svg>
-                    Lost
-                  </div>
-                </div>
-              </div>
-            </div>
-          ) : popupMinimized && (
-            <button
-              onClick={() => {
-                setShowVotePopup(true);
-                setPopupMinimized(false);
-              }}
-              className="fixed bottom-20 right-0 bg-white rounded-l-md shadow-lg py-4 px-0.5 z-50 hover:bg-gray-100 transition-all duration-200 border border-gray-200 border-r-0"
-              aria-label="Show recent votes"
-            >
-              <div className="flex flex-col items-center w-5">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                </svg>
-              </div>
-            </button>
-          )}
-        </>
-      )}
+      {/* Replace the old popup with the new marquee bar */}
       
+      <div className="hidden sm:block">
+        <RecentMatchBar recentVotes={recentVotes} />
+      </div>
       {/* Mobile bar under navbar */}
-      <div className="sm:hidden fixed top-12 left-0 right-0 bg-white/80 backdrop-blur-sm border-b border-gray-200 py-4 z-20 text-center font-mono tracking-wider shadow-sm">
+      <div className="sm:hidden fixed top-16 left-0 right-0 bg-white/80 backdrop-blur-sm border-b border-gray-200 py-2 z-20 text-center font-mono tracking-wider shadow-sm">
         <span className="text-yellow-500 font-bold uppercase">Who&apos;s More</span>
         <span className="ml-1 font-black uppercase"> Cracked?</span>
         {user && votesRemaining !== null ? (
           <div className="text-xs mt-1 text-gray-600">
             {votesRemaining > 0 
-              ? `${votesRemaining} vote${votesRemaining === 1 ? '' : 's'} remaining today` 
+              ? <span><span className="font-bold px-2 py-1 text-yellow-500 rounded-md">{`${votesRemaining} vote${votesRemaining === 1 ? '' : 's'}`}</span>remaining today</span>
               : "Daily vote limit reached, come back tomorrow!"}
           </div>
         ) : (
@@ -593,7 +453,7 @@ export default function Home() {
             {user && votesRemaining !== null ? (
               <div className="text-xs mt-2 text-gray-600 normal-case">
                 {votesRemaining > 0 
-                  ? `${votesRemaining} vote${votesRemaining === 1 ? '' : 's'} remaining today` 
+              ? <span><span className="font-bold px-2 py-1 text-yellow-500 rounded-md">{`${votesRemaining} vote${votesRemaining === 1 ? '' : 's'}`}</span>remaining today</span>
                   : "Daily vote limit reached, come back tomorrow!"}
               </div>
             ) : (
@@ -605,7 +465,7 @@ export default function Home() {
         </div>
       )}
       
-      <div className="flex flex-row relative flex-1 pt-24 sm:pt-0">
+      <div className="flex flex-row relative flex-1 pt-24 sm:pt-8">
         {profiles.length >= 2 ? (
           <>
             <ProfileCard 
