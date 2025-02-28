@@ -1,6 +1,7 @@
 import Image from "next/image";
 import EmojiRain from './emoji_rain';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 export default function ProfileCard({ 
   title, 
@@ -19,6 +20,27 @@ export default function ProfileCard({
   isAuthenticated,
   profileId
 }) {
+  const [emoji, setEmoji] = useState(null);
+  
+  // Define emoji sets
+  const winnerEmojis = ["🏆", "🥇", "🎉", "🚀", "💪", "⭐", "🔥", "👑", "💯", "🙌"];
+  const loserEmojis = ["😭", "😢", "💔", "😞", "😓", "🤦", "😩", "😔", "🥺", "😿"];
+  
+  // Select random emoji when selection changes
+  useEffect(() => {
+    if (isSelected) {
+      if (isWinner) {
+        const randomIndex = Math.floor(Math.random() * winnerEmojis.length);
+        setEmoji(winnerEmojis[randomIndex]);
+      } else {
+        const randomIndex = Math.floor(Math.random() * loserEmojis.length);
+        setEmoji(loserEmojis[randomIndex]);
+      }
+    } else {
+      setEmoji(null);
+    }
+  }, [isSelected, isWinner]);
+
   const calculateNewRank = () => {
     if (!isSelected || !eloChange) return rank;
     
@@ -35,11 +57,8 @@ export default function ProfileCard({
 
   return (
     <>
-      {isSelected && isWinner && (
-        <EmojiRain emoji="😭" side={isRightAligned ? 'right' : 'left'} />
-      )}
-      {isSelected && !isWinner && (
-        <EmojiRain emoji="🚀" side={isRightAligned ? 'right' : 'left'} />
+      {isSelected && emoji && (
+        <EmojiRain emoji={emoji} side={isRightAligned ? 'left' : 'right'} />
       )}
       <div 
         className={`
