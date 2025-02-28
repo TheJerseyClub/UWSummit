@@ -6,8 +6,8 @@ export default function Footer() {
           <div className="bg-black text-white px-12 py-12 rounded-lg mb-8 w-full h-full flex items-center justify-center">
             <span className="font-mono font-bold tracking-wider text-lg">The Jersey Club</span>
           </div>
-          <p className="text-sm text-gray-600 font-mono">
-            © {new Date().getFullYear()} UWCo-opium. All rights reserved.
+          <p className="text-sm text-gray-600 font-mono -mt-4">
+            Not affiliated with the University of Waterloo.
           </p>
         </div>
       </div>
