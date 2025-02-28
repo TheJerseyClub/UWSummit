@@ -1,10 +1,12 @@
 import Image from "next/image";
 import Marquee from 'react-fast-marquee';
 import { useState, useEffect, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function RecentMatchBar({ recentVotes }) {
   const [displayedVotes, setDisplayedVotes] = useState([]);
   const marqueeRef = useRef(null);
+  const router = useRouter();
 
   useEffect(() => {
     if (!recentVotes?.length) return;
@@ -19,10 +21,17 @@ export default function RecentMatchBar({ recentVotes }) {
     }
   }, [recentVotes]);
 
+  const navigateToLiveVotes = () => {
+    router.push('/livevotes');
+  };
+
   if (!displayedVotes?.length) return null;
 
   return (
-    <div className="fixed top-16 left-0 right-0 bg-white/90 backdrop-blur-sm border-b border-gray-300 z-40 overflow-hidden">
+    <div 
+      className="fixed top-16 left-0 right-0 bg-white/90 backdrop-blur-sm border-b border-gray-300 z-40 overflow-hidden cursor-pointer"
+      onClick={navigateToLiveVotes}
+    >
       <Marquee
         ref={marqueeRef}
         gradient={true}
