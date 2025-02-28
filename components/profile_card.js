@@ -139,28 +139,53 @@ export default function ProfileCard({
             )}
           </div>
 
+
+
+
+
+
           {isSelected && profileId ? (
-            <Link 
-              href={`/profile/${profileId}`}
-              className={`group/title text-lg sm:text-2xl lg:text-4xl xl:text-5xl font-bold mb-2 font-mono uppercase tracking-tight mx-1 sm:mx-4 transition-all duration-300 
-                ${isSelected ? '' : 'blur-md [-webkit-filter:blur(12px)]'} ${isRightAligned ? 'text-right' : 'text-left'}
-                opacity-0 ${isLoaded ? 'animate-slide-up' : ''} [animation-delay:300ms] [animation-fill-mode:forwards]
-                hover:text-yellow-600 flex items-center gap-2 ${isRightAligned ? 'justify-end' : 'justify-start'}`}
+                    <Link 
+          href={`/profile/${profileId}`}
+          className={`
+            group/title text-lg sm:text-2xl lg:text-4xl xl:text-5xl font-bold mb-2 font-mono uppercase tracking-tight mx-1 sm:mx-4 
+            transition-all duration-300 
+            ${isSelected ? '' : 'blur-md [-webkit-filter:blur(12px)]'} 
+            ${isRightAligned ? 'text-right' : 'text-left'} 
+            flex items-center gap-2 
+            ${isRightAligned ? 'justify-end' : 'justify-start'}
+            hover:text-yellow-600 hover:scale-105
+          `}
+        >
+          {isRightAligned && (
+            <svg 
+              className="w-6 h-6 sm:w-8 sm:h-8 opacity-100 transition-all
+                        hover:text-yellow-600 hover:scale-105"
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
             >
-              {title}
-              <svg 
-                className="w-6 h-6 sm:w-8 sm:h-8 opacity-0 group-hover/title:opacity-100 transition-opacity" 
-                fill="none" 
-                stroke="currentColor" 
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
-            </Link>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          )}
+
+          {title}
+
+          {!isRightAligned && (
+            <svg 
+              className="w-6 h-6 sm:w-8 sm:h-8 opacity-100 transition-all
+                        hover:text-yellow-600 hover:scale-105"
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 7l-5 5m0 0l5 5m-5-5h12" />
+            </svg>
+          )}
+        </Link>
           ) : (
             <h2 className={`text-lg sm:text-2xl lg:text-4xl xl:text-5xl font-bold mb-2 font-mono uppercase tracking-tight mx-1 sm:mx-4 transition-all duration-300 
-              ${isSelected ? '' : 'blur-md [-webkit-filter:blur(12px)]'} ${isRightAligned ? 'text-right' : 'text-left'}
-              opacity-0 ${isLoaded ? 'animate-slide-up' : ''} [animation-delay:300ms] [animation-fill-mode:forwards]`}
+              ${isSelected ? '' : 'blur-md [-webkit-filter:blur(12px)]'} ${isRightAligned ? 'text-right' : 'text-left'}`}
             >
               {title}
             </h2>

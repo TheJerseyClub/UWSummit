@@ -403,7 +403,7 @@ export default function Home() {
           </div>
         ) : (
           <div className="text-xs mt-1 text-gray-600">
-            Anonymous votes don't count, sign in first!
+            <span className="bg-red-300 text-black px-2 py-1 rounded-md">Anonymous votes don&apos;t count, sign in first!</span>
           </div>
         )}
       </div>
