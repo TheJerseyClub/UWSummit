@@ -105,7 +105,7 @@ export default function ProfileCard({
               )}
             </div>
             {isSelected && (
-              <div className={`font-mono text-xs sm:text-sm lg:text-lg flex flex-col self-center ${isRightAligned ? 'text-right' : 'text-left'} ${isRightAligned ? 'sm:order-first' : 'sm:order-last'} ${isRightAligned ? 'translate-x-[12px]' : '-translate-x-[12px]'} sm:translate-x-0` }>
+              <div className={`font-mono text-xs sm:text-sm lg:text-lg flex flex-col self-center ${isRightAligned ? 'text-right' : 'text-left'} ${isRightAligned ? 'sm:order-first' : 'sm:order-last'} ${isRightAligned ? 'translate-x-[5px]' : '-translate-x-[5px]'} sm:translate-x-0` }>
                 <div>
                   Rank: #{calculateNewRank()}
                   {isAuthenticated ? (
@@ -139,16 +139,11 @@ export default function ProfileCard({
             )}
           </div>
 
-
-
-
-
-
           {isSelected && profileId ? (
                     <Link 
           href={`/profile/${profileId}`}
           className={`
-            group/title text-lg sm:text-2xl lg:text-4xl xl:text-5xl font-bold mb-2 font-mono uppercase tracking-tight mx-1 sm:mx-4 
+            group/title text-lg sm:text-2xl lg:text-4xl xl:text-5xl font-bold mb-2 font-mono uppercase tracking-tight ${isRightAligned ? 'mr-1 sm:mr-4' : 'ml-1 sm:ml-4'}
             transition-all duration-300 
             ${isSelected ? '' : 'blur-md [-webkit-filter:blur(12px)]'} 
             ${isRightAligned ? 'text-right' : 'text-left'} 
@@ -157,7 +152,7 @@ export default function ProfileCard({
             hover:text-yellow-600 hover:scale-105
           `}
         >
-          {isRightAligned && (
+          {/* {isRightAligned && (
             <svg 
               className="w-6 h-6 sm:w-8 sm:h-8 opacity-100 transition-all
                         hover:text-yellow-600 hover:scale-105"
@@ -167,11 +162,11 @@ export default function ProfileCard({
             >
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>
-          )}
+          )} */}
 
           {title}
 
-          {!isRightAligned && (
+          {/* {!isRightAligned && (
             <svg 
               className="w-6 h-6 sm:w-8 sm:h-8 opacity-100 transition-all
                         hover:text-yellow-600 hover:scale-105"
@@ -181,7 +176,7 @@ export default function ProfileCard({
             >
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 7l-5 5m0 0l5 5m-5-5h12" />
             </svg>
-          )}
+          )} */}
         </Link>
           ) : (
             <h2 className={`text-lg sm:text-2xl lg:text-4xl xl:text-5xl font-bold mb-2 font-mono uppercase tracking-tight mx-1 sm:mx-4 transition-all duration-300 
@@ -191,9 +186,10 @@ export default function ProfileCard({
             </h2>
           )}
           
-          <div className="space-y-2 sm:space-y-4 lg:space-y-6 opacity-0 animate-slide-up [animation-delay:500ms] [animation-fill-mode:forwards]">
+          <div className="opacity-0 animate-slide-up [animation-delay:500ms] [animation-fill-mode:forwards] mt-4">
+            <h3 className={`text-lg sm:text-xl lg:text-2xl font-bold font-mono mx-1 sm:mx-4 ${isRightAligned ? 'text-right' : 'text-left'}`}>Program</h3>
             {items.map((item, index) => (
-              <div key={index} className={`mx-1 sm:mx-4 my-1 sm:my-2 lg:my-4 transition-transform duration-300 hover:scale-105 ${isRightAligned ? 'text-right' : 'text-left'}`}>
+              <div key={index} className={`mx-1 sm:mx-4 sm:my-2 lg:my-4 transition-transform duration-300 hover:scale-105 ${isRightAligned ? 'text-right' : 'text-left'}`}>
                 <h3 className="text-sm sm:text-base lg:text-lg font-bold font-mono">{item.label}</h3>
                 <p className={`text-sm sm:text-lg lg:text-2xl inline-block ${
                   item.value.toLowerCase().includes('computer science') ? "bg-pink-100" :
@@ -206,7 +202,7 @@ export default function ProfileCard({
           </div>
 
           {/* Experience Section */}
-          <div className="mt-4 sm:mt-8 lg:mt-12 opacity-0 animate-slide-up [animation-delay:700ms] [animation-fill-mode:forwards]">
+          <div className="mt-6 opacity-0 animate-slide-up [animation-delay:700ms] [animation-fill-mode:forwards]">
             <h3 className={`text-base sm:text-xl lg:text-3xl font-bold font-mono mb-2 sm:mb-4 lg:mb-6 mx-1 sm:mx-4 transition-transform duration-300 hover:scale-105 ${isRightAligned ? 'text-right' : 'text-left'}`}>
               EXPERIENCE
             </h3>

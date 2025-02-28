@@ -250,7 +250,7 @@ export default function Leaderboard() {
       </button>
       
       <div className="max-w-4xl mx-auto w-full px-4 py-16 md:pl-32">
-        <h1 className="text-4xl font-mono font-bold mb-12 tracking-tight text-center mt-12">Leaderboard</h1>
+        <h1 className="text-4xl font-mono font-bold mb-12 tracking-tight text-center mt-12">Leaderboard 🏆</h1>
         
         {/* Add podium section */}
         {renderPodium()}
