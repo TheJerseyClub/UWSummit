@@ -30,10 +30,10 @@ export default function RecruitmentPage() {
             <h1 className="font-mono text-6xl font-black mb-6 tracking-tight">
               Find your next
               <br />
-              <span className="text-yellow-500">superstar intern</span>
+              <span className="text-yellow-500">Superstar Intern</span>
             </h1>
             <p className="font-mono text-xl text-gray-600 max-w-2xl leading-relaxed">
-              UWSummit uses advanced AI to match you with top University of Waterloo talent, analyzing skills, experience, and culture fit to find your perfect candidates.
+              UWSummit provides a curated pool of University of Waterloo students that you can search through based on skills, experience, and more—helping you find the right candidates efficiently.
             </p>
           </section>
 
@@ -45,8 +45,8 @@ export default function RecruitmentPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
-              <h3 className="font-mono text-2xl font-bold mb-4">AI-Powered Matching</h3>
-              <p className="font-mono text-gray-600">Our algorithms analyze thousands of profiles to find students whose skills and experience align perfectly with your needs.</p>
+              <h3 className="font-mono text-2xl font-bold mb-4">Search Fast</h3>
+              <p className="font-mono text-gray-600">Find the right talent fast with instant access to students filtered by simplified skills and experience.</p>
             </div>
 
             <div className="bg-gray-50 p-8 rounded-2xl">
@@ -56,7 +56,7 @@ export default function RecruitmentPage() {
                 </svg>
               </div>
               <h3 className="font-mono text-2xl font-bold mb-4">Curated Talent Pool</h3>
-              <p className="font-mono text-gray-600">Access a pre-vetted pool of Waterloo&apos;s brightest students, all eager to bring fresh perspectives to your team.</p>
+              <p className="font-mono text-gray-600">Access a pool of Waterloo&apos;s brightest students, all eager to bring fresh perspectives to your team.</p>
             </div>
           </section>
 
@@ -64,15 +64,15 @@ export default function RecruitmentPage() {
           <section className="mb-32 bg-black text-white p-12 rounded-2xl">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="text-center">
-                <div className="font-mono text-5xl font-black text-yellow-500 mb-2">94%</div>
+                <div className="font-mono text-5xl font-black text-yellow-500 mb-2">xx%</div>
                 <div className="font-mono text-sm tracking-wider">PLACEMENT RATE</div>
               </div>
               <div className="text-center">
-                <div className="font-mono text-5xl font-black text-yellow-500 mb-2">48h</div>
+                <div className="font-mono text-5xl font-black text-yellow-500 mb-2">xx</div>
                 <div className="font-mono text-sm tracking-wider">AVERAGE MATCH TIME</div>
               </div>
               <div className="text-center">
-                <div className="font-mono text-5xl font-black text-yellow-500 mb-2">1000+</div>
+                <div className="font-mono text-5xl font-black text-yellow-500 mb-2">xxxx+</div>
                 <div className="font-mono text-sm tracking-wider">ACTIVE STUDENTS</div>
               </div>
             </div>

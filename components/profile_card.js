@@ -75,7 +75,7 @@ export default function ProfileCard({
           ${isSelected 
             ? (isWinner 
                 ? 'w-[50%] opacity-100 bg-yellow-50 sm:bg-white' 
-                : 'w-[50%] opacity-50 bg-yellow-50 sm:bg-white'
+                : 'w-[50%] opacity-50 sm:bg-white'
               ) 
             : 'w-[50%] cursor-pointer'
           }
@@ -145,7 +145,7 @@ export default function ProfileCard({
             <Link 
               href={`/profile/${profileId}`}
               className={`
-                text-4xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold mb-2 font-mono uppercase tracking-tight ${isRightAligned ? 'mr-1 sm:mr-4' : 'ml-1 sm:ml-4'}
+               text-3xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold mb-2 font-mono uppercase tracking-tight ${isRightAligned ? 'mr-1 sm:mr-4' : 'ml-1 sm:ml-4'}
                 transition-all duration-300 
                 ${isSelected ? '' : 'blur-md [-webkit-filter:blur(12px)]'} 
                 ${isRightAligned ? 'text-right' : 'text-left'} 
