@@ -38,9 +38,6 @@ export default function SignIn() {
         setTimeout(() => {
           setError(false)
         }, 1000)
-      } else {
-        // Valid code entered, redirect to dashboard
-        router.push('/recruit/dashboard')
       }
     }
 

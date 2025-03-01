@@ -228,23 +228,24 @@ export default function Home() {
       <div className="flex-1 flex flex-col justify-start relative z-20 mt-16">
         
         {/* Mission statement */}
-        <div className="max-w-4xl self-start p-8 md:p-16">
+        <div className="max-w-5xl self-start p-8 md:p-16">
           <div className="flex flex-col items-start gap-2">
             <div className="bg-black px-4 py-1">
-              <span className="text-5xl md:text-7xl lg:text-8xl font-bold leading-tight tracking-tighter text-left">
-                <span className="text-yellow-400">UW</span><span className="text-white">aterloo&apos;s</span>
+              <span className="text-5xl md:text-7xl lg:text-8xl font-bold leading-tight tracking-tighter text-left text-white">
+                The Alternative
               </span>
             </div>
             <div className="bg-black px-4 py-1">
               <span className="text-5xl md:text-7xl lg:text-8xl font-bold leading-tight tracking-tighter text-left text-white">
-                Secondary Job
+                 Job Board for
               </span>
             </div>
             <div className="bg-black px-4 py-1">
               <span className="text-5xl md:text-7xl lg:text-8xl font-bold leading-tight tracking-tighter text-left text-white">
-                Board
+              <span className="text-yellow-400">Summer 25' </span>
               </span>
             </div>
+
             
             {/* Play button */}
             <div className="mt-8">
