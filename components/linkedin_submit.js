@@ -41,12 +41,37 @@ export default function LinkedinSubmit() {
     );
   }
 
+  // Check if LinkedIn URL already exists in the database
+  const checkLinkedInUrlExists = async (normalizedUrl) => {
+    try {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('id')
+        .eq('linkedin_url', normalizedUrl)
+        .neq('id', user.id) // Exclude the current user's profile
+        .maybeSingle();
+
+      if (error) throw error;
+      
+      return data !== null;
+    } catch (error) {
+      console.error('Error checking LinkedIn URL:', error);
+      throw new Error('Error checking LinkedIn URL');
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     setMessage({ text: '', isError: false })
     setLoading(true)
 
     try {
+      // Check if the LinkedIn URL already exists
+      const urlExists = await checkLinkedInUrlExists(linkedinUrl);
+      if (urlExists) {
+        throw new Error('Well this is awkward. Looks like this linkedin profile is already registered by another user. If you think this is an error, please contact us.');
+      }
+      
       const response = await fetch('/api/scrape-linkedin', {
         method: 'POST',
         headers: {
