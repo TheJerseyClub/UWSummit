@@ -81,13 +81,16 @@ export default function ProfileCard({
           }
           mt-8 sm:mt-12 lg:mt-16
           sm:hover:bg-yellow-50 ${isSelected ? 'sm:hover:scale-[1.04]' : 'sm:hover:scale-[1.00]'}
+          ${isLoaded ? 'animate-slide-up' : 'opacity-0'}
         `}
+        style={{animationDelay: '100ms', animationFillMode: 'forwards'}}
         onClick={isSelected ? undefined : onClick}
       >
         <div className={`p-1 sm:p-4 lg:p-6 transition-all duration-300 w-full relative flex flex-col px-4 sm:px-0 lg:-mt-4 
           ${isRightAligned ? 'sm:pr-8 md:pr-12' : 'sm:pl-8 md:pl-12'}`}>
           {/* Profile Picture Section */}
-          <div className={`flex flex-col sm:flex-row ${isRightAligned ? 'items-end sm:justify-end sm:mr-4' : 'items-start sm:justify-start sm:ml-4'} mb-4 sm:mb-4 lg:mb-8 gap-2 sm:gap-4`}>
+          <div className={`flex flex-col sm:flex-row ${isRightAligned ? 'items-end sm:justify-end sm:mr-4' : 'items-start sm:justify-start sm:ml-4'} mb-4 sm:mb-4 lg:mb-8 gap-2 sm:gap-4 opacity-0 ${isLoaded ? 'animate-slide-up' : ''}`}
+            style={{animationDelay: '200ms', animationFillMode: 'forwards'}}>
             <div className={`w-full h-full sm:w-40 sm:h-40 xl:w-48 xl:h-48 rounded-md bg-gray-300 overflow-visible transition-all duration-300 
               ${isSelected ? '' : 'blur-md [-webkit-filter:blur(12px)] p-4'}`}>
               {profilePicture ? (
@@ -107,7 +110,8 @@ export default function ProfileCard({
               )}
             </div>
             {isSelected && (
-              <div className={`font-mono text-xs sm:text-sm lg:text-lg flex flex-col self-center ${isRightAligned ? 'text-right' : 'text-left'} ${isRightAligned ? 'sm:order-first' : 'sm:order-last'} ${isRightAligned ? 'translate-x-[5px]' : '-translate-x-[5px]'} sm:translate-x-0` }>
+              <div className={`font-mono text-xs sm:text-sm lg:text-lg flex flex-col self-center ${isRightAligned ? 'text-right' : 'text-left'} ${isRightAligned ? 'sm:order-first' : 'sm:order-last'} ${isRightAligned ? 'translate-x-[5px]' : '-translate-x-[5px]'} sm:translate-x-0 opacity-0 ${isLoaded ? 'animate-slide-up' : ''}`}
+                style={{animationDelay: '300ms', animationFillMode: 'forwards'}}>
                 <div>
                   Rank: #{calculateNewRank()}
                   {isAuthenticated ? (
@@ -186,7 +190,8 @@ export default function ProfileCard({
             </h2>
           )}
           
-          <div className="mt-2">
+          <div className={`mt-2 opacity-0 ${isLoaded ? 'animate-slide-up' : ''}`}
+            style={{animationDelay: '500ms', animationFillMode: 'forwards'}}>
             <h3 className={`text-lg sm:text-xl lg:text-2xl font-medium font-mono mx-1 sm:mx-4 ${isRightAligned ? 'text-right' : 'text-left'}`}>Program</h3>
             {items.map((item, index) => (
               <div key={index} className={`mx-1 sm:mx-4 transition-transform duration-300 hover:scale-105 ${isRightAligned ? 'text-right' : 'text-left'}`}>
@@ -202,13 +207,15 @@ export default function ProfileCard({
           </div>
 
           {/* Experience Section */}
-          <div className="mt-6">
+          <div className={`mt-6 opacity-0 ${isLoaded ? 'animate-slide-up' : ''}`}
+            style={{animationDelay: '600ms', animationFillMode: 'forwards'}}>
             <h3 className={`text-base sm:text-xl lg:text-3xl font-bold font-mono mb-2 sm:mb-4 lg:mb-6 mx-1 sm:mx-4 transition-transform duration-300 hover:scale-105 ${isRightAligned ? 'text-right' : 'text-left'}`}>
               EXPERIENCE
             </h3>
             <div className="space-y-3 sm:space-y-4 lg:space-y-6">
               {experiences?.map((experience, index) => (
-                <div key={index} className="mb-3 sm:mb-4 lg:mb-6 last:mb-0">
+                <div key={index} className={`mb-3 sm:mb-4 lg:mb-6 last:mb-0 opacity-0 ${isLoaded ? 'animate-slide-up' : ''}`}
+                  style={{animationDelay: `${700 + (index * 100)}ms`, animationFillMode: 'forwards'}}>
                   <div className={`flex items-start gap-2 sm:gap-4 mb-1 sm:mb-2 ${isRightAligned ? 'flex-row-reverse' : 'flex-row'} transition-transform duration-300 hover:scale-105`}>
                     <div className="w-6 h-6 sm:w-8 sm:h-8 relative flex-shrink-0 mt-1">
                       {experience.companyLogo ? (
