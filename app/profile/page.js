@@ -14,6 +14,7 @@ export default function Profile() {
   const [profile, setProfile] = useState(null)
   const [loading, setLoading] = useState(true)
   const [mounted, setMounted] = useState(false)
+  const [rank, setRank] = useState(null)
   const router = useRouter()
   const { user } = useAuth()
 
@@ -34,6 +35,20 @@ export default function Profile() {
         if (error) throw error
         
         setProfile(data || null)
+        
+        // Fetch rank if profile exists
+        if (data) {
+          const { data: allProfiles, error: rankError } = await supabase
+            .from('profiles')
+            .select('id, elo')
+            .not('linkedin_url', 'is', null)
+            .order('elo', { ascending: false })
+          
+          if (rankError) throw rankError
+          
+          const userRank = allProfiles.findIndex(p => p.id === user.id) + 1
+          setRank(userRank)
+        }
       } catch (error) {
         console.error('Error fetching profile:', error)
         setProfile(null)
@@ -105,22 +120,26 @@ export default function Profile() {
         <div className="max-w-4xl mx-auto pt-16 md:pt-20 px-4">
           <div className="bg-white p-4 md:p-8 border border-gray-300 rounded-md">
             {/* Profile Header - Animate First */}
-            <div className={`flex flex-col md:flex-row md:items-center gap-4 md:gap-6 mb-6 opacity-0 ${mounted ? 'animate-slide-up' : ''}`} style={{animationDelay: '100ms', animationFillMode: 'forwards'}}>
+            <div className={`flex flex-col items-center md:items-start md:flex-row md:items-center gap-4 md:gap-6 mb-6 opacity-0 ${mounted ? 'animate-slide-up' : ''}`} style={{animationDelay: '100ms', animationFillMode: 'forwards'}}>
               {profile?.profile_pic_url ? (
-                <div className="border border-gray-300 rounded-md w-20 h-20 md:w-[100px] md:h-[100px]">
+                <div className="border border-gray-300 rounded-md w-36 h-36 md:w-[180px] md:h-[180px]">
                   <Image
                     src={profile.profile_pic_url}
                     alt="Profile"
-                    width={100}
-                    height={100}
+                    width={180}
+                    height={180}
                     className="object-cover rounded-md"
                   />
                 </div>
               ) : (
-                <div className="w-20 h-20 md:w-[100px] md:h-[100px] bg-gray-50 border border-gray-300 rounded-md" />
+                <div className="w-36 h-36 md:w-[180px] md:h-[180px] bg-gray-50 border border-gray-300 rounded-md" />
               )}
-              <div>
-                <h1 className="text-2xl md:text-4xl font-mono font-bold tracking-tight">{profile?.full_name || 'No name provided'}</h1>
+              <div className="text-center md:text-left">
+                <h1 className="text-2xl md:text-4xl font-mono font-bold tracking-tight">
+                  {profile?.full_name || 'No name provided'} 
+                  {rank && <span className="text-yellow-500 ml-2 text-2xl md:text-3xl">#{rank}</span>}
+                </h1>
+                
                 {profile?.education?.filter(edu => 
                   edu.school?.toLowerCase().includes('waterloo')
                 ).length > 0 && (
