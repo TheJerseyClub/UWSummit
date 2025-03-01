@@ -115,7 +115,7 @@ export default function LinkedinSubmit() {
         )}
         <input
           type="url"
-          placeholder="LinkedIn URL"
+          placeholder="https://www.linkedin.com/in/your-username"
           value={linkedinUrl}
           onChange={(e) => setLinkedinUrl(e.target.value)}
           className="w-full p-3 border border-gray-200 font-mono outline-none transition-all rounded-md"
