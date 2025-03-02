@@ -69,7 +69,7 @@ export default function LinkedinSubmit() {
       // Check if the LinkedIn URL already exists
       const urlExists = await checkLinkedInUrlExists(linkedinUrl);
       if (urlExists) {
-        throw new Error('Well this is awkward. Looks like this linkedin profile is already registered by another user. If you think this is an error, please contact us.');
+        throw new Error('Well this is awkward. Looks like this linkedin profile is already registered by another user. If you think this is an error, please contact us at summitthesummit@gmail.com.');
       }
       
       const response = await fetch('/api/scrape-linkedin', {
