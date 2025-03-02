@@ -13,7 +13,6 @@ export default function UserProfile() {
   const [loading, setLoading] = useState(true)
   const [mounted, setMounted] = useState(false)
   const [error, setError] = useState(null)
-  const [rank, setRank] = useState(null)
   const params = useParams()
   const profileId = params.id
   const router = useRouter()
@@ -30,18 +29,6 @@ export default function UserProfile() {
         if (error) throw error
         
         setProfile(data)
-        
-        // Fetch rank
-        const { data: allProfiles, error: rankError } = await supabase
-          .from('profiles')
-          .select('id, elo')
-          .not('linkedin_url', 'is', null)
-          .order('elo', { ascending: false })
-        
-        if (rankError) throw rankError
-        
-        const userRank = allProfiles.findIndex(p => p.id === profileId) + 1
-        setRank(userRank)
       } catch (error) {
         console.error('Error fetching profile:', error)
         setError('Profile not found or error loading profile')
@@ -89,24 +76,20 @@ export default function UserProfile() {
             {/* Profile Header - Animate First */}
             <div className={`flex flex-col md:flex-row md:items-center gap-4 md:gap-6 mb-6 opacity-0 ${mounted ? 'animate-slide-up' : ''}`} style={{animationDelay: '100ms', animationFillMode: 'forwards'}}>
               {profile?.profile_pic_url ? (
-                <div className="border border-gray-300 rounded-md w-36 h-36 md:w-[180px] md:h-[180px]">
+                <div className="border border-gray-300 rounded-md w-20 h-20 md:w-[100px] md:h-[100px]">
                   <Image
                     src={profile.profile_pic_url}
                     alt="Profile"
-                    width={180}
-                    height={180}
+                    width={100}
+                    height={100}
                     className="object-cover rounded-md"
                   />
                 </div>
               ) : (
-                <div className="w-36 h-36 md:w-[180px] md:h-[180px] bg-gray-50 border border-gray-300 rounded-md" />
+                <div className="w-20 h-20 md:w-[100px] md:h-[100px] bg-gray-50 border border-gray-300 rounded-md" />
               )}
               <div>
-                <h1 className="text-2xl md:text-4xl font-mono font-bold tracking-tight">
-                  {profile?.full_name || 'No name provided'}
-                  {rank && <span className="text-yellow-500 ml-2 text-2xl md:text-3xl">#{rank}</span>}
-                </h1>
-                
+                <h1 className="text-2xl md:text-4xl font-mono font-bold tracking-tight">{profile?.full_name || 'No name provided'}</h1>
                 {profile?.education?.filter(edu => 
                   edu.school?.toLowerCase().includes('waterloo')
                 ).length > 0 && (
