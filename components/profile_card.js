@@ -75,7 +75,7 @@ export default function ProfileCard({
           ${isSelected 
             ? (isWinner 
                 ? 'w-[50%] opacity-100 bg-yellow-50 sm:bg-white' 
-                : 'w-[50%] opacity-50 sm:bg-white'
+                : 'w-[50%] opacity-30 sm:bg-white'
               ) 
             : 'w-[50%] cursor-pointer'
           }
