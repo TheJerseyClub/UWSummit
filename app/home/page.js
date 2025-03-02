@@ -165,10 +165,10 @@ export default function Home() {
             {/* Duck positioned on the middle mountain */}
             <image
               href={duck.src}
-              x="400"
-              y="270"
-              width="100"
-              height="100"
+              x="390"
+              y="250"
+              width="130"
+              height="130"
               style={{
                 transform: "scale(-1, 1) rotate(-15deg)",
                 transformOrigin: "center",
