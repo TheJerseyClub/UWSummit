@@ -6,6 +6,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { supabase } from "@/utils/supabase";
+import Logo from "@/public/logo.svg";
 
 export default function Navbar() {
   const { user, signOut } = useAuth()
@@ -92,21 +93,13 @@ export default function Navbar() {
           <div className={`flex items-center md:flex-grow-0 ${
             pathname !== '/' ? 'absolute left-1/2 transform -translate-x-1/2 md:static md:left-auto md:transform-none' : 'relative left-0'
           }`}>
-            <svg 
-              className="w-8 h-8 mr-2" 
-              viewBox="0 0 24 24" 
-              fill="none" 
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path 
-                d="M12 3L4 20H20L12 3Z" 
-                fill="black"
-              />
-              <path 
-                d="M12 7L9 13H15L12 7Z" 
-                fill="white"
-              />
-            </svg>
+            <Image 
+              src={Logo} 
+              alt="Logo" 
+              className="w-20 h-20 mr-2" 
+              width={40} 
+              height={40} 
+            />
             <Link href="/" className="text-2xl font-mono font-bold text-gray-900 hover:text-gray-600 transition-colors">
               <span className="text-yellow-500">UW</span>Summit
             </Link>
