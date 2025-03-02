@@ -15,6 +15,10 @@ const geistMono = Geist_Mono({
 export const metadata = {
   title: "UWSummit",
   description: "University of Waterloo's Secondary Job Board",
+  icons: {
+    icon: "/Group-4.ico",
+    apple: "/Group-4.ico", // Optional for iOS
+  },
   openGraph: {
     title: "UWSummit",
     description: "University of Waterloo's Secondary Job Board",
