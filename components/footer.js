@@ -9,6 +9,12 @@ export default function Footer() {
           <p className="text-sm text-gray-600 font-mono -mt-4 text-center">
             Not affiliated with the University of Waterloo.
           </p>
+                  {/* Contact information in footer */}
+        <div className="w-full max-w-5xl mx-auto px-4 py-3 mb-2">
+          <p className="text-sm font-mono text-gray-700 text-center">
+            For inquiries, contact us at: <a href="mailto:summitthesummit@gmail.com" className="font-bold text-yellow-600 hover:underline">summitthesummit@gmail.com</a>
+          </p>
+        </div>
         </div>
       </div>
     </footer>
