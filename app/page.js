@@ -210,6 +210,26 @@ export default function Home() {
     }
   };
 
+  const renderVoteCountMessage = () => {
+    if (!user) {
+      return (
+        <div className="text-center text-red-400 mt-4 font-mono">
+          Sign in for votes to count
+        </div>
+      );
+    }
+    
+    return (
+      <div className="text-center mt-4 font-mono">
+        {voteLimitReached ? (
+          <span className="text-red-500">No votes remaining today</span>
+        ) : (
+          <span>{votesRemaining} votes remaining today</span>
+        )}
+      </div>
+    );
+  };
+
   if (loading) {
     return (
       <main className="min-h-screen flex flex-col relative">
@@ -229,17 +249,7 @@ export default function Home() {
       <div className="sm:hidden fixed top-16 left-0 right-0 bg-white/80 backdrop-blur-sm border-b border-gray-200 py-2 z-20 text-center font-mono tracking-wider shadow-sm">
         <span className="text-yellow-500 font-bold uppercase">Who&apos;s More</span>
         <span className="ml-1 font-black uppercase"> Cracked?</span>
-        {user && votesRemaining !== null ? (
-          <div className="text-xs mt-1 text-gray-600">
-            {votesRemaining > 0 
-              ? <span><span className="font-bold px-2 py-1 text-yellow-500 rounded-md">{`${votesRemaining} vote${votesRemaining === 1 ? '' : 's'}`}</span>remaining today</span>
-              : "Daily vote limit reached, come back tomorrow!"}
-          </div>
-        ) : (
-          <div className="text-xs mt-1 text-gray-600">
-            <span className="text-red-500">Sign in for votes to count!</span>
-          </div>
-        )}
+        {renderVoteCountMessage()}
       </div>
       
       {/* Desktop centered text (only visible when no selection and only on desktop) */}
@@ -248,17 +258,7 @@ export default function Home() {
           <div className="bg-white/80 backdrop-blur-sm border border-gray-200 px-8 py-4 rounded-lg shadow-sm">
             <span className="block mb-1 text-yellow-500 font-bold">Who&apos;s More</span>
             <span className="block text-2xl font-black">Cracked?</span>
-            {user && votesRemaining !== null ? (
-              <div className="text-xs mt-2 text-gray-600 normal-case">
-                {votesRemaining > 0 
-              ? <span><span className="font-bold px-2 py-1 text-yellow-500 rounded-md">{`${votesRemaining} vote${votesRemaining === 1 ? '' : 's'}`}</span>remaining today</span>
-                  : "Daily vote limit reached, come back tomorrow!"}
-              </div>
-            ) : (
-              <div className="text-xs mt-2 text-red-500 normal-case">
-                Sign in for votes to count!
-              </div>
-            )}
+            {renderVoteCountMessage()}
           </div>
         </div>
       )}
