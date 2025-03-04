@@ -160,12 +160,6 @@ export default function Home() {
           loser: loser.id,
         });
 
-
-        console.log("hi");
-        console.log(data);
-        console.log(data.winner_score);
-        console.log(data)
-
         if (error) throw error;
 
         // Update ELO changes display from the response
@@ -173,6 +167,27 @@ export default function Home() {
           winner: data.winner_score,
           loser: data.loser_score
         });
+
+        // Update the ELO scores in the profiles array
+        const updatedProfiles = [...allProfiles];
+        const winnerIndex = updatedProfiles.findIndex(p => p.id === winner.id);
+        const loserIndex = updatedProfiles.findIndex(p => p.id === loser.id);
+        
+        if (winnerIndex !== -1) {
+          updatedProfiles[winnerIndex] = {
+            ...updatedProfiles[winnerIndex],
+            elo: updatedProfiles[winnerIndex].elo + data.winner_score
+          };
+        }
+        
+        if (loserIndex !== -1) {
+          updatedProfiles[loserIndex] = {
+            ...updatedProfiles[loserIndex],
+            elo: updatedProfiles[loserIndex].elo + data.loser_score
+          };
+        }
+        
+        setAllProfiles(updatedProfiles);
 
         // Update user profile and votes remaining
         await fetchUserProfile();
