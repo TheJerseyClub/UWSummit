@@ -139,6 +139,8 @@ export default function Home() {
         });
 
         console.log(data);
+        console.log(data[winner.id].elo)
+        console.log(data[loser.id].elo)
 
         if (error) throw error;
 
