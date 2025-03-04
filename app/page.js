@@ -158,6 +158,7 @@ export default function Home() {
         const { data, error } = await supabase.rpc('cast_vote', {
           winner: winner.id,
           loser: loser.id,
+          voter: user.id
         });
 
         if (error) throw error;
