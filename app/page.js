@@ -268,14 +268,6 @@ export default function Home() {
     };
   };
 
-  const getExpectedScore = (ratingA, ratingB) => {
-    return 1 / (1 + Math.pow(10, (ratingB - ratingA) / 400));
-  };
-
-  const calculateNewRating = (currentRating, expectedScore, actualScore, kFactor = 16) => {
-    return Math.round(currentRating + kFactor * (actualScore - expectedScore));
-  };
-
   const handleProfileVote = async (winnerIndex) => {
     // Check if vote limit reached for logged-in users
     if (user && voteLimitReached) {
@@ -287,37 +279,24 @@ export default function Home() {
     const loser = profiles[winnerIndex === 0 ? 1 : 0];
     
     try {
-      const winnerElo = winner.elo || 1000;
-      const loserElo = loser.elo || 1000;
-      
-      const winnerExpectedScore = getExpectedScore(winnerElo, loserElo);
-      const loserExpectedScore = getExpectedScore(loserElo, winnerElo);
-      
-      const newWinnerElo = calculateNewRating(winnerElo, winnerExpectedScore, 1);
-      const newLoserElo = calculateNewRating(loserElo, loserExpectedScore, 0);
-
-      // Only set ELO changes if user is logged in
       if (user) {
-        setEloChanges({
-          winner: newWinnerElo - winnerElo,
-          loser: newLoserElo - loserElo
+        // Call the RPC endpoint to cast vote and update ELOs
+        const { data, error } = await supabase.rpc('cast_vote', {
+          winner_id: winner.id,
+          loser_id: loser.id,
+          user_id: user.idx
         });
 
-        // Update winner's ELO
-        const { error: winnerError } = await supabase
-          .from('profiles')
-          .update({ elo: newWinnerElo })
-          .eq('id', winner.id);
+        if (error) throw error;
 
-        if (winnerError) throw winnerError;
+        // Update ELO changes display from the response
+        setEloChanges({
+          winner: data.winner_elo_change,
+          loser: data.loser_elo_change
+        });
 
-        // Update loser's ELO
-        const { error: loserError } = await supabase
-          .from('profiles')
-          .update({ elo: newLoserElo })
-          .eq('id', loser.id);
-
-        if (loserError) throw loserError;
+        // Update user profile and votes remaining
+        await fetchUserProfile();
       } else {
         // For anonymous users, don't show ELO changes
         setEloChanges({
@@ -325,48 +304,9 @@ export default function Home() {
           loser: null
         });
       }
-      
-      // Record the vote if user is logged in
-      if (user && userProfile) {
-        // Increment votes_used_today in the profile
-        const newVotesUsed = (userProfile.votes_used_today || 0) + 1;
-        
-        const { error: updateError } = await supabase
-          .from('profiles')
-          .update({ votes_used_today: newVotesUsed })
-          .eq('id', user.id);
-          
-        if (updateError) throw updateError;
-        
-        // Also record in votes table for history
-        const { error: voteHistoryError } = await supabase
-          .from('votes')
-          .insert({
-            user_id: user.id,
-            winner_id: winner.id,
-            loser_id: loser.id
-          });
-          
-        if (voteHistoryError) throw voteHistoryError;
-        
-        // Manually trigger the popup for the current vote
-        const newVote = {
-          winner_profile: {
-            full_name: winner.full_name,
-            profile_pic_url: winner.profile_pic_url
-          },
-          loser_profile: {
-            full_name: loser.full_name,
-            profile_pic_url: loser.profile_pic_url
-          }
-        };
-        
-        // Update user profile and votes remaining
-        await fetchUserProfile();
-      }
 
     } catch (error) {
-      console.error('Error updating profiles:', error.message);
+      console.error('Error casting vote:', error.message);
       console.error('Full error:', error);
     }
   };
