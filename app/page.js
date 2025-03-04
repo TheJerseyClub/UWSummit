@@ -35,6 +35,8 @@ export default function Home() {
         .select('id, daily_vote_limit, votes_used_today')
         .eq('id', user.id)
         .single();
+
+      
       
       if (error) throw error;
       
@@ -221,7 +223,7 @@ export default function Home() {
         </div>
       )}
       
-      <div className="flex flex-row relative flex-1 pt-24 sm:pt-8">
+      <div className="flex flex-row relative flex-1 pt-24 sm:pt-0">
         {profiles.length >= 2 ? (
           <>
             <ProfileCard 
