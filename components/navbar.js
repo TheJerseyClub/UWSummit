@@ -24,9 +24,15 @@ export default function Navbar() {
       try {
         // Fetch all profiles ordered by ELO to determine rank
         const { data: allProfiles } = await supabase
-          .from('profiles')
-          .select('id, elo')
-          .order('elo', { ascending: false });
+          .from('elo')
+          .select(`
+            score,
+            user_id,
+            profiles:user_id (
+              id
+            )
+          `)
+          .order('score', { ascending: false });
 
         // Fetch user's profile
         const { data: profile } = await supabase
@@ -38,7 +44,7 @@ export default function Navbar() {
         if (profile) {
           setUserProfile(profile);
           // Find user's rank
-          const rank = allProfiles.findIndex(p => p.id === user.id) + 1;
+          const rank = allProfiles.findIndex(p => p.profiles.id === user.id) + 1;
           setUserRank(rank);
         }
       } catch (error) {
