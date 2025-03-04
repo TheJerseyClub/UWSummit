@@ -141,8 +141,8 @@ export default function Home() {
 
         console.log("hi");
         console.log(data);
-        console.log(data[winner.id].elo)
-        console.log(data[loser.id].elo)
+        console.log(data.winner_score);
+        console.log(data)
 
         if (error) throw error;
 
