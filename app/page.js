@@ -17,13 +17,11 @@ export default function Home() {
   const [allProfiles, setAllProfiles] = useState([]);
   const [votesRemaining, setVotesRemaining] = useState(null);
   const [voteLimitReached, setVoteLimitReached] = useState(false);
-  const [userProfile, setUserProfile] = useState(null);
 
   const DEFAULT_DAILY_VOTE_LIMIT = 20;
 
   const fetchUserProfile = async () => {
     if (!user) {
-      setUserProfile(null);
       setVotesRemaining(null);
       setVoteLimitReached(false);
       return;
@@ -38,7 +36,6 @@ export default function Home() {
       
       if (error) throw error;
       
-      setUserProfile(data);
       
       // Calculate votes remaining (no reset logic needed here anymore)
       const voteLimit = DEFAULT_DAILY_VOTE_LIMIT;
