@@ -38,7 +38,7 @@ export default function Home() {
 
         const { data: eloData } = await supabase
           .from('elo')
-          .select('id, score, votes_used_today')
+          .select('id, score, number_of_votes')
           .eq('user_id', user.id)
           .single();
       
@@ -48,7 +48,7 @@ export default function Home() {
       
       // Calculate votes remaining (no reset logic needed here anymore)
       const voteLimit = DEFAULT_DAILY_VOTE_LIMIT;
-      const votesUsed = eloData.votes_used_today || 0;
+      const votesUsed = eloData.number_of_votes || 0;
       const remaining = voteLimit - votesUsed;
       
       setVotesRemaining(remaining);
