@@ -7,7 +7,6 @@ import ProfileCard from "@/components/profile_card";
 import { useAuth } from "@/contexts/AuthContext";
 import { normalizeProgram } from '@/utils/programNormalizer';
 import { groupExperiences } from '@/utils/experienceGrouper';
-import RecentMatchBar from "@/components/RecentMatchBar";
 
 export default function Home() {
   const [profiles, setProfiles] = useState([]);
@@ -19,87 +18,8 @@ export default function Home() {
   const [votesRemaining, setVotesRemaining] = useState(null);
   const [voteLimitReached, setVoteLimitReached] = useState(false);
   const [userProfile, setUserProfile] = useState(null);
-  const [recentVotes, setRecentVotes] = useState([]);
-  const [subscriptionStatus, setSubscriptionStatus] = useState('initializing');
-  const [timeSinceVote, setTimeSinceVote] = useState('just now');
 
   const DEFAULT_DAILY_VOTE_LIMIT = 20;
-
-  // Function to format time since a given date
-  const formatTimeSince = (dateString) => {
-    const voteDate = new Date(dateString);
-    const now = new Date();
-    const diffSeconds = Math.floor((now - voteDate) / 1000);
-    
-    if (diffSeconds < 60) {
-      return 'just now';
-    } else if (diffSeconds < 3600) {
-      const minutes = Math.floor(diffSeconds / 60);
-      return `${minutes}m ago`;
-    } else if (diffSeconds < 86400) {
-      const hours = Math.floor(diffSeconds / 3600);
-      return `${hours}h ago`;
-    } else {
-      const days = Math.floor(diffSeconds / 86400);
-      return `${days}d ago`;
-    }
-  };
-
-  // Function to fetch recent votes
-  const fetchRecentVotes = async () => {
-    try {
-      const { data, error } = await supabase
-        .from('votes')
-        .select('*')
-        .order('created_at', { ascending: false })
-        .limit(10);
-      
-      if (error) {
-        console.error('Error in initial votes query:', error);
-        throw error;
-      }
-      
-      
-      // Now fetch the related profile data
-      if (data.length > 0) {
-        const enhancedVotes = await Promise.all(data.map(async (vote) => {
-          // Get winner profile
-          const { data: winnerData, error: winnerError } = await supabase
-            .from('profiles')
-            .select('full_name, profile_pic_url')
-            .eq('id', vote.winner_id)
-            .single();
-            
-          if (winnerError) {
-            console.error('Error fetching winner profile:', winnerError);
-          }
-          
-          // Get loser profile
-          const { data: loserData, error: loserError } = await supabase
-            .from('profiles')
-            .select('full_name, profile_pic_url')
-            .eq('id', vote.loser_id)
-            .single();
-            
-          if (loserError) {
-            console.error('Error fetching loser profile:', loserError);
-          }
-          
-          return {
-            ...vote,
-            winner_profile: winnerData || { full_name: 'Unknown', profile_pic_url: null },
-            loser_profile: loserData || { full_name: 'Unknown', profile_pic_url: null },
-            time_since: formatTimeSince(vote.created_at)
-          };
-        }));
-        
-        setRecentVotes(enhancedVotes);
-        
-      }
-    } catch (error) {
-      console.error('Error fetching recent votes:', error);
-    }
-  };
 
   const fetchUserProfile = async () => {
     if (!user) {
@@ -131,74 +51,6 @@ export default function Home() {
       console.error('Error fetching user profile:', error);
     }
   };
-
-  // Set up real-time subscription for votes
-  useEffect(() => {
-    
-    // First fetch existing votes
-    fetchRecentVotes();
-    
-    // Then set up subscription for new votes
-    try {
-      // Enable realtime for the votes table
-      supabase.channel('schema-db-changes')
-        .on('postgres_changes', {
-          event: 'INSERT',
-          schema: 'public',
-          table: 'votes'
-        }, async (payload) => {
-          try {
-            // Get winner profile
-            const { data: winnerData, error: winnerError } = await supabase
-              .from('profiles')
-              .select('full_name, profile_pic_url')
-              .eq('id', payload.new.winner_id)
-              .single();
-              
-            if (winnerError) {
-              console.error('Error fetching winner profile:', winnerError);
-              return;
-            }
-            
-            // Get loser profile
-            const { data: loserData, error: loserError } = await supabase
-              .from('profiles')
-              .select('full_name, profile_pic_url')
-              .eq('id', payload.new.loser_id)
-              .single();
-              
-            if (loserError) {
-              console.error('Error fetching loser profile:', loserError);
-              return;
-            }
-            
-            const newVote = {
-              ...payload.new,
-              id: payload.new.id,
-              winner_profile: winnerData,
-              loser_profile: loserData,
-              time_since: 'just now'
-            };
-            
-            // Update recent votes list with a small delay to allow for transition
-            setTimeout(() => {
-              setRecentVotes(prev => [newVote, ...prev.slice(0, 9)]);
-            }, 100);
-            
-          } catch (error) {
-            console.error('Error processing new vote:', error);
-          }
-        })
-        .subscribe((status) => {
-          setSubscriptionStatus(status);
-        });
-      
-      
-    } catch (error) {
-      console.error('Error setting up subscription:', error);
-      setSubscriptionStatus('error: ' + error.message);
-    }
-  }, []);
 
   const fetchProfiles = async () => {
     try {
@@ -326,11 +178,6 @@ export default function Home() {
     <main className="min-h-screen flex flex-col relative">
       <Navbar />
       
-      {/* Replace the old popup with the new marquee bar */}
-      
-      <div className="hidden sm:block">
-        <RecentMatchBar recentVotes={recentVotes} />
-      </div>
       {/* Mobile bar under navbar */}
       <div className="sm:hidden fixed top-16 left-0 right-0 bg-white/80 backdrop-blur-sm border-b border-gray-200 py-2 z-20 text-center font-mono tracking-wider shadow-sm">
         <span className="text-yellow-500 font-bold uppercase">Who&apos;s More</span>
