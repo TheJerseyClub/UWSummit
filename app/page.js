@@ -134,17 +134,18 @@ export default function Home() {
       if (user) {
         // Call the RPC endpoint to cast vote and update ELOs
         const { data, error } = await supabase.rpc('cast_vote', {
-          winner_id: winner.id,
-          loser_id: loser.id,
-          user_id: user.idx
+          winner: winner.id,
+          loser: loser.id,
         });
+
+        console.log(data);
 
         if (error) throw error;
 
         // Update ELO changes display from the response
         setEloChanges({
-          winner: data.winner_elo_change,
-          loser: data.loser_elo_change
+          winner: data[winner.id].elo,
+          loser: data[loser.id].elo
         });
 
         // Update user profile and votes remaining
