@@ -19,27 +19,46 @@ export default function Leaderboard() {
   useEffect(() => {
     const fetchProfiles = async () => {
       try {
+        // Join elo table with profiles to get the most up-to-date ELO scores
         const { data, error } = await supabase
-          .from('profiles')
-          .select('id, full_name, elo, profile_pic_url, linkedin_url')
-          .not('linkedin_url', 'is', null)
-          .order('elo', { ascending: false })
-          .range(0, PROFILES_PER_PAGE - 1) // Get first page (0-14)
+          .from('elo')
+          .select(`
+            score,
+            user_id,
+            profiles:user_id (
+              id, 
+              full_name, 
+              profile_pic_url, 
+              linkedin_url
+            )
+          `)
+          .not('profiles.linkedin_url', 'is', null)
+          .order('score', { ascending: false })
+          .range(0, PROFILES_PER_PAGE - 1);
 
-        if (error) throw error
-        setProfiles(data)
-        setHasMore(data.length === PROFILES_PER_PAGE) // If we got a full page, there might be more
+        if (error) throw error;
+        
+        // Transform the data to match the expected format
+        const transformedData = data.map(item => ({
+          id: item.profiles.id,
+          full_name: item.profiles.full_name,
+          elo: item.score, // Use score from elo table
+          profile_pic_url: item.profiles.profile_pic_url,
+          linkedin_url: item.profiles.linkedin_url
+        }));
+        
+        setProfiles(transformedData);
+        setHasMore(data.length === PROFILES_PER_PAGE);
       } catch (error) {
-        console.error('Error fetching profiles:', error)
+        console.error('Error fetching profiles:', error);
       } finally {
-        setLoading(false)
-        // Delay setting mounted to true to ensure initial render is complete
-        setTimeout(() => setMounted(true), 100)
+        setLoading(false);
+        setTimeout(() => setMounted(true), 100);
       }
-    }
+    };
 
-    fetchProfiles()
-  }, [])
+    fetchProfiles();
+  }, []);
 
   const handleProfileClick = (profile) => {
     if (profile && profile.id) {
@@ -59,17 +78,34 @@ export default function Leaderboard() {
       const endIndex = startIndex + PROFILES_PER_PAGE - 1;
       
       const { data, error } = await supabase
-        .from('profiles')
-        .select('id, full_name, elo, profile_pic_url, linkedin_url')
-        .not('linkedin_url', 'is', null)
-        .order('elo', { ascending: false })
+        .from('elo')
+        .select(`
+          score,
+          user_id,
+          profiles:user_id (
+            id, 
+            full_name, 
+            profile_pic_url, 
+            linkedin_url
+          )
+        `)
+        .not('profiles.linkedin_url', 'is', null)
+        .order('score', { ascending: false })
         .range(startIndex, endIndex);
       
       if (error) throw error;
       
       if (data.length > 0) {
-        // Append new profiles without triggering a full re-render
-        setProfiles(prev => [...prev, ...data]);
+        // Transform the data to match the expected format
+        const transformedData = data.map(item => ({
+          id: item.profiles.id,
+          full_name: item.profiles.full_name,
+          elo: item.score, // Use score from elo table
+          profile_pic_url: item.profiles.profile_pic_url,
+          linkedin_url: item.profiles.linkedin_url
+        }));
+        
+        setProfiles(prev => [...prev, ...transformedData]);
         setPage(prev => prev + 1);
         setHasMore(data.length === PROFILES_PER_PAGE);
       } else {

@@ -50,15 +50,19 @@ export default function ProfileCard({
   const calculateNewRank = () => {
     if (!isSelected || !eloChange) return rank;
     
+    // Calculate the new ELO score
     const newElo = currentElo + eloChange;
+    
+    // Sort profiles with the updated ELO for this profile
     const sortedProfiles = [...profiles].sort((a, b) => {
       // If this is the current profile, use the new ELO
-      const eloA = a.elo === currentElo ? newElo : a.elo;
-      const eloB = b.elo === currentElo ? newElo : b.elo;
+      const eloA = a.id === profileId ? newElo : a.elo;
+      const eloB = b.id === profileId ? newElo : b.elo;
       return eloB - eloA;
     });
     
-    return sortedProfiles.findIndex(p => p.elo === currentElo) + 1;
+    // Find the new rank
+    return sortedProfiles.findIndex(p => p.id === profileId) + 1;
   };
 
   return (
@@ -126,7 +130,7 @@ export default function ProfileCard({
                   )}
                 </div>
                 <div>
-                  ELO: {Math.round(currentElo)} 
+                  ELO: {Math.round(isSelected && eloChange ? currentElo + eloChange : currentElo)} 
                   {isAuthenticated ? (
                     eloChange && <span className={eloChange > 0 ? 'text-green-500' : 'text-red-500'}>
                       {' '}({eloChange > 0 ? '+' : ''}{eloChange})
