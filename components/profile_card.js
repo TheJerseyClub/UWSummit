@@ -132,7 +132,7 @@ export default function ProfileCard({
                 <div>
                   ELO: {Math.round(isSelected && eloChange ? currentElo + eloChange : currentElo)} 
                   {isAuthenticated ? (
-                    eloChange && <span className={eloChange > 0 ? 'text-green-500' : 'text-red-500'}>
+                    eloChange !== null && <span className={eloChange > 0 ? 'text-green-500' : 'text-red-500'}>
                       {' '}({eloChange > 0 ? '+' : ''}{eloChange})
                     </span>
                   ) : (
