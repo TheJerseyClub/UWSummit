@@ -56,18 +56,38 @@ export default function Home() {
 
   const fetchProfiles = async () => {
     try {
-      const { data, error } = await supabase
+      // First get profiles
+      const { data: profilesData, error: profilesError } = await supabase
         .from('profiles')
-        .select('id, full_name, elo, profile_pic_url, education, experiences, daily_vote_limit')
+        .select('id, full_name, profile_pic_url, education, experiences, daily_vote_limit')
         .not('linkedin_url', 'is', null);
       
-      if (error) throw error;
+      if (profilesError) throw profilesError;
+      
+      // Then get ELO scores from elo table
+      const { data: eloData, error: eloError } = await supabase
+        .from('elo')
+        .select('user_id, score');
+      
+      if (eloError) throw eloError;
+      
+      // Create a map of user_id to elo score for quick lookup
+      const eloMap = {};
+      eloData.forEach(item => {
+        eloMap[item.user_id] = item.score;
+      });
+      
+      // Combine the data
+      const combinedData = profilesData.map(profile => ({
+        ...profile,
+        elo: eloMap[profile.id] || 1000 // Default to 1000 if no ELO found
+      }));
       
       const otherProfiles = user?.id 
-        ? data.filter(profile => profile.id !== user.id)
-        : data;
+        ? combinedData.filter(profile => profile.id !== user.id)
+        : combinedData;
 
-      setAllProfiles(data); // Store all profiles for ranking
+      setAllProfiles(combinedData); // Store all profiles for ranking
       
       const shuffled = [...otherProfiles].sort(() => 0.5 - Math.random());
       const selectedProfiles = shuffled.slice(0, 2);
