@@ -56,18 +56,28 @@ export default function Home() {
 
   const fetchProfiles = async () => {
     try {
+      // Join with elo table to get accurate scores
       const { data, error } = await supabase
         .from('profiles')
-        .select('id, full_name, elo, profile_pic_url, education, experiences, daily_vote_limit')
+        .select(`
+          id, full_name, profile_pic_url, education, experiences, daily_vote_limit,
+          elo:user_id(score)
+        `)
         .not('linkedin_url', 'is', null);
       
       if (error) throw error;
       
+      // Transform data to include elo score from the elo table
+      const transformedData = data.map(profile => ({
+        ...profile,
+        elo: profile.elo?.length > 0 ? profile.elo[0].score : 1000
+      }));
+      
       const otherProfiles = user?.id 
-        ? data.filter(profile => profile.id !== user.id)
-        : data;
+        ? transformedData.filter(profile => profile.id !== user.id)
+        : transformedData;
 
-      setAllProfiles(data); // Store all profiles for ranking
+      setAllProfiles(transformedData); // Store all profiles for ranking
       
       const shuffled = [...otherProfiles].sort(() => 0.5 - Math.random());
       const selectedProfiles = shuffled.slice(0, 2);
