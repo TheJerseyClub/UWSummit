@@ -54,7 +54,7 @@ export default function Home() {
       // First get profiles
       const { data: profilesData, error: profilesError } = await supabase
         .from('profiles')
-        .select('id, full_name, profile_pic_url, education, experiences, daily_vote_limit')
+        .select('id, full_name, profile_pic_url, education, experiences ')
         .not('linkedin_url', 'is', null);
       
       if (profilesError) throw profilesError;
