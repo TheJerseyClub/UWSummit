@@ -126,6 +126,12 @@ export default function LinkedinSubmit() {
     <div className="flex items-center justify-center bg-white">
       <form onSubmit={handleSubmit} className="space-y-6 w-full max-w-md p-8 border border-gray-200 rounded-md">
         <h1 className="text-2xl font-mono font-bold uppercase tracking-wider">Complete Your Profile</h1>
+        
+        {/* Added note about UWaterloo requirement */}
+        <div className="text-sm font-mono text-gray-600 bg-yellow-50 p-3 border border-yellow-200 rounded-md">
+          <span className="font-bold">Note:</span> You can only create a profile if you are a UWaterloo student.
+        </div>
+        
         {message.text && (
           <div 
             className={`p-3 border rounded-md transform transition-all duration-300 ease-out
