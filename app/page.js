@@ -30,13 +30,7 @@ export default function Home() {
     }
 
     try {
-      const { data, error } = await supabase
-        .from('profiles')
-        .select('id, daily_vote_limit, votes_used_today')
-        .eq('id', user.id)
-        .single();
-
-        const { data: eloData } = await supabase
+        const { data: eloData, error } = await supabase
           .from('elo')
           .select('id, score, number_of_votes')
           .eq('user_id', user.id)
