@@ -12,9 +12,9 @@ Deno.serve(async (req) => {
     
     // Reset all users' votes_used_today to 0
     const { error, count } = await supabase
-      .from('profiles')
-      .update({ votes_used_today: 0 })
-      .not('votes_used_today', 'eq', 0); // Only update profiles that need resetting
+      .from('elo')
+      .update({ number_of_votes: 0 })
+      .not('number_of_votes', 'eq', 0); // Only update profiles that need resetting
     
     if (error) {
       throw error;
