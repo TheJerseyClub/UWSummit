@@ -138,6 +138,8 @@ export default function Home() {
           loser: loser.id,
         });
 
+
+        console.log("hi");
         console.log(data);
         console.log(data[winner.id].elo)
         console.log(data[loser.id].elo)
@@ -146,8 +148,8 @@ export default function Home() {
 
         // Update ELO changes display from the response
         setEloChanges({
-          winner: data[winner.id].elo,
-          loser: data[loser.id].elo
+          winner: data.winner_score,
+          loser: data.loser_score
         });
 
         // Update user profile and votes remaining
