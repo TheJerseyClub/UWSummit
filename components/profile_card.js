@@ -211,50 +211,60 @@ export default function ProfileCard({
               EXPERIENCE
             </h3>
             <div className="space-y-3 sm:space-y-4 lg:space-y-6">
-              {experiences?.map((experience, index) => (
-                <div key={index} className="mb-3 sm:mb-4 lg:mb-6 last:mb-0">
-                  <div className={`flex items-start gap-2 sm:gap-4 mb-1 sm:mb-2 ${isRightAligned ? 'flex-row-reverse' : 'flex-row'} transition-transform duration-300 hover:scale-105`}>
-                    <div className="w-6 h-6 sm:w-8 sm:h-8 relative flex-shrink-0 mt-1">
-                      {experience.companyLogo ? (
-                        <Image 
-                          src={experience.companyLogo}
-                          alt={`${experience.company} logo`}
-                          fill
-                          className="object-contain"
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center bg-gray-200 rounded-md">
-                          <svg className="w-4 h-4 sm:w-5 sm:h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-                          </svg>
-                        </div>
-                      )}
-                    </div>
-                    <div className={`text-${isRightAligned ? 'right' : 'left'}`}>
-                      {experience.positions.length > 1 ? (
-                        <>
-                          <h3 className="font-bold text-gray-900 text-sm sm:text-base">{experience.company}</h3>
-                          <div className="space-y-1 sm:space-y-2 mt-1 sm:mt-2">
-                            {experience.positions.map((position, posIndex) => (
-                              <div key={posIndex} className={`flex items-center ${isRightAligned ? 'flex-row-reverse text-right' : 'flex-row'}`}>
-                                <span className="mx-2 text-base sm:text-lg leading-none relative font-bold">•</span>
-                                <div className="text-gray-800">
-                                  <p className="font-medium text-xs sm:text-sm">{position.title}</p>
-                                </div>
-                              </div>
-                            ))}
+              {experiences && experiences.length > 0 ? (
+                experiences.map((experience, index) => (
+                  <div key={index} className="mb-3 sm:mb-4 lg:mb-6 last:mb-0">
+                    <div className={`flex items-start gap-2 sm:gap-4 mb-1 sm:mb-2 ${isRightAligned ? 'flex-row-reverse' : 'flex-row'} transition-transform duration-300 hover:scale-105`}>
+                      <div className="w-6 h-6 sm:w-8 sm:h-8 relative flex-shrink-0 mt-1">
+                        {experience.companyLogo ? (
+                          <Image 
+                            src={experience.companyLogo}
+                            alt={`${experience.company} logo`}
+                            fill
+                            className="object-contain"
+                          />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center bg-gray-200 rounded-md">
+                            <svg className="w-4 h-4 sm:w-5 sm:h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                            </svg>
                           </div>
-                        </>
-                      ) : (
-                        <div className="transition-transform duration-300">
-                          <h3 className="font-bold text-gray-900 text-sm sm:text-base">{experience.positions[0].title}</h3>
-                          <p className="text-gray-600 font-medium text-xs sm:text-sm">{experience.company}</p>
-                        </div>
-                      )}
+                        )}
+                      </div>
+                      <div className={`text-${isRightAligned ? 'right' : 'left'}`}>
+                        {experience.positions.length > 1 ? (
+                          <>
+                            <h3 className="font-bold text-gray-900 text-sm sm:text-base">{experience.company}</h3>
+                            <div className="space-y-1 sm:space-y-2 mt-1 sm:mt-2">
+                              {experience.positions.map((position, posIndex) => (
+                                <div key={posIndex} className={`flex items-center ${isRightAligned ? 'flex-row-reverse text-right' : 'flex-row'}`}>
+                                  <span className="mx-2 text-base sm:text-lg leading-none relative font-bold">•</span>
+                                  <div className="text-gray-800">
+                                    <p className="font-medium text-xs sm:text-sm">{position.title}</p>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </>
+                        ) : (
+                          <div className="transition-transform duration-300">
+                            <h3 className="font-bold text-gray-900 text-sm sm:text-base">{experience.positions[0].title}</h3>
+                            <p className="text-gray-600 font-medium text-xs sm:text-sm">{experience.company}</p>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <div className="mb-3 sm:mb-4 lg:mb-6 py-2">
+                  <div className={`flex items-center ${isRightAligned ? 'justify-end' : 'justify-start'}`}>
+                    <div className="text-gray-500 italic font-mono text-sm">
+                      This user has no experience in their LinkedIn, <br></br> I'm sure they're cracked though!
                     </div>
                   </div>
                 </div>
-              ))}
+              )}
             </div>
           </div>
         </div>
