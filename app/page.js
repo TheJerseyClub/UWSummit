@@ -138,8 +138,13 @@ export default function Home() {
   };
 
   const handleProfileVote = async (winnerIndex) => {
+    // Prevent voting if user is not signed in
+    if (!user) {
+      return;
+    }
+    
     // Check if vote limit reached for logged-in users
-    if (user && voteLimitReached) {
+    if (voteLimitReached) {
       return;
     }
     
@@ -148,53 +153,44 @@ export default function Home() {
     const loser = profiles[winnerIndex === 0 ? 1 : 0];
     
     try {
-      if (user) {
-        // Call the RPC endpoint to cast vote and update ELOs
-        const { data, error } = await supabase.rpc('cast_vote', {
-          winner: winner.id,
-          loser: loser.id,
-          voter: user.id
-        });
+      // Call the RPC endpoint to cast vote and update ELOs
+      const { data, error } = await supabase.rpc('cast_vote', {
+        winner: winner.id,
+        loser: loser.id,
+        voter: user.id
+      });
 
-        if (error) throw error;
+      if (error) throw error;
 
-        // Update ELO changes display from the response
-        setEloChanges({
-          winner: data.winner_score,
-          loser: data.loser_score
-        });
+      // Update ELO changes display from the response
+      setEloChanges({
+        winner: data.winner_score,
+        loser: data.loser_score
+      });
 
-        // Update the ELO scores in the profiles array
-        const updatedProfiles = [...allProfiles];
-        const winnerIndex = updatedProfiles.findIndex(p => p.id === winner.id);
-        const loserIndex = updatedProfiles.findIndex(p => p.id === loser.id);
-        
-        if (winnerIndex !== -1) {
-          updatedProfiles[winnerIndex] = {
-            ...updatedProfiles[winnerIndex],
-            elo: updatedProfiles[winnerIndex].elo + data.winner_score
-          };
-        }
-        
-        if (loserIndex !== -1) {
-          updatedProfiles[loserIndex] = {
-            ...updatedProfiles[loserIndex],
-            elo: updatedProfiles[loserIndex].elo + data.loser_score
-          };
-        }
-        
-        setAllProfiles(updatedProfiles);
-
-        // Update user profile and votes remaining
-        await fetchUserProfile();
-      } else {
-        // For anonymous users, don't show ELO changes
-        setEloChanges({
-          winner: null,
-          loser: null
-        });
+      // Update the ELO scores in the profiles array
+      const updatedProfiles = [...allProfiles];
+      const winnerIndex = updatedProfiles.findIndex(p => p.id === winner.id);
+      const loserIndex = updatedProfiles.findIndex(p => p.id === loser.id);
+      
+      if (winnerIndex !== -1) {
+        updatedProfiles[winnerIndex] = {
+          ...updatedProfiles[winnerIndex],
+          elo: updatedProfiles[winnerIndex].elo + data.winner_score
+        };
       }
+      
+      if (loserIndex !== -1) {
+        updatedProfiles[loserIndex] = {
+          ...updatedProfiles[loserIndex],
+          elo: updatedProfiles[loserIndex].elo + data.loser_score
+        };
+      }
+      
+      setAllProfiles(updatedProfiles);
 
+      // Update user profile and votes remaining
+      await fetchUserProfile();
     } catch (error) {
       console.error('Error casting vote:', error.message);
       console.error('Full error:', error);
@@ -205,7 +201,7 @@ export default function Home() {
     if (!user) {
       return (
         <div className="text-center text-red-400 mt-4 font-mono">
-          Sign in for votes to count
+          You must sign in to vote
         </div>
       );
     }
