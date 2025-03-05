@@ -129,7 +129,7 @@ export default function LinkedinSubmit() {
         
         {/* Added note about UWaterloo requirement */}
         <div className="text-sm font-mono text-gray-600 bg-yellow-50 p-3 border border-yellow-200 rounded-md">
-          <span className="font-bold">Note:</span> You can only create a profile if you are a UWaterloo student.
+          <span className="font-bold">Note:</span> You can only create a profile if you are a UWaterloo student. Don't worry, you don't need to link your LinkedIn to vote - only to be placed on the leaderboard.
         </div>
         
         {message.text && (
