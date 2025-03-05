@@ -59,7 +59,7 @@ export default function Profile() {
       <div className="min-h-screen flex">
         {/* Sticky Left Panel - Hidden on mobile */}
         <button
-          onClick={() => router.back()}
+          onClick={() => router.push('/')}
           className="hidden md:flex w-32 fixed left-0 top-0 h-screen bg-white border-r border-gray-300 items-center justify-center hover:bg-yellow-50 transition-colors"
         >
           <div className="flex flex-col items-center gap-2 text-gray-800">
