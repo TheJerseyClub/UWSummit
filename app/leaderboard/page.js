@@ -301,9 +301,9 @@ export default function Leaderboard() {
               style={{ animationDelay: '600ms' }}
             >
               <div className="flex items-center gap-3 md:gap-6">
-                <span className="font-mono text-xl md:text-2xl font-bold text-gray-400 w-8 md:w-12">
+                <div className={`font-mono text-gray-400 text-xl ${index >= 99 ? 'mr-1' : 'mr-3'}`}>
                   #{index + 4}
-                </span>
+                </div>
                 <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gray-200 overflow-hidden flex-shrink-0">
                   {profile.profile_pic_url ? (
                     <Image 
