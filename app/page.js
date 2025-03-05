@@ -28,24 +28,24 @@ export default function Home() {
     }
 
     try {
-        const { data: eloData, error } = await supabase
-          .from('elo')
-          .select('id, score, number_of_votes')
-          .eq('user_id', user.id)
-          .single();
+      // Query the user_votes table instead of elo table
+      const { data: votesData, error } = await supabase
+        .from('user_votes')
+        .select('id, number_of_votes, last_reset_date')
+        .eq('user_id', user.id)
+        .single();
       
       if (error) throw error;
       
-      
-      // Calculate votes remaining (no reset logic needed here anymore)
+      // Calculate votes remaining
       const voteLimit = DEFAULT_DAILY_VOTE_LIMIT;
-      const votesUsed = eloData.number_of_votes || 0;
+      const votesUsed = votesData.number_of_votes || 0;
       const remaining = voteLimit - votesUsed;
       
       setVotesRemaining(remaining);
       setVoteLimitReached(remaining <= 0);
     } catch (error) {
-      console.error('Error fetching user profile:', error);
+      console.error('Error fetching user votes:', error);
     }
   };
 
