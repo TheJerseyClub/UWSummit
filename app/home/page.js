@@ -232,25 +232,20 @@ export default function Home() {
           <div className="flex flex-col items-start gap-2">
             <div className="bg-black px-4 py-1">
               <span className="text-5xl md:text-7xl lg:text-8xl font-bold leading-tight tracking-tighter text-left text-white">
-                The Alternative
+                Will You Make It
               </span>
             </div>
             <div className="bg-black px-4 py-1">
               <span className="text-5xl md:text-7xl lg:text-8xl font-bold leading-tight tracking-tighter text-left text-white">
-                 Job Board for
-              </span>
-            </div>
-            <div className="bg-black px-4 py-1">
-              <span className="text-5xl md:text-7xl lg:text-8xl font-bold leading-tight tracking-tighter text-left text-white">
-              <span className="text-yellow-400">Summer 25' </span>
+              <span className="text-yellow-400"> to the Top? </span>
               </span>
             </div>
 
             
             {/* Play button */}
-            <div className="mt-8">
+            <div className="mt-4">
               <button 
-                className="flex items-center gap-3 bg-gradient-to-br from-yellow-400 to-yellow-500 text-black font-bold py-4 px-8 rounded-lg transition-all transform hover:scale-105 shadow-lg hover:shadow-xl relative overflow-hidden group"
+                className="flex items-center gap-3 bg-gradient-to-br from-yellow-400 to-yellow-500 text-black font-bold py-8 px-12 rounded-lg transition-all transform hover:scale-105 shadow-lg hover:shadow-xl relative overflow-hidden group"
                 onClick={() => window.location.href = '/'}
               >
                 <div className="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity">
@@ -265,7 +260,7 @@ export default function Home() {
                     />
                   </svg>
                 </div>
-                <span className="text-lg font-mono relative z-10 uppercase tracking-wider font-bold">START YOUR ASCENT</span>
+                <span className="text-lg sm:text-xl font-mono relative z-10 uppercase tracking-wider font-bold text-white">START YOUR ASCENT</span>
               </button>
             </div>
           </div>
