@@ -1,6 +1,6 @@
 # UWSummit
 
-[![UWSummit Demo Video]](/public/Safari.mp4)
+[[Watch the UWSummit Demo Video here]](/public/Safari.mp4)
 
 ## 👋 Introduction
 
