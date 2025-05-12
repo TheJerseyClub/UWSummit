@@ -1,6 +1,6 @@
 # UWSummit  вершина
 
-[![UWSummit Demo Video](a.png)](Safari.mov)
+[![UWSummit Demo Video](/public/a.png)](/public/Safari.mov)
 
 ## 👋 Introduction
 
