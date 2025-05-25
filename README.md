@@ -15,8 +15,7 @@ In a whirlwind launch, UWSummit achieved:
 *   **100,000+ site visits**
 ...all in **under one week!**
 
-Following this rapid growth and community engagement, UWSummit was **acquired by Linkd (YC X25)** and is set to be relaunched soon.
-
+Following this rapid growth and community engagement, UWSummit was **acquired by Clado (YC X25)**
 ## 🛠️ Tech Stack
 
 UWSummit was built with a modern, scalable tech stack:
