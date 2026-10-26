@@ -1,6 +1,6 @@
 # UWSummit
 
-[[Watch the UWSummit Demo Video here]](/public/DemoVideo.mp4)
+[Watch the UWSummit demo video](public/DemoVideo.mp4)
 
 ## 👋 Introduction
 
@@ -28,7 +28,7 @@ UWSummit was built with a modern, scalable tech stack:
 *   **API Layer:**
     *   Next.js API Routes
 *   **Deployment:**
-    *   Likely Vercel (Given the Next.js framework)
+    *   [Vercel](https://vercel.com/)
 
 ## ✨ Features
 
@@ -55,8 +55,8 @@ As the project has been acquired and is awaiting a relaunch, this repository ser
 
 1.  Clone the repository:
     ```bash
-    git clone https://github.com/your-username/uwsummit.git
-    cd uwsummit
+    git clone https://github.com/TheJerseyClub/UWSummit.git
+    cd UWSummit
     ```
 2.  Install dependencies:
     ```bash
@@ -64,7 +64,7 @@ As the project has been acquired and is awaiting a relaunch, this repository ser
     # or
     yarn install
     ```
-3.  Set up your Supabase instance and add your environment variables (see `.env.local.example` if available).
+3.  Set up a Supabase project and add these environment variables to `.env.local`: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, and `PROXYCURL_API_KEY` (used for LinkedIn scraping).
 4.  Run the development server:
     ```bash
     npm run dev
